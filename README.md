@@ -6,19 +6,19 @@ backlog Scrum.
 
 ## Commandes
 
-| Commande | Action |
-| :-- | :-- |
-| `npm install` | Installe les dépendances |
-| `npm run dev` | Serveur de dev local (`localhost:4321`) |
-| `npm run build` | Build de production dans `./dist/` |
-| `npm run preview` | Prévisualise le build |
-| `npm run lint` / `lint:fix` | ESLint |
-| `npm run format` / `format:check` | Prettier |
-| `npm run typecheck` | Vérification TypeScript stricte (`astro check`) |
-| `npm run test:unit` | Tests unitaires (Vitest) |
-| `npm run test:e2e` | Build + tests d'accessibilité axe-core (Playwright) |
-| `npm run lighthouse` | Build + audit Lighthouse CI (seuils : accessibilité 100, performance ≥ 90) |
-| `npm run check` | Enchaîne toute la chaîne ci-dessus — c'est exactement ce que la CI exécute |
+| Commande                          | Action                                                                     |
+| :-------------------------------- | :------------------------------------------------------------------------- |
+| `npm install`                     | Installe les dépendances                                                   |
+| `npm run dev`                     | Serveur de dev local (`localhost:4321`)                                    |
+| `npm run build`                   | Build de production dans `./dist/`                                         |
+| `npm run preview`                 | Prévisualise le build                                                      |
+| `npm run lint` / `lint:fix`       | ESLint                                                                     |
+| `npm run format` / `format:check` | Prettier                                                                   |
+| `npm run typecheck`               | Vérification TypeScript stricte (`astro check`)                            |
+| `npm run test:unit`               | Tests unitaires (Vitest)                                                   |
+| `npm run test:e2e`                | Build + tests d'accessibilité axe-core (Playwright)                        |
+| `npm run lighthouse`              | Build + audit Lighthouse CI (seuils : accessibilité 100, performance ≥ 90) |
+| `npm run check`                   | Enchaîne toute la chaîne ci-dessus — c'est exactement ce que la CI exécute |
 
 Avant le premier `npm run test:e2e` ou `npm run check`, installer les navigateurs Playwright
 une fois : `npx playwright install --with-deps chromium`.
