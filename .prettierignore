@@ -1,0 +1,11 @@
+dist/
+.astro/
+node_modules/
+test-results/
+playwright-report/
+.lighthouseci/
+package-lock.json
+
+# documents de cadrage rédigés à la main, non soumis au formatage automatique
+CLAUDE.md
+docs/

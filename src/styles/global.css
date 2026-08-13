@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+/* Polices auto-hébergées (Fontsource) — jamais chargées depuis fonts.googleapis.com. */
+@import '@fontsource/nunito-sans/400.css';
+@import '@fontsource/nunito-sans/600.css';
+@import '@fontsource/nunito-sans/700.css';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource/montserrat/800.css';
+
+@theme {
+  /* Palette restreinte aux tokens du design system (docs/erasm-physio-brief-et-backlog.md §6bis) :
+     on efface la palette Tailwind par défaut plutôt que de l'étendre, pour qu'aucune couleur
+     hors design system (ex. text-red-500) ne soit accessible. */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-navy: #042749;
+  --color-cyan: #09e5dd;
+  --color-surface: #f4f6f8;
+  --color-ink: #0f2033;
+  --color-muted: #5a6b7b;
+  --color-body: #3c4e60;
+
+  --font-sans: 'Nunito Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: Montserrat, ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility bg-navy-gradient {
+  background-image: linear-gradient(180deg, #062f52 0%, #03203d 100%);
+}
