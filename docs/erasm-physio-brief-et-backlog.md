@@ -609,6 +609,22 @@ nécessaires sont disponibles, l'estimation est posée.
 
 ---
 
+## 9 bis. Décisions différées
+
+**Passage à l'échantillonnage Lighthouse.** Aujourd'hui (sprint 1), `.lighthouserc.cjs` audite
+100 % des pages existantes à chaque commit (2 URLs). Ce n'est pas un problème tant que le site
+reste petit, mais ça ne passera pas à l'échelle : au-delà d'une vingtaine de pages en trois
+langues (~60 URLs), un audit exhaustif à chaque commit deviendra trop lent pour rester un gate
+CI viable.
+
+Décision, à appliquer quand ce seuil est atteint (pas avant) : passer d'un audit exhaustif à un
+échantillon représentatif par gabarit de page — une page d'accueil, une page de prestation par
+langue, une page ville, `/styleguide` — plutôt que chaque URL réelle. Noté ici pour ne pas le
+découvrir en urgence le jour où la CI devient trop lente ; rien à faire tant qu'on est sous le
+seuil.
+
+---
+
 ## 10. Découpage en sprints (2 semaines)
 
 | Sprint | Contenu | Objectif |
