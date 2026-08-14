@@ -26,6 +26,56 @@
 
   --font-sans: 'Nunito Sans', ui-sans-serif, system-ui, sans-serif;
   --font-heading: Montserrat, ui-sans-serif, system-ui, sans-serif;
+
+  /* Échelle typographique (E1-US1) — dérivée des tailles réelles de la maquette
+     (ERASM PHYSIO App.dc.html, 402×874), regroupées en paliers plutôt que reproduites au
+     pixel près : la maquette varie de 0,5px en 0,5px, ce qui n'est pas une échelle utilisable.
+     Voir /styleguide pour le détail des regroupements. */
+  --text-2xs: 0.6875rem; /* 11px — sur-titres, labels */
+  --text-2xs--line-height: 1.35;
+  --text-xs: 0.78125rem; /* 12.5px — texte secondaire */
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.875rem; /* 14px — texte courant, champs, boutons */
+  --text-sm--line-height: 1.5;
+  --text-base: 0.96875rem; /* 15.5px — texte accentué, nav, titres de carte */
+  --text-base--line-height: 1.4;
+  --text-lg: 1.125rem; /* 18px — titres d'étape */
+  --text-lg--line-height: 1.3;
+  --text-xl: 1.3125rem; /* 21px — mise en avant chiffrée */
+  --text-xl--line-height: 1.2;
+  --text-2xl: 1.5rem; /* 24px — h1/h2 d'écran */
+  --text-2xl--line-height: 1.2;
+  --text-3xl: 1.6875rem; /* 27px — h1 de section */
+  --text-3xl--line-height: 1.15;
+  --text-4xl: 2.0625rem; /* 33px — h1 héro */
+  --text-4xl--line-height: 1.1;
+
+  /* Suivi de lettres (E1-US1) — motifs composés, pas liés à une taille précise :
+     un titre est font-heading + tracking-heading quelle que soit sa taille, un sur-titre
+     est tracking-overline (+ majuscules) quelle que soit la sienne (2xs ou xs). */
+  --tracking-heading: -0.02em; /* CLAUDE.md, "Design system" : titres Montserrat */
+  --tracking-overline: 0.18em; /* CLAUDE.md, "Design system" : sur-titres */
+
+  /* Espacement (E1-US1) : pas d'échelle nommée custom ici, volontairement — Tailwind v4
+     unifie tout le dimensionnement (p-*, gap-*, w-*, max-w-*, inset-*...) sur UNE seule
+     échelle --spacing-*. Définir --spacing-lg/xl/2xl/3xl a réellement redéfini max-w-3xl
+     (768px → 64px) le temps de le découvrir sur /styleguide. On garde donc l'échelle
+     numérique par défaut de Tailwind (base 4px, non modifiée) ; le mapping vers les paliers
+     réellement observés dans la maquette est documenté comme référence dans /styleguide,
+     sans créer de token qui puisse entrer en collision. */
+
+  /* Rayons (E1-US1) */
+  --radius-sm: 0.625rem; /* 10px — badges d'icône */
+  --radius-md: 0.75rem; /* 12px — boutons secondaires */
+  --radius-lg: 0.875rem; /* 14px — CTA principal, champs */
+  --radius-xl: 1rem; /* 16px — cartes (le plus fréquent) */
+  --radius-2xl: 1.125rem; /* 18px — carte héro proéminente */
+  --radius-full: 9999px; /* pastilles, cercles */
+
+  /* Ombres (E1-US1) — uniquement les deux motifs réellement observés dans la maquette,
+     aucun palier inventé sans usage réel. */
+  --shadow-card: 0 14px 34px rgba(4, 39, 73, 0.16);
+  --shadow-glow-cyan: 0 10px 24px rgba(9, 229, 221, 0.24);
 }
 
 @utility bg-navy-gradient {

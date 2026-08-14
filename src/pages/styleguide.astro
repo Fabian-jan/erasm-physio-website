@@ -1,0 +1,215 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { contrastRatio, designSystemColorPairs, MIN_CONTRAST } from '@/lib/color-contrast';
+import { readColorTokens, readThemeTokens } from '@/lib/design-tokens';
+
+const colors = readColorTokens();
+const colorEntries = Object.entries(colors);
+
+const typeScale = readThemeTokens('text');
+const radiusScale = readThemeTokens('radius');
+const shadowScale = readThemeTokens('shadow');
+
+// Pas de token CSS --spacing-* personnalisé (voir le commentaire dans global.css : ça
+// redéfinissait max-w-3xl et d'autres utilitaires par collision de nom). Cette table est
+// une référence de correspondance, pas une source de vérité vivante — elle documente vers
+// quel palier numérique Tailwind (base 4px, inchangée) se rapporte chaque regroupement
+// observé dans la maquette.
+const spacingReference = [
+  { name: '2xs', utility: 'p-1 / gap-1', px: '4px' },
+  { name: 'xs', utility: 'p-2 / gap-2', px: '8px' },
+  { name: 'sm', utility: 'p-3 / gap-3', px: '12px' },
+  { name: 'md', utility: 'p-4 / gap-4', px: '16px' },
+  { name: 'lg', utility: 'p-6 / gap-6', px: '24px' },
+  { name: 'xl', utility: 'p-7 / gap-7', px: '28px' },
+  { name: '2xl', utility: 'p-12 / gap-12', px: '48px' },
+  { name: '3xl', utility: 'p-16 / gap-16', px: '64px' },
+];
+
+function remToPx(rem: string): string {
+  const value = parseFloat(rem);
+  return Number.isNaN(value) ? rem : `${Math.round(value * 16)}px`;
+}
+---
+
+<BaseLayout title="Styleguide — ERASM PHYSIO" noindex>
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <p class="tracking-overline text-muted text-2xs font-bold uppercase">Interne — non indexé</p>
+    <h1 class="font-heading tracking-heading text-ink mt-2 text-3xl">Styleguide</h1>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      Référence vivante des tokens et composants du design system, construite au fil de l'EPIC 1. Ce
+      n'est pas un écran du site : c'est le plan de travail visuel de l'équipe.
+    </p>
+
+    {/* Couleurs */}
+    <section class="mt-12" aria-labelledby="colors-heading">
+      <h2 id="colors-heading" class="font-heading tracking-heading text-ink text-xl">Couleurs</h2>
+      <ul class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {
+          colorEntries.map(([name, hex]) => (
+            <li class="flex flex-col gap-2">
+              <span
+                class="h-16 w-full rounded-xl border border-black/10"
+                style={`background-color:${hex}`}
+                aria-hidden="true"
+              />
+              <span class="text-ink text-sm font-bold">{name}</span>
+              <span class="text-muted font-mono text-xs">{hex}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="font-heading tracking-heading text-ink mt-8 text-lg">Paires validées (E1-US2)</h3>
+      <ul class="mt-4 flex flex-col gap-2">
+        {
+          designSystemColorPairs.map((pair) => {
+            const ratio = contrastRatio(colors[pair.foreground], colors[pair.background]);
+            const min = MIN_CONTRAST[pair.level];
+            const passes = ratio >= min;
+            return (
+              <li class="flex items-center gap-4 rounded-lg border border-black/10 p-3">
+                <span
+                  class="flex h-10 w-16 shrink-0 overflow-hidden rounded-md border border-black/10"
+                  aria-hidden="true"
+                >
+                  <span
+                    class="h-full w-1/2"
+                    style={`background-color:${colors[pair.background]}`}
+                  />
+                  <span
+                    class="h-full w-1/2"
+                    style={`background-color:${colors[pair.foreground]}`}
+                  />
+                </span>
+                <span class="flex-1">
+                  <span class="text-ink block text-sm font-bold">{pair.name}</span>
+                  <span class="text-muted block text-xs">
+                    {ratio.toFixed(2)}:1 — seuil {min}:1 —{' '}
+                    {passes ? 'conforme' : 'refusé (attendu)'}
+                  </span>
+                </span>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+
+    {/* Typographie */}
+    <section class="mt-12" aria-labelledby="type-heading">
+      <h2 id="type-heading" class="font-heading tracking-heading text-ink text-xl">Typographie</h2>
+      <ul class="mt-4 flex flex-col gap-3">
+        {
+          typeScale.map((token) => (
+            <li class="flex items-baseline gap-4 border-b border-black/5 pb-3">
+              <span class="text-muted w-12 shrink-0 font-mono text-xs">{token.name}</span>
+              {/* style plutôt qu'une classe Tailwind : le nom du palier est une donnée
+                  (boucle sur readThemeTokens), pas une chaîne littérale — le scanner JIT de
+                  Tailwind ne détecterait pas `text-${token.name}` construit dynamiquement. */}
+              <span class="text-ink flex-1" style={`font-size:${token.value}`}>
+                Erasm Physio — Pori
+              </span>
+              <span class="text-muted shrink-0 font-mono text-xs">{remToPx(token.value)}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="font-heading tracking-heading text-ink mt-8 text-lg">Motifs composés</h3>
+      <p class="text-body mt-2 text-sm">
+        Le suivi de lettres est un motif indépendant de la taille — un titre reste{' '}
+        <code class="font-mono">tracking-heading</code> qu'il soit en{' '}
+        <code class="font-mono">text-2xl</code> ou <code class="font-mono">text-4xl</code>.
+      </p>
+      <p class="font-heading tracking-heading text-ink mt-4 text-2xl">Titre de section</p>
+      <p class="tracking-overline text-muted text-2xs mt-3 font-bold uppercase">
+        Sur-titre sur fond clair
+      </p>
+      <div class="bg-navy mt-3 rounded-lg p-4">
+        <p class="tracking-overline text-cyan text-2xs font-bold uppercase">
+          Sur-titre sur fond marine
+        </p>
+      </div>
+    </section>
+
+    {/* Espacement */}
+    <section class="mt-12" aria-labelledby="spacing-heading">
+      <h2 id="spacing-heading" class="font-heading tracking-heading text-ink text-xl">
+        Espacement
+      </h2>
+      <p class="text-body mt-2 text-sm">
+        Pas d'échelle nommée ici, volontairement : l'échelle numérique par défaut de Tailwind (base
+        4px) reste inchangée. Cette table indique quel palier utiliser pour retrouver les
+        regroupements observés dans la maquette.
+      </p>
+      <ul class="mt-4 flex flex-col gap-3">
+        {
+          spacingReference.map((step) => (
+            <li class="flex items-center gap-4">
+              <span class="text-ink w-10 shrink-0 font-mono text-xs">{step.name}</span>
+              <span
+                class="bg-navy h-4 rounded-full"
+                style={`width:${step.px}`}
+                aria-hidden="true"
+              />
+              <span class="text-muted shrink-0 font-mono text-xs">
+                {step.utility} — {step.px}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    {/* Rayons */}
+    <section class="mt-12" aria-labelledby="radius-heading">
+      <h2 id="radius-heading" class="font-heading tracking-heading text-ink text-xl">Rayons</h2>
+      <ul class="mt-4 flex flex-wrap gap-6">
+        {
+          radiusScale.map((token) => (
+            <li class="flex flex-col items-center gap-2">
+              <span
+                class="border-navy bg-surface h-16 w-16 border-2"
+                style={`border-radius:${token.value}`}
+                aria-hidden="true"
+              />
+              <span class="text-ink text-xs font-bold">{token.name}</span>
+              <span class="text-muted font-mono text-xs">{token.value}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    {/* Ombres */}
+    <section class="mt-12" aria-labelledby="shadow-heading">
+      <h2 id="shadow-heading" class="font-heading tracking-heading text-ink text-xl">Ombres</h2>
+      <ul class="mt-6 flex flex-wrap gap-8">
+        {
+          shadowScale.map((token) => (
+            <li class="flex flex-col items-center gap-3">
+              <span
+                class="h-20 w-32 rounded-xl bg-white"
+                style={`box-shadow:${token.value}`}
+                aria-hidden="true"
+              />
+              <span class="text-ink text-xs font-bold">{token.name}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    {/* Composants */}
+    <section class="mt-12" aria-labelledby="components-heading">
+      <h2 id="components-heading" class="font-heading tracking-heading text-ink text-xl">
+        Composants
+      </h2>
+      <p class="text-body mt-3 text-sm">
+        Construits un par un au fil de l'EPIC 1 (E1-US4). Chaque composant apparaît ici dès qu'il
+        est prêt — rien n'est encore construit à ce stade.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

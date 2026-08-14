@@ -48,3 +48,76 @@ export const MIN_CONTRAST = {
 } as const;
 
 export type ContrastLevel = keyof typeof MIN_CONTRAST;
+
+export interface DesignSystemColorPair {
+  name: string;
+  foreground: string;
+  background: string;
+  level: ContrastLevel;
+  expected: 'pass' | 'fail';
+}
+
+/**
+ * Chaque paire de couleurs réellement utilisée dans le design system (CLAUDE.md, section
+ * "Design system" et règle absolue #3 sur le cyan). Source de vérité unique, partagée entre
+ * le garde-fou automatisé (tests/unit/color-contrast.test.ts) et la page /styleguide.
+ * `expected: 'fail'` documente une combinaison interdite, pas un oubli.
+ */
+export const designSystemColorPairs: DesignSystemColorPair[] = [
+  {
+    name: 'Texte blanc sur fond marine (titres, corps de texte sur fond sombre)',
+    foreground: 'white',
+    background: 'navy',
+    level: 'text',
+    expected: 'pass',
+  },
+  {
+    name: 'Accent cyan sur fond marine (sur-titres, liens, icônes porteuses de sens)',
+    foreground: 'cyan',
+    background: 'navy',
+    level: 'text',
+    expected: 'pass',
+  },
+  {
+    name: 'Libellé marine sur bouton cyan (règle absolue #3)',
+    foreground: 'navy',
+    background: 'cyan',
+    level: 'text',
+    expected: 'pass',
+  },
+  {
+    name: 'Texte secondaire (muted) sur fond clair',
+    foreground: 'muted',
+    background: 'surface',
+    level: 'text',
+    expected: 'pass',
+  },
+  {
+    name: 'Titres (ink) sur fond clair',
+    foreground: 'ink',
+    background: 'surface',
+    level: 'text',
+    expected: 'pass',
+  },
+  {
+    name: 'Texte courant (body) sur fond clair',
+    foreground: 'body',
+    background: 'surface',
+    level: 'text',
+    expected: 'pass',
+  },
+  {
+    name: 'INTERDIT — cyan comme texte sur fond clair',
+    foreground: 'cyan',
+    background: 'surface',
+    level: 'text',
+    expected: 'fail',
+  },
+  {
+    name: 'INTERDIT — texte blanc sur bouton cyan',
+    foreground: 'white',
+    background: 'cyan',
+    level: 'text',
+    expected: 'fail',
+  },
+];
