@@ -1,0 +1,99 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  /** textarea existe pour des contextes strictement administratifs (formulaire de contact) —
+   * voir la note d'usage dans /styleguide avant de l'utiliser où que ce soit d'autre. */
+  type?: 'text' | 'email' | 'tel' | 'textarea';
+  description?: string;
+  error?: string;
+  required?: boolean;
+  class?: string;
+  // Passthrough (name, placeholder, rows, value, autocomplete...) transmis à l'élément rendu.
+  [key: string]: unknown;
+}
+
+const {
+  id,
+  label,
+  type = 'text',
+  description,
+  error,
+  required = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const descriptionId = description ? `${id}-description` : undefined;
+const errorId = error ? `${id}-error` : undefined;
+// Un seul attribut aria-describedby porte les deux liaisons (description + erreur) : un champ
+// ne peut avoir qu'un aria-describedby, sa valeur est une liste d'ids séparés par des espaces.
+const describedBy = [descriptionId, errorId].filter(Boolean).join(' ') || undefined;
+
+const Tag = type === 'textarea' ? 'textarea' : 'input';
+
+const fieldBase =
+  'w-full rounded-lg border-2 bg-white px-4 py-3 text-sm text-ink placeholder:text-muted';
+// Pas de couleur d'erreur dédiée : la palette du design system n'en définit pas (six tokens,
+// CLAUDE.md). Distinction par bordure plus marquée + icône + texte, jamais par la couleur
+// seule — ce qui sert aussi l'exigence WCAG de ne pas coder l'information par la couleur seule.
+const fieldState = error ? 'border-navy' : 'border-black/10';
+
+const containerClasses = ['flex flex-col gap-2', className].filter(Boolean).join(' ');
+---
+
+<div class={containerClasses}>
+  <label for={id} class="text-ink text-sm font-bold">
+    {label}
+    {
+      required && (
+        <span aria-hidden="true" class="text-body">
+          {' '}
+          *
+        </span>
+      )
+    }
+  </label>
+
+  {
+    description && (
+      <p id={descriptionId} class="text-muted text-xs">
+        {description}
+      </p>
+    )
+  }
+
+  <Tag
+    id={id}
+    type={Tag === 'input' ? (type as 'text' | 'email' | 'tel') : undefined}
+    aria-describedby={describedBy}
+    aria-invalid={error ? 'true' : undefined}
+    required={required}
+    class={`${fieldBase} ${fieldState}`}
+    {...rest}
+  />
+
+  {
+    error && (
+      <p id={errorId} role="alert" class="text-ink flex items-center gap-2 text-xs font-bold">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="shrink-0"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        {error}
+      </p>
+    )
+  }
+</div>

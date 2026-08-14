@@ -1,5 +1,6 @@
 ---
 import Button from '@/components/Button.astro';
+import FormField from '@/components/FormField.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { contrastRatio, designSystemColorPairs, MIN_CONTRAST } from '@/lib/color-contrast';
 import { readColorTokens, readThemeTokens } from '@/lib/design-tokens';
@@ -209,8 +210,8 @@ function remToPx(rem: string): string {
         Composants
       </h2>
       <p class="text-body mt-3 text-sm">
-        Construits un par un au fil de l'EPIC 1 (E1-US4). Restent à venir : champ de formulaire,
-        modale, accordéon, sélecteur de langue, infobulle.
+        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f). Restent à venir : accordéon,
+        sélecteur de langue, infobulle, modale.
       </p>
 
       <h3 class="font-heading tracking-heading text-ink mt-8 text-lg">Bouton</h3>
@@ -248,6 +249,79 @@ function remToPx(rem: string): string {
           <Button disabled class="js-demo-count" data-testid="button-disabled-demo">
             Désactivé — ne doit rien faire
           </Button>
+        </div>
+      </div>
+
+      <h3 class="font-heading tracking-heading text-ink mt-10 text-lg">Champ de formulaire</h3>
+      <p class="text-body mt-2 max-w-prose text-sm">
+        Label toujours associé via <code class="font-mono">for</code>/<code class="font-mono">
+          id
+        </code>{' '}
+        (jamais de placeholder en guise de label). Description et erreur partagent un seul{' '}
+        <code class="font-mono">aria-describedby</code> (liste d'ids séparés par un espace). L'erreur
+        porte <code class="font-mono">role="alert"</code> (annoncée dès son insertion) et{' '}
+        <code class="font-mono">aria-invalid="true"</code> sur le champ — jamais la couleur seule pour
+        la signaler : la palette du design system n'a pas de couleur d'erreur dédiée (CLAUDE.md, six tokens),
+        donc bordure marquée + icône + texte.
+      </p>
+
+      <div class="mt-4 grid max-w-md grid-cols-1 gap-6">
+        <FormField id="fg-name" label="Nom complet" required autocomplete="name" />
+        <FormField
+          id="fg-email"
+          label="Email"
+          type="email"
+          description="Pour t'envoyer la confirmation."
+          required
+          autocomplete="email"
+        />
+        <FormField
+          id="fg-phone-error"
+          label="Téléphone"
+          type="tel"
+          error="Ce champ est requis."
+          autocomplete="tel"
+        />
+      </div>
+
+      <div class="border-navy mt-8 rounded-lg border-l-4 bg-white p-4">
+        <p class="text-ink text-xs font-bold">
+          ⚠ Aucune donnée de santé — le premier endroit où la règle rencontre du code
+        </p>
+        <div class="text-body mt-3 flex flex-col gap-3 text-xs leading-relaxed">
+          <p>
+            <code class="font-mono">type="textarea"</code> existe pour un seul usage : le formulaire de
+            contact (E6-US1), un contexte strictement administratif. Il est{' '}
+            <strong>interdit</strong> partout dans le parcours de réservation (E5-US3) — aucun champ «
+            décrivez votre blessure », aucune puce de zone corporelle, décision du 13/08/2026, définitive.
+          </p>
+          <p>
+            <strong>La règle ne porte pas sur le widget, elle porte sur la question posée.</strong>{
+              ' '
+            }
+            Un <code class="font-mono">type="text"</code> mono-ligne avec pour label « Décrivez vos symptômes
+            » est tout aussi interdit qu'un <code class="font-mono">textarea</code> — ce n'est pas la
+            présence d'une zone de texte libre qui pose problème, c'est le fait qu'elle invite une réponse
+            de santé. Avant d'ajouter un champ n'importe où dans le site, la question à se poser n'est
+            pas « est-ce un textarea ? » mais « une réponse plausible à ce label pourrait-elle décrire
+            un état de santé ? ». Si oui, le champ ne doit pas exister, quel que soit le composant utilisé
+            pour le rendre.
+          </p>
+          <p>
+            Tout champ libre en contexte administratif (contact, message général) doit porter un
+            avertissement visible — pas seulement dans un texte légal en bas de page. Démo
+            ci-dessous : c'est le texte exact à reprendre, pas un exemple à reformuler.
+          </p>
+        </div>
+        <div class="mt-4 max-w-md">
+          <FormField
+            id="fg-message"
+            label="Message"
+            type="textarea"
+            rows={4}
+            description="N'indiquez pas d'informations de santé dans ce formulaire."
+            placeholder="Comment puis-je vous aider ?"
+          />
         </div>
       </div>
     </section>
