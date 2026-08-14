@@ -372,11 +372,23 @@ Lighthouse accessibilité < 100, ou une performance < 90.
 | E1-US1 | En tant que développeur, je veux les tokens des maquettes traduits en config Tailwind afin d'assurer la cohérence visuelle | 3 |
 | E1-US2 | En tant que visiteur malvoyant, je veux des contrastes conformes AA afin de lire tout le contenu | 3 |
 | E1-US3 | En tant que visiteur au clavier, je veux un lien d'évitement et un focus toujours visible afin de naviguer sans souris | 3 |
-| E1-US4 | En tant que développeur, je veux une bibliothèque de composants accessibles (bouton, champ, modale, accordéon, sélecteur de langue) afin de ne pas réinventer l'ARIA à chaque page | 8 |
+| E1-US4a | En tant que développeur, je veux un composant Bouton accessible (états, aria-disabled) | 5 |
+| E1-US4b | En tant que développeur, je veux un composant Champ de formulaire accessible (label, description, erreur annoncée) | 5 |
+| E1-US4c | En tant que développeur, je veux un composant Accordéon accessible | 3 |
+| E1-US4d | En tant que développeur, je veux un composant Sélecteur de langue accessible | 3 |
+| E1-US4e | En tant que développeur, je veux un composant Infobulle accessible (déclencheur bouton, aria-describedby, fermeture Échap) | 5 |
+| E1-US4f | En tant que développeur, je veux un composant Modale accessible (piège de focus, restitution du focus, inert sur l'arrière-plan) | 8 |
 | E1-US5 | En tant que visiteur sensible au mouvement, je veux que les animations respectent `prefers-reduced-motion` | 2 |
 
-**Critères d'acceptation E1-US4** — chaque composant : navigable au clavier, rôles et états ARIA
-corrects, testé avec un lecteur d'écran, zéro violation axe, documenté.
+**Critères d'acceptation E1-US4a à E1-US4f** — pour chaque composant : navigable au clavier, rôles
+et états ARIA corrects, testé avec un lecteur d'écran, zéro violation axe, démonstration dans
+/styleguide, note d'usage écrite, et au moins un test e2e prouvant le comportement
+d'accessibilité par sabotage (le test doit échouer si on retire l'attribut ARIA).
+
+> Ré-estimation du 14/08/2026. Ces six composants formaient une seule US estimée à 8 points. Le
+> Bouton seul en a consommé 5 au niveau de rigueur exigé. Total réel : 29 points, soit un facteur
+> 3,6. L'estimation globale de 290 points pour la v1 est probablement optimiste du même ordre sur
+> les US de composants et de parcours. À recalibrer après le sprint 2.
 
 ---
 
@@ -570,16 +582,30 @@ il est explicitement libellé « informations administratives uniquement » et s
 d'acceptation sont écrits et testables, les dépendances sont levées, le contenu et les visuels
 nécessaires sont disponibles, l'estimation est posée.
 
-**Done** — une US est terminée si :
+**Done — US d'infrastructure** (EPIC 0, EPIC 1, moteur, back-office : rien d'indexable produit) :
 
 - [ ] Critères d'acceptation tous validés, un par un
-- [ ] Zéro violation axe-core, parcours testé au clavier
-- [ ] Contenu présent dans les 3 langues
-- [ ] Balises SEO et données structurées en place
-- [ ] Lighthouse : accessibilité 100, performance ≥ 90, SEO 100
+- [ ] Zéro violation axe-core sur les pages de démonstration concernées
+- [ ] Parcours clavier testé
+- [ ] Lighthouse accessibilité 100 et performance >= 90 sur /styleguide et les pages existantes
 - [ ] Aucune donnée de santé introduite dans le système
-- [ ] Testé sur mobile réel
-- [ ] Revue de code faite, CI verte, déployé en preview
+- [ ] Revue de code faite, code commité et poussé, CI verte sur le commit livré
+- [ ] Déployé en preview
+
+**Done — US de page publiée** (EPIC 2, 4, 10 : tout ce qui produit du contenu visible) :
+
+- [ ] Tous les critères ci-dessus, plus :
+- [ ] Contenu présent en FI, EN et SV
+- [ ] Balises SEO et données structurées en place
+- [ ] Lighthouse SEO 100
+- [ ] Page ajoutée à la liste d'URLs de .lighthouserc.cjs
+- [ ] Vérifiée sur un appareil mobile réel lors de la passe de fin de sprint
+
+> Correctif du 14/08/2026. La DoD initiale mélangeait les deux. Appliquée littéralement, aucune
+> US d'infrastructure ne pouvait être Done, puisqu'elle ne produit ni contenu traduit ni balise
+> SEO. « Testé sur mobile réel » signifie désormais : une passe manuelle sur un téléphone
+> physique en fin de sprint, sur toutes les pages produites. L'émulation Playwright ne compte
+> pas.
 
 ---
 

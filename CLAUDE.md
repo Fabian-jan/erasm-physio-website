@@ -79,6 +79,24 @@ Pori 28100, Finlande · visites à domicile et en écurie · distanciel
 Lun–ven 08:00–18:00 · samedi sur arrangement · dimanche fermé
 Baseline : *Healing Beyond Limits*
 
+## Pièges connus
+
+Découverts en conditions réelles. Ne pas les redécouvrir.
+
+- Tokens d'espacement Tailwind v4. Définir --spacing-<nom> fait basculer max-w-<nom>, w-*,
+  gap-* depuis --container-<nom>. N'importe quel nom de l'échelle réservée (3xs … 7xl) est
+  concerné. Tous les tokens d'espacement du projet sont préfixés ds- (ds-2xs … ds-3xl).
+  tests/unit/token-collisions.test.ts lit la liste réservée directement dans
+  node_modules/tailwindcss/theme.css et échoue en cas de collision — ne pas la recopier à la main.
+- Une CI verte ne prouve rien sur du code non poussé. La validation d'environnement d'E0-US4 a
+  fonctionné en local pendant tout un sprint puis cassé la CI au premier passage réel, faute de
+  SITE_URL côté CI. Une US n'est Done qu'après une CI verte sur le commit livré.
+- Les tests verts ne suffisent pas sur du visuel. Le bug de collision d'espacement n'a été
+  détecté que par une capture d'écran de /styleguide, tous les tests passant. Regarder la page,
+  pas seulement le rapport.
+- Lighthouse en local échoue sous Windows (bug chrome-launcher). Contourné, non résolu :
+  l'audit ne fait foi que via la CI Linux.
+
 ## Méthode de travail
 
 Une US à la fois, dans l'ordre du backlog. Pour chaque US : le code, les tests, puis la
