@@ -1,4 +1,5 @@
 ---
+import Accordion from '@/components/Accordion.astro';
 import Button from '@/components/Button.astro';
 import FormField from '@/components/FormField.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -210,8 +211,8 @@ function remToPx(rem: string): string {
         Composants
       </h2>
       <p class="text-body mt-3 text-sm">
-        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f). Restent à venir : accordéon,
-        sélecteur de langue, infobulle, modale.
+        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f). Restent à venir : sélecteur de
+        langue, infobulle, modale.
       </p>
 
       <h3 class="font-heading tracking-heading text-ink mt-8 text-lg">Bouton</h3>
@@ -323,6 +324,50 @@ function remToPx(rem: string): string {
             placeholder="Comment puis-je vous aider ?"
           />
         </div>
+      </div>
+
+      <h3 class="font-heading tracking-heading text-ink mt-10 text-lg">Accordéon</h3>
+      <p class="text-body mt-2 max-w-prose text-sm">
+        Motif APG standard : <code class="font-mono">button[aria-expanded][aria-controls]</code>{
+          ' '
+        }
+        dans un <code class="font-mono">h3</code>, panneau en{' '}
+        <code class="font-mono">role="region"[aria-labelledby]</code>, cadré par{' '}
+        <code class="font-mono">hidden</code> plutôt qu'un jeu de classes CSS — retire vraiment le panneau
+        fermé de l'arbre d'accessibilité et de l'ordre de tabulation, pas seulement de l'affichage. Clavier
+        : Tab + Entrée/Espace, gratuits parce que ce sont de vrais{' '}
+        <code class="font-mono">button</code>. La navigation flèches Haut/Bas entre en-têtes (motif
+        APG complet) n'est pas implémentée — Tab suffit au critère « navigable au clavier »,
+        extension possible plus tard si un vrai besoin apparaît.
+      </p>
+      <p class="text-body mt-2 max-w-prose text-sm">
+        Par défaut (<code class="font-mono">allowMultiple=false</code>), ouvrir un panneau ferme les
+        autres — comportement de la maquette pour la liste des prestations. Ne jamais y cacher une
+        information obligatoire que l'utilisateur doit forcément lire : un accordéon replié est, par
+        construction, invisible pour qui ne pense pas à l'ouvrir.
+      </p>
+      <div class="mt-4 max-w-md">
+        <Accordion
+          id="faq-demo"
+          items={[
+            {
+              id: 'hours',
+              title: 'Quels sont vos horaires ?',
+              content: 'Lundi à vendredi, 8h à 18h. Samedi sur arrangement, fermé le dimanche.',
+            },
+            {
+              id: 'location',
+              title: 'Où se trouve le studio ?',
+              content:
+                'À Pori (28100), Finlande. Visites à domicile et en écurie également possibles.',
+            },
+            {
+              id: 'cancel',
+              title: 'Comment annuler un rendez-vous ?',
+              content: 'Gratuitement jusqu’à 24 heures avant le rendez-vous.',
+            },
+          ]}
+        />
       </div>
     </section>
   </div>

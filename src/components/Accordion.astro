@@ -1,0 +1,107 @@
+---
+interface AccordionItem {
+  id: string;
+  title: string;
+  content: string;
+}
+
+interface Props {
+  id: string;
+  items: AccordionItem[];
+  /** false (défaut) : ouvrir un panneau ferme les autres — voir la note d'usage /styleguide. */
+  allowMultiple?: boolean;
+  class?: string;
+}
+
+const { id, items, allowMultiple = false, class: className } = Astro.props;
+
+const containerClasses = [
+  'divide-y divide-black/10 rounded-lg border-2 border-black/10 bg-white',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div id={id} data-accordion={allowMultiple ? undefined : 'exclusive'} class={containerClasses}>
+  {
+    items.map((item) => {
+      const headerId = `${id}-header-${item.id}`;
+      const panelId = `${id}-panel-${item.id}`;
+      return (
+        <div>
+          <h3 class="m-0">
+            <button
+              type="button"
+              id={headerId}
+              aria-expanded="false"
+              aria-controls={panelId}
+              data-accordion-trigger
+              class="text-ink flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm font-bold"
+            >
+              <span>{item.title}</span>
+              <svg
+                data-accordion-chevron
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                class="shrink-0 transition-transform"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          </h3>
+          {/* role="region" + aria-labelledby : pattern APG standard. À reconsidérer si un
+              accordéon dépasse ~6 panneaux (bruit de landmarks pour les lecteurs d'écran) —
+              pas notre cas ici (5 prestations maximum). */}
+          <div id={panelId} role="region" aria-labelledby={headerId} hidden data-accordion-panel>
+            <div class="text-body px-4 pb-4 text-sm leading-relaxed">{item.content}</div>
+          </div>
+        </div>
+      );
+    })
+  }
+</div>
+
+<script>
+  // Clavier gratuit : de vrais <button>, donc Tab + Entrée/Espace fonctionnent nativement, sans
+  // JS dédié. La navigation flèches Haut/Bas entre en-têtes (motif APG complet) n'est pas
+  // implémentée ici — Tab suffit à la navigabilité clavier exigée, décision de périmètre
+  // documentée dans /styleguide plutôt qu'un oubli silencieux.
+  document.addEventListener('click', (event) => {
+    const trigger = (event.target as HTMLElement)?.closest<HTMLElement>('[data-accordion-trigger]');
+    if (!trigger) return;
+
+    const panelId = trigger.getAttribute('aria-controls');
+    const panel = panelId ? document.getElementById(panelId) : null;
+    if (!panel) return;
+
+    const wasExpanded = trigger.getAttribute('aria-expanded') === 'true';
+    const container = trigger.closest<HTMLElement>('[data-accordion]');
+    const exclusive = container?.dataset.accordion === 'exclusive';
+
+    if (exclusive && !wasExpanded) {
+      container?.querySelectorAll<HTMLElement>('[data-accordion-trigger]').forEach((other) => {
+        if (other === trigger) return;
+        other.setAttribute('aria-expanded', 'false');
+        other.querySelector('[data-accordion-chevron]')?.classList.remove('rotate-180');
+        const otherPanel = document.getElementById(other.getAttribute('aria-controls') ?? '');
+        otherPanel?.setAttribute('hidden', '');
+      });
+    }
+
+    trigger.setAttribute('aria-expanded', String(!wasExpanded));
+    trigger.querySelector('[data-accordion-chevron]')?.classList.toggle('rotate-180', !wasExpanded);
+    if (wasExpanded) {
+      panel.setAttribute('hidden', '');
+    } else {
+      panel.removeAttribute('hidden');
+    }
+  });
+</script>
