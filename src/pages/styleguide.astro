@@ -2,6 +2,7 @@
 import Accordion from '@/components/Accordion.astro';
 import Button from '@/components/Button.astro';
 import FormField from '@/components/FormField.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { contrastRatio, designSystemColorPairs, MIN_CONTRAST } from '@/lib/color-contrast';
 import { readColorTokens, readThemeTokens } from '@/lib/design-tokens';
@@ -211,8 +212,8 @@ function remToPx(rem: string): string {
         Composants
       </h2>
       <p class="text-body mt-3 text-sm">
-        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f). Restent à venir : sélecteur de
-        langue, infobulle, modale.
+        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f). Restent à venir : infobulle,
+        modale.
       </p>
 
       <h3 class="font-heading tracking-heading text-ink mt-8 text-lg">Bouton</h3>
@@ -366,6 +367,28 @@ function remToPx(rem: string): string {
               title: 'Comment annuler un rendez-vous ?',
               content: 'Gratuitement jusqu’à 24 heures avant le rendez-vous.',
             },
+          ]}
+        />
+      </div>
+
+      <h3 class="font-heading tracking-heading text-ink mt-10 text-lg">Sélecteur de langue</h3>
+      <p class="text-body mt-2 max-w-prose text-sm">
+        Trois pages distinctes (FI/EN/SV, URL localisées à venir en EPIC 3), pas un widget
+        d'application : de vrais liens (<code class="font-mono">a[href]</code>), pas des boutons. La
+        langue active porte <code class="font-mono">aria-current="page"</code> — la valeur correcte pour
+        « élément courant dans un ensemble de pages liées », pas{' '}
+        <code class="font-mono">aria-current="true"</code>. Chaque lien porte{' '}
+        <code class="font-mono">hreflang</code> et <code class="font-mono">lang</code> sur son propre
+        code de langue, pour que le nom soit prononcé correctement par un lecteur d'écran. Libellés toujours
+        en autonyme (« Svenska », jamais « Suédois ») — jamais traduits dans la langue de la page courante.
+      </p>
+      <div class="bg-navy mt-4 inline-block rounded-lg p-4">
+        <LanguageSwitcher
+          current="fi"
+          languages={[
+            { code: 'fi', label: 'Suomi', href: '#lang-fi' },
+            { code: 'en', label: 'English', href: '#lang-en' },
+            { code: 'sv', label: 'Svenska', href: '#lang-sv' },
           ]}
         />
       </div>

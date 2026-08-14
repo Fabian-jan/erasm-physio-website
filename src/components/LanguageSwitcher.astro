@@ -1,0 +1,47 @@
+---
+interface LanguageOption {
+  code: 'fi' | 'en' | 'sv';
+  /** Toujours l'autonyme (nom de la langue dans elle-même) — jamais traduit. */
+  label: string;
+  href: string;
+}
+
+interface Props {
+  languages: LanguageOption[];
+  current: 'fi' | 'en' | 'sv';
+  class?: string;
+}
+
+const { languages, current, class: className } = Astro.props;
+
+const containerClasses = ['inline-flex gap-0.5 rounded-full bg-white/10 p-1', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<nav aria-label="Choix de la langue" class={containerClasses}>
+  <ul class="flex list-none gap-0.5 p-0">
+    {
+      languages.map((language) => {
+        const isCurrent = language.code === current;
+        return (
+          <li>
+            <a
+              href={language.href}
+              hreflang={language.code}
+              lang={language.code}
+              aria-current={isCurrent ? 'page' : undefined}
+              class={
+                isCurrent
+                  ? 'bg-cyan text-navy inline-block rounded-full px-3 py-1.5 text-xs font-bold'
+                  : 'inline-block rounded-full px-3 py-1.5 text-xs font-bold text-white'
+              }
+            >
+              {language.label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
