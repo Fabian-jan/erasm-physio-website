@@ -1,0 +1,79 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline';
+  /**
+   * aria-disabled, jamais l'attribut HTML disabled : un bouton disabled="" sort de l'ordre
+   * de tabulation et n'est plus annoncé par les lecteurs d'écran, ce qui le rend invisible
+   * pour un usage clavier — voir CLAUDE.md, E5-US10. Reste focusable et annoncé "désactivé" ;
+   * l'activation (clic, Entrée, Espace) est bloquée par le script ci-dessous.
+   */
+  disabled?: boolean;
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  // Passthrough (ex. data-testid, aria-label) transmis tel quel à l'élément rendu.
+  [key: string]: unknown;
+}
+
+const {
+  variant = 'primary',
+  disabled = false,
+  href,
+  type = 'button',
+  class: className,
+  ...rest
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-bold font-heading transition-[filter] focus-visible:transition-none';
+
+const variants = {
+  primary: 'bg-cyan text-navy shadow-glow-cyan hover:brightness-95',
+  secondary: 'bg-navy text-white hover:brightness-125',
+  outline: 'bg-transparent text-navy border-2 border-navy hover:bg-navy/5',
+};
+
+// Jamais opacity seule (CLAUDE.md, règle #3) : des couleurs distinctes qui restent
+// conformes AA — muted sur blanc = 5,49:1 (voir /styleguide, section Couleurs).
+const disabledClasses =
+  'bg-white text-muted border-2 border-black/10 shadow-none cursor-not-allowed';
+
+const classes = [base, disabled ? disabledClasses : variants[variant], className]
+  .filter(Boolean)
+  .join(' ');
+
+// Un bouton désactivé ne navigue nulle part : on ignore href plutôt que de rendre un lien
+// qu'aria-disabled ne bloquerait pas nativement.
+const Tag = !disabled && href ? 'a' : 'button';
+---
+
+<Tag
+  class={classes}
+  href={!disabled && href ? href : undefined}
+  type={Tag === 'button' ? type : undefined}
+  aria-disabled={disabled ? 'true' : undefined}
+  data-button
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<script>
+  // aria-disabled ne bloque rien nativement (contrairement à l'attribut disabled) : sans ce
+  // script, un bouton "désactivé" resterait cliquable et activable au clavier. Interception
+  // en phase de capture, au niveau du document : elle s'exécute avant tout gestionnaire posé
+  // sur le bouton lui-même (peu importe l'ordre d'enregistrement), et stopPropagation empêche
+  // l'événement d'atteindre le bouton — cohérent quel que soit le composant qui l'utilise.
+  document.addEventListener(
+    'click',
+    (event) => {
+      const target = event.target as HTMLElement | null;
+      const disabledButton = target?.closest('[data-button][aria-disabled="true"]');
+      if (disabledButton) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    },
+    { capture: true },
+  );
+</script>

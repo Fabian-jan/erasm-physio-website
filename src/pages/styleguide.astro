@@ -1,4 +1,5 @@
 ---
+import Button from '@/components/Button.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { contrastRatio, designSystemColorPairs, MIN_CONTRAST } from '@/lib/color-contrast';
 import { readColorTokens, readThemeTokens } from '@/lib/design-tokens';
@@ -207,9 +208,59 @@ function remToPx(rem: string): string {
         Composants
       </h2>
       <p class="text-body mt-3 text-sm">
-        Construits un par un au fil de l'EPIC 1 (E1-US4). Chaque composant apparaît ici dès qu'il
-        est prêt — rien n'est encore construit à ce stade.
+        Construits un par un au fil de l'EPIC 1 (E1-US4). Restent à venir : champ de formulaire,
+        modale, accordéon, sélecteur de langue, infobulle.
       </p>
+
+      <h3 class="font-heading tracking-heading text-ink mt-8 text-lg">Bouton</h3>
+      <p class="text-body mt-2 max-w-prose text-sm">
+        <code class="font-mono">primary</code> pour l'action principale d'un écran (une par écran, en
+        règle générale) ; <code class="font-mono">secondary</code> pour une action de poids équivalent
+        ; <code class="font-mono">outline</code> pour une action tertiaire. L'état{' '}
+        <code class="font-mono">disabled</code> sert aux prestations non réservables (en attente de
+        l'autorisation Valvira, CLAUDE.md) : le bouton reste visible, focusable et annoncé par les
+        lecteurs d'écran via{' '}
+        <code class="font-mono">aria-disabled="true"</code>, jamais l'attribut{' '}
+        <code class="font-mono">disabled</code> qui le sortirait de l'ordre de tabulation. Le blocage
+        du clic/clavier est une défense côté client (voir le script de Button.astro) — une vraie action
+        de réservation devra aussi être bloquée côté serveur.
+      </p>
+      <div class="mt-4 flex flex-wrap items-center gap-4">
+        <Button variant="primary">Réserver</Button>
+        <Button variant="secondary">Réserver</Button>
+        <Button variant="outline">En savoir plus</Button>
+        <Button disabled>1:1 Physiotherapy Session</Button>
+      </div>
+
+      <div class="mt-6 rounded-lg border border-black/10 p-4">
+        <p class="text-ink text-xs font-bold">
+          Preuve manuelle — le clic est bloqué à l'état désactivé
+        </p>
+        <p class="text-muted mt-1 text-xs">
+          Compteur (démo, pas un vrai composant) : <span id="button-demo-count">0</span>
+        </p>
+        <div class="mt-3 flex flex-wrap gap-3">
+          <Button variant="secondary" class="js-demo-count" data-testid="button-enabled-demo">
+            Actif — incrémente
+          </Button>
+          <Button disabled class="js-demo-count" data-testid="button-disabled-demo">
+            Désactivé — ne doit rien faire
+          </Button>
+        </div>
+      </div>
     </section>
   </div>
 </BaseLayout>
+
+<script>
+  // Démo locale à la page, pour rendre le blocage de clic observable (à l'œil et dans le
+  // test Playwright dédié) — ne fait pas partie du composant Button lui-même.
+  let count = 0;
+  const counter = document.getElementById('button-demo-count');
+  document.querySelectorAll('.js-demo-count').forEach((button) => {
+    button.addEventListener('click', () => {
+      count += 1;
+      if (counter) counter.textContent = String(count);
+    });
+  });
+</script>
