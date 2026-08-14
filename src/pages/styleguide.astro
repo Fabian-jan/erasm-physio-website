@@ -3,6 +3,7 @@ import Accordion from '@/components/Accordion.astro';
 import Button from '@/components/Button.astro';
 import FormField from '@/components/FormField.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Tooltip from '@/components/Tooltip.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { contrastRatio, designSystemColorPairs, MIN_CONTRAST } from '@/lib/color-contrast';
 import { readColorTokens, readThemeTokens } from '@/lib/design-tokens';
@@ -212,8 +213,7 @@ function remToPx(rem: string): string {
         Composants
       </h2>
       <p class="text-body mt-3 text-sm">
-        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f). Restent à venir : infobulle,
-        modale.
+        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f). Reste à venir : modale.
       </p>
 
       <h3 class="font-heading tracking-heading text-ink mt-8 text-lg">Bouton</h3>
@@ -390,6 +390,36 @@ function remToPx(rem: string): string {
             { code: 'en', label: 'English', href: '#lang-en' },
             { code: 'sv', label: 'Svenska', href: '#lang-sv' },
           ]}
+        />
+      </div>
+
+      <h3 class="font-heading tracking-heading text-ink mt-10 text-lg">Infobulle</h3>
+      <p class="text-body mt-2 max-w-prose text-sm">
+        Motif « toggletip » (APG / Inclusive Components), pas un vrai{' '}
+        <code class="font-mono">role="tooltip"</code> déclenché au survol : ici le contenu compte (explication
+        de l'attente Valvira, E5-US11), donc il lui faut un déclencheur atteignable au clavier et au tap.
+        Un <code class="font-mono">button</code> réel, jamais{' '}
+        <code class="font-mono">title</code> HTML (invisible au clavier, au tactile, et à la plupart des
+        lecteurs d'écran) ni un survol seul. Le contenu est lié par{' '}
+        <code class="font-mono">aria-describedby</code>, pas{' '}
+        <code class="font-mono">aria-controls</code>/<code class="font-mono">aria-expanded</code> — ce
+        n'est pas un widget de disclosure. Fermeture à <code class="font-mono">Échap</code>, avec
+        restitution du focus au déclencheur ; ouvrir une infobulle ferme celle déjà ouverte (une
+        seule à la fois, comme l'accordéon).
+      </p>
+      <p class="text-body mt-2 max-w-prose text-sm">
+        C'est ce composant qui portera l'explication de chaque prestation non réservable
+        (E5-US10/US11). Le texte ci-dessous est le texte français de référence du brief (§6ter point
+        3) — les versions EN et SV restent <code class="font-mono">TODO</code>, à traduire par un
+        humain avant intégration réelle dans les fiches de prestation, pas par traduction
+        automatique.
+      </p>
+      <div class="mt-4 flex flex-wrap items-center gap-4">
+        <Button disabled>1:1 Physiotherapy Session</Button>
+        <Tooltip
+          id="tooltip-demo"
+          triggerLabel="Pourquoi ?"
+          content="Cette prestation n'est pas encore réservable. Je termine mes études de kinésithérapie et l'autorisation d'exercice finlandaise est requise avant de proposer des séances de kinésithérapie. Le coaching de force, le coaching en ligne et la rééducation animale restent disponibles."
         />
       </div>
     </section>
