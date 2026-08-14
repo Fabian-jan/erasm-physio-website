@@ -56,13 +56,22 @@
   --tracking-heading: -0.02em; /* CLAUDE.md, "Design system" : titres Montserrat */
   --tracking-overline: 0.18em; /* CLAUDE.md, "Design system" : sur-titres */
 
-  /* Espacement (E1-US1) : pas d'échelle nommée custom ici, volontairement — Tailwind v4
-     unifie tout le dimensionnement (p-*, gap-*, w-*, max-w-*, inset-*...) sur UNE seule
-     échelle --spacing-*. Définir --spacing-lg/xl/2xl/3xl a réellement redéfini max-w-3xl
-     (768px → 64px) le temps de le découvrir sur /styleguide. On garde donc l'échelle
-     numérique par défaut de Tailwind (base 4px, non modifiée) ; le mapping vers les paliers
-     réellement observés dans la maquette est documenté comme référence dans /styleguide,
-     sans créer de token qui puisse entrer en collision. */
+  /* Espacement (E1-US1, corrigé) : Tailwind v4 unifie tout le dimensionnement
+     (p-*, gap-*, w-*, max-w-*, inset-*...) sur UNE seule échelle --spacing-*. Une première
+     version nommait ces paliers --spacing-lg/xl/2xl/3xl "à la Tailwind" et redéfinissait
+     silencieusement max-w-3xl (768px → 64px) — même risque pour n'importe quel autre nom de
+     l'échelle réservée de Tailwind (3xs, 2xs, xs, sm, md, lg, xl, 2xl…7xl, voir
+     tests/unit/token-collisions.test.ts). Préfixe "ds-" (design system) : aucun de ces noms
+     n'existe dans l'échelle native de Tailwind, donc aucune collision possible. Génère
+     p-ds-*, gap-ds-*, m-ds-*, etc. */
+  --spacing-ds-2xs: 0.25rem; /* 4px */
+  --spacing-ds-xs: 0.5rem; /* 8px */
+  --spacing-ds-sm: 0.75rem; /* 12px */
+  --spacing-ds-md: 1rem; /* 16px */
+  --spacing-ds-lg: 1.5rem; /* 24px */
+  --spacing-ds-xl: 1.75rem; /* 28px */
+  --spacing-ds-2xl: 3rem; /* 48px */
+  --spacing-ds-3xl: 4rem; /* 64px */
 
   /* Rayons (E1-US1) */
   --radius-sm: 0.625rem; /* 10px — badges d'icône */

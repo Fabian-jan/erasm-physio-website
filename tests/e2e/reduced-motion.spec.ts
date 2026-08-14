@@ -14,9 +14,7 @@ test.describe('prefers-reduced-motion : règle globale', () => {
     expect(parseFloat(normalDuration)).toBeGreaterThan(0);
 
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    const reducedDuration = await button.evaluate(
-      (el) => getComputedStyle(el).transitionDuration,
-    );
+    const reducedDuration = await button.evaluate((el) => getComputedStyle(el).transitionDuration);
 
     // 0.01ms = 0.00001s : quasi nul, mais pas "0s"/"none" — voir le commentaire dans
     // global.css sur pourquoi on évite de désactiver purement et simplement les transitions.

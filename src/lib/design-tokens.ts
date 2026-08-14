@@ -33,12 +33,18 @@ export interface ThemeToken {
 
 /**
  * Tokens d'une catégorie donnée (text, spacing, radius, shadow, tracking...) déclarés dans
- * @theme, dans leur ordre d'apparition. Exclut délibérément les propriétés composées comme
- * --text-2xs--line-height : leur nom contient un second "--" juste après le palier, donc
- * aucun ":" n'apparaît immédiatement après le groupe capturé et elles ne matchent pas.
+ * @theme, dans leur ordre d'apparition. Le nom peut contenir des tirets simples (ex.
+ * "glow-cyan", "ds-2xs") : `[a-z0-9]+(?:-[a-z0-9]+)*`. Exclut délibérément les propriétés
+ * composées comme --text-2xs--line-height : leur nom contient un DOUBLE tiret juste après le
+ * palier, qui casse la séquence "un tiret + segment alphanumérique" — le groupe capturé
+ * s'arrête avant, et aucun ":" n'apparaît immédiatement après, donc elles ne matchent pas.
+ *
+ * Bug corrigé ici (E1-US1, découvert en préfixant l'échelle d'espacement) : l'ancien motif
+ * `[a-z0-9]+` sans tiret ne capturait jamais correctement un nom composé — --shadow-glow-cyan
+ * ne remontait silencieusement jamais dans /styleguide, sans qu'aucun test ne le détecte.
  */
 export function readThemeTokens(category: string): ThemeToken[] {
   const css = readGlobalCss();
-  const pattern = new RegExp(`--${category}-([a-z0-9]+):\\s*([^;]+);`, 'g');
+  const pattern = new RegExp(`--${category}-([a-z0-9]+(?:-[a-z0-9]+)*):\\s*([^;]+);`, 'g');
   return [...css.matchAll(pattern)].map((match) => ({ name: match[1], value: match[2].trim() }));
 }

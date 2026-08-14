@@ -8,24 +8,9 @@ const colors = readColorTokens();
 const colorEntries = Object.entries(colors);
 
 const typeScale = readThemeTokens('text');
+const spacingScale = readThemeTokens('spacing');
 const radiusScale = readThemeTokens('radius');
 const shadowScale = readThemeTokens('shadow');
-
-// Pas de token CSS --spacing-* personnalisé (voir le commentaire dans global.css : ça
-// redéfinissait max-w-3xl et d'autres utilitaires par collision de nom). Cette table est
-// une référence de correspondance, pas une source de vérité vivante — elle documente vers
-// quel palier numérique Tailwind (base 4px, inchangée) se rapporte chaque regroupement
-// observé dans la maquette.
-const spacingReference = [
-  { name: '2xs', utility: 'p-1 / gap-1', px: '4px' },
-  { name: 'xs', utility: 'p-2 / gap-2', px: '8px' },
-  { name: 'sm', utility: 'p-3 / gap-3', px: '12px' },
-  { name: 'md', utility: 'p-4 / gap-4', px: '16px' },
-  { name: 'lg', utility: 'p-6 / gap-6', px: '24px' },
-  { name: 'xl', utility: 'p-7 / gap-7', px: '28px' },
-  { name: '2xl', utility: 'p-12 / gap-12', px: '48px' },
-  { name: '3xl', utility: 'p-16 / gap-16', px: '64px' },
-];
 
 function remToPx(rem: string): string {
   const value = parseFloat(rem);
@@ -139,24 +124,27 @@ function remToPx(rem: string): string {
       <h2 id="spacing-heading" class="font-heading tracking-heading text-ink text-xl">
         Espacement
       </h2>
-      <p class="text-body mt-2 text-sm">
-        Pas d'échelle nommée ici, volontairement : l'échelle numérique par défaut de Tailwind (base
-        4px) reste inchangée. Cette table indique quel palier utiliser pour retrouver les
-        regroupements observés dans la maquette.
+      <p class="text-body mt-2 max-w-prose text-sm">
+        Paliers nommés, préfixés <code class="font-mono">ds-</code> (design system) pour ne jamais pouvoir
+        écraser un nom réservé par l'échelle native de Tailwind (
+        <code class="font-mono">sm</code>, <code class="font-mono">lg</code>,{' '}
+        <code class="font-mono">3xl</code>… voir <code class="font-mono">
+          tests/unit/token-collisions.test.ts
+        </code>
+        ). Utilisables via <code class="font-mono">p-ds-*</code>,{' '}
+        <code class="font-mono">gap-ds-*</code>, <code class="font-mono">m-ds-*</code>, etc.
       </p>
       <ul class="mt-4 flex flex-col gap-3">
         {
-          spacingReference.map((step) => (
+          spacingScale.map((token) => (
             <li class="flex items-center gap-4">
-              <span class="text-ink w-10 shrink-0 font-mono text-xs">{step.name}</span>
+              <span class="text-ink w-16 shrink-0 font-mono text-xs">{token.name}</span>
               <span
                 class="bg-navy h-4 rounded-full"
-                style={`width:${step.px}`}
+                style={`width:${token.value}`}
                 aria-hidden="true"
               />
-              <span class="text-muted shrink-0 font-mono text-xs">
-                {step.utility} — {step.px}
-              </span>
+              <span class="text-muted shrink-0 font-mono text-xs">{remToPx(token.value)}</span>
             </li>
           ))
         }
@@ -204,14 +192,12 @@ function remToPx(rem: string): string {
 
     {/* Mouvement */}
     <section class="mt-12" aria-labelledby="motion-heading">
-      <h2 id="motion-heading" class="font-heading tracking-heading text-ink text-xl">
-        Mouvement
-      </h2>
-      <p class="text-body max-w-prose mt-3 text-sm">
+      <h2 id="motion-heading" class="font-heading tracking-heading text-ink text-xl">Mouvement</h2>
+      <p class="text-body mt-3 max-w-prose text-sm">
         Règle globale (E1-US5), pas de cas par cas : sous{' '}
-        <code class="font-mono">prefers-reduced-motion: reduce</code>, toute transition et
-        animation — présente ou future, sur n'importe quel composant — passe automatiquement à
-        une durée quasi nulle. Rien à ajouter composant par composant ; voir le bloc{' '}
+        <code class="font-mono">prefers-reduced-motion: reduce</code>, toute transition et animation
+        — présente ou future, sur n'importe quel composant — passe automatiquement à une durée quasi
+        nulle. Rien à ajouter composant par composant ; voir le bloc{' '}
         <code class="font-mono">@media (prefers-reduced-motion: reduce)</code> dans{' '}
         <code class="font-mono">global.css</code>.
       </p>
@@ -232,9 +218,10 @@ function remToPx(rem: string): string {
         <code class="font-mono">primary</code> pour l'action principale d'un écran (une par écran, en
         règle générale) ; <code class="font-mono">secondary</code> pour une action de poids équivalent
         ; <code class="font-mono">outline</code> pour une action tertiaire. L'état{' '}
-        <code class="font-mono">disabled</code> sert aux prestations non réservables (en attente de
-        l'autorisation Valvira, CLAUDE.md) : le bouton reste visible, focusable et annoncé par les
-        lecteurs d'écran via{' '}
+        <code class="font-mono">disabled</code> sert aux prestations non réservables (en attente de l'autorisation
+        Valvira, CLAUDE.md) : le bouton reste visible, focusable et annoncé par les lecteurs d'écran via{
+          ' '
+        }
         <code class="font-mono">aria-disabled="true"</code>, jamais l'attribut{' '}
         <code class="font-mono">disabled</code> qui le sortirait de l'ordre de tabulation. Le blocage
         du clic/clavier est une défense côté client (voir le script de Button.astro) — une vraie action
