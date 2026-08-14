@@ -31,3 +31,21 @@
 @utility bg-navy-gradient {
   background-image: linear-gradient(180deg, #062f52 0%, #03203d 100%);
 }
+
+:root {
+  /* Point de personnalisation : un élément sur fond sombre redéfinit cette variable
+     (ex. [--focus-ring-color:var(--color-cyan)]) car un anneau marine serait invisible
+     sur un fond marine. Navy sur surface = 13,9:1, cyan sur navy = 9,5:1 (E1-US2). */
+  --focus-ring-color: var(--color-navy);
+}
+
+/* :focus-visible plutôt que :focus : l'anneau n'apparaît qu'au clavier/navigation
+   programmatique, jamais sur un simple clic souris ou tap tactile. */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}

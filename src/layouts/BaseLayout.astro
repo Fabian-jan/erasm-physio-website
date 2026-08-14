@@ -1,0 +1,39 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  lang?: 'fi' | 'en' | 'sv';
+  /** Pages internes (styleguide, back-office...) jamais destinées à l'indexation. */
+  noindex?: boolean;
+}
+
+const { title, lang = 'fi', noindex = false } = Astro.props;
+---
+
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <title>{title}</title>
+  </head>
+  <body class="bg-surface text-body font-sans">
+    <!-- Traduction FI à relire par un locuteur natif (aucune page de contenu traduite pour l'instant, EPIC 3). -->
+    <a
+      href="#main-content"
+      class="focus-visible:bg-navy sr-only [--focus-ring-color:var(--color-cyan)] focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-50 focus-visible:rounded-lg focus-visible:px-5 focus-visible:py-3 focus-visible:font-bold focus-visible:text-white"
+    >
+      Siirry pääsisältöön
+    </a>
+    <!-- tabindex="-1" : rend <main> ciblable par le lien d'évitement (le focus doit vraiment
+         s'y déplacer, pas seulement défiler jusqu'à lui) sans l'ajouter à l'ordre de tabulation
+         normal — exclu explicitement par le sélecteur du test Playwright de focus. -->
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+  </body>
+</html>
