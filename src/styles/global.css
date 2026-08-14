@@ -99,3 +99,20 @@
   outline: 3px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
+
+/* prefers-reduced-motion (E1-US5) — règle globale, pas de cas par cas : n'importe quelle
+   transition/animation, présente ou future, sur n'importe quel composant, est automatiquement
+   neutralisée sans qu'on ait à y penser à chaque fois. Durée quasi nulle plutôt que
+   `animation: none` : un animation-fill-mode qui amène un élément à son état final (ex. un
+   fade-in parti de opacity:0) continue de l'atteindre, juste sans mouvement perceptible —
+   `none` le laisserait bloqué dans son état de départ, potentiellement invisible pour de bon. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -202,6 +202,21 @@ function remToPx(rem: string): string {
       </ul>
     </section>
 
+    {/* Mouvement */}
+    <section class="mt-12" aria-labelledby="motion-heading">
+      <h2 id="motion-heading" class="font-heading tracking-heading text-ink text-xl">
+        Mouvement
+      </h2>
+      <p class="text-body max-w-prose mt-3 text-sm">
+        Règle globale (E1-US5), pas de cas par cas : sous{' '}
+        <code class="font-mono">prefers-reduced-motion: reduce</code>, toute transition et
+        animation — présente ou future, sur n'importe quel composant — passe automatiquement à
+        une durée quasi nulle. Rien à ajouter composant par composant ; voir le bloc{' '}
+        <code class="font-mono">@media (prefers-reduced-motion: reduce)</code> dans{' '}
+        <code class="font-mono">global.css</code>.
+      </p>
+    </section>
+
     {/* Composants */}
     <section class="mt-12" aria-labelledby="components-heading">
       <h2 id="components-heading" class="font-heading tracking-heading text-ink text-xl">
