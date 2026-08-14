@@ -3,6 +3,7 @@ import Accordion from '@/components/Accordion.astro';
 import Button from '@/components/Button.astro';
 import FormField from '@/components/FormField.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Modal from '@/components/Modal.astro';
 import Tooltip from '@/components/Tooltip.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { contrastRatio, designSystemColorPairs, MIN_CONTRAST } from '@/lib/color-contrast';
@@ -213,7 +214,7 @@ function remToPx(rem: string): string {
         Composants
       </h2>
       <p class="text-body mt-3 text-sm">
-        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f). Reste à venir : modale.
+        Construits un par un au fil de l'EPIC 1 (E1-US4a à E1-US4f).
       </p>
 
       <h3 class="font-heading tracking-heading text-ink mt-8 text-lg">Bouton</h3>
@@ -421,6 +422,43 @@ function remToPx(rem: string): string {
           triggerLabel="Pourquoi ?"
           content="Cette prestation n'est pas encore réservable. Je termine mes études de kinésithérapie et l'autorisation d'exercice finlandaise est requise avant de proposer des séances de kinésithérapie. Le coaching de force, le coaching en ligne et la rééducation animale restent disponibles."
         />
+      </div>
+
+      <h3 class="font-heading tracking-heading text-ink mt-10 text-lg">Modale</h3>
+      <p class="text-body mt-2 max-w-prose text-sm">
+        Panneau <code class="font-mono">role="dialog"</code>
+        <code class="font-mono"> aria-modal="true" </code>, rattaché à <code class="font-mono"
+          >body</code
+        > au premier déclenchement pour ne jamais être recadré par un ancêtre. Trois garanties tenues
+        explicitement en JavaScript, pas laissées au rendu natif du navigateur (dont le piégeage de focus
+        varie d'un moteur à l'autre) :
+      </p>
+      <ul class="text-body mt-2 max-w-prose list-disc pl-5 text-sm leading-relaxed">
+        <li>
+          <strong>Piège de focus</strong> : Tab en fin de modale revient au premier élément focalisable,
+          Maj+Tab en début revient au dernier — impossible d'en sortir au clavier.
+        </li>
+        <li>
+          <strong><code class="font-mono">inert</code> sur l'arrière-plan</strong> : tout le reste du
+          document (navigation, contenu de page) devient inatteignable au clavier comme au lecteur d'écran
+          tant que la modale est ouverte, pas seulement visuellement masqué.
+        </li>
+        <li>
+          <strong>Restitution du focus</strong> : à la fermeture (bouton ×, Échap, ou clic sur le fond),
+          le focus revient exactement sur le bouton qui a ouvert la modale.
+        </li>
+      </ul>
+      <div class="mt-4">
+        <Modal id="modal-demo" triggerLabel="Voir un exemple" titleText="Annuler le rendez-vous ?">
+          <p>
+            L'annulation est gratuite jusqu'à 24 heures avant le rendez-vous. Passé ce délai,
+            contactez directement le cabinet au +358 41 720 1730.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <Button variant="primary" data-modal-close>Confirmer l'annulation</Button>
+            <Button variant="outline" data-modal-close>Retour</Button>
+          </div>
+        </Modal>
       </div>
     </section>
   </div>
