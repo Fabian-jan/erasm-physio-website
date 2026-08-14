@@ -590,7 +590,7 @@ nécessaires sont disponibles, l'estimation est posée.
 - [ ] Lighthouse accessibilité 100 et performance >= 90 sur /styleguide et les pages existantes
 - [ ] Aucune donnée de santé introduite dans le système
 - [ ] Revue de code faite, code commité et poussé, CI verte sur le commit livré
-- [ ] Déployé en preview
+- [ ] Déploiement de production réussi sur le commit livré, vérifié sur Vercel
 
 **Done — US de page publiée** (EPIC 2, 4, 10 : tout ce qui produit du contenu visible) :
 
@@ -607,6 +607,12 @@ nécessaires sont disponibles, l'estimation est posée.
 > physique en fin de sprint, sur toutes les pages produites. L'émulation Playwright ne compte
 > pas.
 
+> Correctif du 14/08/2026 (2). « Déployé en preview » présupposait un flux par branches et PR
+> qui n'a jamais existé : tous les commits livrés jusqu'ici sont allés directement sur `main`,
+> jamais via une branche ou une PR. Le critère est remplacé par ce qui est réellement vérifiable
+> dans ce flux : le déploiement de production du commit livré, constaté sur le dashboard Vercel.
+> Voir §9 bis pour la bascule prévue vers un flux par branches et preview.
+
 ---
 
 ## 9 bis. Décisions différées
@@ -622,6 +628,19 @@ Décision, à appliquer quand ce seuil est atteint (pas avant) : passer d'un aud
 langue, une page ville, `/styleguide` — plutôt que chaque URL réelle. Noté ici pour ne pas le
 découvrir en urgence le jour où la CI devient trop lente ; rien à faire tant qu'on est sous le
 seuil.
+
+**Passage à un flux par branches avec PR et preview.** Aujourd'hui (sprint 1), tous les commits
+vont directement sur `main` : pas de branche, pas de PR, pas de preview Vercel générée avant mise
+en production. Ce n'est pas un problème tant que le risque d'une régression est faible et
+rapidement réversible — c'est le cas pour le socle technique et le design system.
+
+Décision, à appliquer au sprint 4 (pas avant) : basculer vers un flux par branches avec PR et
+review avant fusion sur `main`, chaque PR générant une preview Vercel vérifiable avant mise en
+production. Déclencheur : le démarrage du moteur de réservation (EPIC 5), à partir duquel une
+régression a de vraies conséquences (créneau perdu, double réservation, RDV cassé) plutôt qu'un
+défaut visuel sur une page vitrine. Noté ici pour ne pas improviser ce changement de flux sous
+pression une fois le moteur en cours de développement ; rien à faire tant qu'on est avant le
+sprint 4.
 
 ---
 
