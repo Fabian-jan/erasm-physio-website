@@ -18,9 +18,10 @@ yarn-error.log*
 pnpm-debug.log*
 
 
-# environment variables
-.env
-.env.production
+# variables d'environnement : tout .env* est ignoré par défaut (liste blanche), sauf l'exemple
+# versionné — pour qu'aucune variable réelle ne puisse atterrir dans le dépôt par oubli.
+.env*
+!.env.example
 
 # macOS-specific files
 .DS_Store
