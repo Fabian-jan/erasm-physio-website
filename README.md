@@ -23,6 +23,14 @@ backlog Scrum.
 Avant le premier `npm run test:e2e` ou `npm run check`, installer les navigateurs Playwright
 une fois : `npx playwright install --with-deps chromium`.
 
+## Version de Node
+
+Version unique pour les trois environnements, définie dans `.nvmrc` et `package.json`
+(`engines.node`) : Vercel et CI la lisent tous deux automatiquement (CI via
+`node-version-file: '.nvmrc'`). En local, `nvm use` s'aligne dessus. Resserrée le 14/08/2026 :
+`astro-eslint-parser` et `eslint-plugin-astro` (dépendances de dev, sans effet sur le rendu)
+déclarent des `engines` incompatibles avec la version que Vercel sélectionnait par défaut.
+
 ## Variables d'environnement
 
 Schéma et types dans `src/lib/env.schema.ts` ; valeurs d'exemple dans `.env.example`.
