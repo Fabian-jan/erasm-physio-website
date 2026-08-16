@@ -18,6 +18,10 @@ Brief complet et backlog : @docs/erasm-physio-brief-et-backlog.md
 5. **Flux humains et flux animaux séparés dès le modèle de données** — régimes juridiques et
    durées de conservation distincts.
 6. **Données et hébergement dans l'UE.**
+7. **Registre de rédaction coaching / entraînement / bien-être, tant que l'autorisation Valvira
+   n'est pas obtenue.** Mots interdits sur tout le site : *assessment*, *rehabilitation*,
+   *injury*, *treatment*, *recovery protocol*, *patient*. On dit *client*, jamais *patient*.
+   Contenu source et détail : @docs/contenu-canva.md.
 
 ## Stack
 
@@ -50,18 +54,35 @@ prestation. Ne jamais afficher une clé de traduction brute : fallback explicite
 
 ## Prestations
 
+Source : @docs/contenu-canva.md — contenu réel d'Enzo, arbitrages du 14/08/2026. Remplace
+intégralement l'ancienne liste issue des maquettes d'application, périmée (ni les intitulés ni
+les prix ne correspondaient encore à l'offre réelle).
+
 | Prestation | Durée / format | Prix | Réservable |
 |---|---|---|---|
-| 1:1 Physiotherapy Session | 60 min, studio Pori | 55 € | ❌ |
-| Injury Rehab Plan | 6 semaines, 4 points | 180 € | ❌ |
-| Strength & Conditioning | programmation mensuelle | 90 € | ✅ |
-| Online Coaching Call | 45 min, visio | 40 € | ✅ |
-| Animal Rehab Session | 60 min, chiens et chevaux, sur site | 60 € | ✅ |
+| Physiotherapy session | 45–60 min | 70 € | ❌ `bookable: false` — attente autorisation Valvira |
+| Massage | 30 min | 30 € | ✅ |
+| Massage | 45 min | 40 € | ✅ |
+| Massage | 60 min | 50 € | ✅ |
+| Animal Massage | — | 50 € | ✅ |
+| Full-Body Mobility | 4 semaines, 7 séances/semaine | 50 € | ✅ |
+| Strength Program | 4 semaines, 3 séances/semaine, full body | 40 € | ✅ |
+| Personalized Program | 4 semaines, 3 séances | 55 € | ✅ |
+| Individual Coaching | 60 min | 60 € | ✅ |
+| Individual Coaching | 45 min | 50 € | ✅ |
+| Group training | 60 min, minimum 3 personnes | 6 €/personne | ✅ |
+
+Déplacement : 0,40 €/km, supplément — pas une prestation autonome, ne pas la lister comme telle.
+**Taping supprimé de l'offre** (décision du 14/08/2026) : ne doit apparaître nulle part sur le
+site.
 
 Les prestations non réservables restent **visibles**, désactivées via `aria-disabled="true"`
 (jamais `opacity: .5` seul — ça casse le contraste), avec une infobulle accessible expliquant
 l'attente de l'autorisation d'exercice Valvira. L'état est piloté par un champ `bookable` en
-base, basculable depuis le back-office sans redéploiement.
+base, basculable depuis le back-office sans redéploiement. Le prix de la Physiotherapy session
+(70 €) est renseigné en base dès maintenant : le jour où l'autorisation tombe, basculer
+`bookable` à `true` doit suffire à ouvrir la réservation, sans redéploiement ni modification de
+code.
 
 ## Parcours de réservation
 

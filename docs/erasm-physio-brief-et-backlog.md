@@ -204,12 +204,58 @@ libellé marine (9,6:1), jamais blanc. C'est le seul écart bloquant que j'ai tr
 - **Lieu** : studio de Pori (28100), visites à domicile et en écurie, distanciel
 - **Contact** : +358 41 720 1730 · erasmphysio@gmail.com · @erasmphysio
 - **Horaires** : lun–ven 08:00–18:00 · samedi sur arrangement · dimanche fermé
-- **5 prestations** : 1:1 Physiotherapy 60 min 55 € · Injury Rehab Plan 6 semaines 180 € ·
-  Strength & Conditioning mensuel 90 € · Online Coaching Call 45 min 40 € ·
-  Animal Rehab Session 60 min 60 €
-- **Filtres** : All / People / Animals / Online
+- **Prestations** *(❌ périmé — voir remplacement daté du 14/08/2026 juste en dessous)* :
+  ~~1:1 Physiotherapy 60 min 55 € · Injury Rehab Plan 6 semaines 180 € · Strength & Conditioning
+  mensuel 90 € · Online Coaching Call 45 min 40 € · Animal Rehab Session 60 min 60 €~~
+- **Filtres** : All / People / Animals / Online — ⚠️ à revérifier avec Enzo : le contenu Canva
+  ne confirme pas ces catégories, et sa navigation (Home · About · Services · Contact) diffère
+  de la barre d'onglets du design system (Home · Book · About). Point à trancher avant l'EPIC 2.
 - **Règle d'annulation** : gratuite jusqu'à 24 h avant — cohérent avec E5-US9
 - **Week-ends** : ouverts sur arrangement pour les visites animales
+
+### Prestations — remplacement du 14/08/2026
+
+La liste ci-dessus provenait des maquettes d'application et était périmée : ni les intitulés ni
+les prix ne correspondaient à l'offre réelle. Remplacée par le contenu réel d'Enzo, arbitrages
+intégrés — source complète : @docs/contenu-canva.md.
+
+**Séances individuelles**
+
+| Prestation | Durée | Prix | Réservable |
+|---|---|---|---|
+| Physiotherapy session | 45–60 min | 70 € | ❌ `bookable: false` — attente autorisation Valvira |
+| Massage | 30 min | 30 € | ✅ |
+| Massage | 45 min | 40 € | ✅ |
+| Massage | 60 min | 50 € | ✅ |
+| Animal Massage | — | 50 € | ✅ |
+
+Déplacement : 0,40 €/km, supplément — pas une prestation autonome.
+
+**Programmes et coaching**
+
+| Prestation | Format | Prix | Réservable |
+|---|---|---|---|
+| Full-Body Mobility | 4 semaines, 7 séances/semaine | 50 € | ✅ |
+| Strength Program | 4 semaines, 3 séances/semaine, full body | 40 € | ✅ |
+| Personalized Program | 4 semaines, 3 séances | 55 € | ✅ |
+| Individual Coaching | 60 min | 60 € | ✅ |
+| Individual Coaching | 45 min | 50 € | ✅ |
+| Group training | 60 min, minimum 3 personnes | 6 €/personne | ✅ |
+
+**Taping supprimé de l'offre** (décision du 14/08/2026) : ne doit apparaître nulle part sur le
+site. Le prix de la Physiotherapy session (70 €) est renseigné en base dès maintenant : le jour
+où l'autorisation Valvira tombe, basculer `bookable` à `true` doit suffire à ouvrir la
+réservation, sans redéploiement ni modification de code.
+
+**Registre de rédaction**, tant que l'autorisation n'est pas obtenue : coaching, entraînement,
+bien-être. Mots interdits : *assessment*, *rehabilitation*, *injury*, *treatment*, *recovery
+protocol*, *patient*. On dit *client*, jamais *patient*. Détail : @docs/contenu-canva.md.
+
+⚠️ **Point à vérifier avec Enzo avant publication** (signalé dans le contenu source) : le massage
+animal est le registre le plus sûr, mais toute formulation glissant vers *animal physiotherapy*
+ou *animal rehab* mérite vérification — en Finlande, le traitement des animaux malades relève de
+la législation vétérinaire, distincte de Valvira, jamais explorée dans ce document (§2 ne traite
+que du régime humain).
 
 ---
 
@@ -245,27 +291,28 @@ simplifie durablement la conformité.
 Tant que l'autorisation Valvira n'est pas obtenue, les prestations de kinésithérapie destinées
 aux humains sont **visibles mais désactivées**, avec une explication accessible.
 
-Répartition retenue (à corriger si elle ne correspond pas à la réalité) :
+Répartition retenue, mise à jour le 14/08/2026 sur le contenu réel (@docs/contenu-canva.md) —
+la version d'origine référençait des prestations qui n'existent plus dans l'offre :
 
 | Prestation | État v1 | Motif |
 |---|---|---|
-| 1:1 Physiotherapy Session | 🔒 non réservable | Acte de kinésithérapie, profession réglementée |
-| Injury Rehab Plan | 🔒 non réservable | Rééducation, même régime |
-| Online Coaching Call | ✅ réservable | Coaching pur, sans acte de rééducation — confirmé le 13/08/2026 |
-| Strength & Conditioning | ✅ réservable | Coaching sportif, non réglementé |
-| Animal Rehab Session | ✅ réservable | Chiens et chevaux : hors Valvira, hors Soteri, hors Kanta |
+| Physiotherapy session | 🔒 non réservable | Acte de kinésithérapie, profession réglementée |
+| Massage (30/45/60 min) | ✅ réservable | Massage bien-être, hors kinésithérapie clinique |
+| Animal Massage | ✅ réservable | Hors Valvira, hors Soteri, hors Kanta — ⚠️ vocabulaire à surveiller, voir note ci-dessus |
+| Programmes et coaching (Full-Body Mobility, Strength Program, Personalized Program, Individual Coaching, Group training) | ✅ réservable | Coaching sportif, non réglementé |
 
 Le message de l'infobulle, à traduire dans les 3 langues :
 
 > *Cette prestation n'est pas encore réservable. Je termine mes études de kinésithérapie et
 > l'autorisation d'exercice finlandaise est requise avant de proposer des séances de
-> kinésithérapie. Le coaching de force, le coaching en ligne et la rééducation animale restent
+> kinésithérapie. Le massage, les programmes de coaching et le massage animal restent
 > disponibles.*
 
-⚠️ La fiche « Online Coaching Call » doit être reformulée en conséquence : la maquette parle
-d'*assessment* et d'*exercise plan*, vocabulaire de rééducation. Il faut la réécrire en
-vocabulaire de coaching (objectifs, programmation, technique) pour que le contenu corresponde
-au statut réservable. C'est une correction de contenu, pas de code — mais elle est bloquante.
+⚠️ Ce message remplace la version du 13/08/2026, qui référençait « le coaching de force, le
+coaching en ligne et la rééducation animale » — des intitulés qui n'existent plus dans l'offre.
+Le composant Infobulle du styleguide (E1-US4e) utilise encore l'ancien texte : à mettre à jour
+avant l'intégration réelle dans les fiches de prestation (E5-US10/US11), pas avant — ce n'est
+pas un correctif de code isolé, il doit suivre l'arbitrage définitif du contenu par Enzo.
 
 Ce choix n'est pas qu'une contrainte : afficher les prestations à venir en expliquant pourquoi
 construit la crédibilité et prépare la demande pour le jour où la licence tombe.
