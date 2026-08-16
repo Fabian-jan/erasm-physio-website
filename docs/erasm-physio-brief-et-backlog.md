@@ -498,6 +498,12 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > → Sastamala (2009, renommage). Turku exclue (≈ 140 km, hors rayon). Carte reportée à l'EPIC 4,
 > avec le reste du SEO local, à la création du Google Business Profile.
 
+> ✅ **Relecture FI levée, 16/08/2026.** Le contenu FI de E2-US4, E2-US5 et E2-US6 a été relu par
+> une locutrice native (la femme d'Enzo) — ce n'est plus un premier jet machine. Le critère DoD
+> « Contenu présent en FI, EN et SV » est désormais rempli pour le FI et l'EN sur ces trois US.
+> **Le SV reste non relu** : toujours un premier jet machine, toujours bloquant pour la DoD tant
+> qu'une relecture native suédophone n'a pas eu lieu.
+
 ---
 
 ### EPIC 3 — Internationalisation FI / EN / SV
