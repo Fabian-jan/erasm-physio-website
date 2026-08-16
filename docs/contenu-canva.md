@@ -53,13 +53,14 @@ injuries*) incompatible avec le statut d’étudiant. Version à valider par Enz
 > 
 > 
 > I’m a strength and conditioning coach with over three years of experience in training and
-> movement, and I’m currently completing my physiotherapy studies. I’ve also been trained in
-> basic animal massage.
+> movement, and I’m currently completing my physiotherapy studies. I’m also building my knowledge
+> of animal movement and care — through hands-on farrier work and ongoing study, on my own and
+> through coursework at SAMK — though I’m not yet certified in this area.
 > 
 > **What I offer today:** individual and group coaching, structured strength and mobility
-> programmes, and massage for people and animals. My work is built on structured programming,
-> progressive training and clear goals — so you can follow your progress week after week rather
-> than guess at it.
+> programmes, recovery massage for people and animals, and movement analysis for horse and rider.
+> My work is built on structured programming, progressive training and clear goals — so you can
+> follow your progress week after week rather than guess at it.
 > 
 > **What comes next:** physiotherapy and rehabilitation sessions. These require a Finnish
 > practice licence, which I will apply for once my studies are complete. Until then, those
@@ -79,12 +80,21 @@ bien-être. À conserver tel quel.
 
 ---
 
-## ⚠️ Point à vérifier — prestations animales
+## Prestations animales — clarifié par Enzo le 16/08/2026
 
-Le massage animal est proposé comme tel, ce qui est le registre le plus sûr. En revanche, toute
-formulation glissant vers *animal physiotherapy* ou *animal rehab* mérite une vérification : en
-Finlande, le traitement des animaux malades relève de la législation vétérinaire, distincte de
-Valvira. À confirmer avec Enzo avant d’employer ce vocabulaire sur le site.
+**Correction importante** : le texte de présentation affichait *« I've also been trained in basic
+animal massage »*. C'était faux — Enzo n'a aucune formation certifiante en massage animal.
+Corrigé ci-dessus.
+
+Ce qu'il fait réellement avec les animaux, tel que décrit par lui : du massage comme moyen de
+**récupération** (pas de la thérapie par le massage), et de l'**analyse de mouvement du cheval et
+du cavalier**, avec du renforcement ciblé. Il se forme activement sur le sujet — à titre
+personnel et via la SAMK — mais **n'est pas diplômé** dans ce domaine. Il est par ailleurs
+maréchal-ferrant.
+
+Le massage animal reste le registre le plus sûr (confirmé). Toute formulation glissant vers
+*animal physiotherapy* ou *animal rehab* reste à éviter : en Finlande, le traitement des animaux
+malades relève de la législation vétérinaire, distincte de Valvira — non traité par ce projet.
 
 ---
 
@@ -103,19 +113,154 @@ correct, à reprendre sans réécriture.
 
 ## Contenus encore manquants
 
-Sections présentes comme titres dans le Canva, sans texte. À fournir par Enzo.
+Sections présentes comme titres dans le Canva, sans texte.
 
-**Page Programs**, pour chacun des programmes :
-- What is this program?
-- How long does it take to complete?
-- Outcomes
+**Page Programs**, pour chacun des programmes : réponses générales obtenues le 16/08/2026
+(voir section suivante) — pas de détail spécifique par programme au-delà de ça ; les
+descriptions par prestation en tirent ce qu'elles peuvent, le reste est marqué `TODO`.
 
-**Page About** :
-- Presentation
-- Background
-- Methodology
+**Page About** : réponses obtenues le 16/08/2026, voir section suivante.
 
 **Page Contact** : le formulaire est un placeholder.
+
+---
+
+## Réponses d'Enzo — interview du 16/08/2026
+
+Collectées via le questionnaire préparé pour l'interview. Registre brut de l'interview (voir
+correction de vocabulaire ci-dessous avant toute publication).
+
+**Parcours** :
+- BPJEPS Haltérophilie / Musculation, obtenu en 2024, préparé dans une salle de CrossFit
+  orientée sport-santé
+- Étudiant en 2ᵉ année de physiothérapie à la SAMK, à Pori
+- Coach à la SAMK : cross-training, kettlebell, travail technique des mouvements de base
+- Expérience de coaching : CrossFit, strongman, équitation
+- Également maréchal-ferrant
+- Se forme activement à la kinésithérapie animale, à titre personnel et via la SAMK — non
+  diplômé dans ce domaine
+- Histoire : la salle sport-santé lui a donné envie d'approfondir la connaissance du corps
+  humain, d'où les études de kiné, choisies à l'étranger par goût de l'international. L'intérêt
+  pour les animaux et les chevaux est venu après sa rencontre avec sa femme.
+
+**Ce qui le distingue** (matière pour la page d'accueil) :
+- Adaptation de chaque mouvement aux besoins de la personne
+- Programmation sur mesure
+- Accueil des débutants complets et de la découverte de l'activité physique
+- Amélioration du quotidien, pas seulement de la performance
+- Tarifs volontairement abordables, pour rendre l'activité physique encadrée accessible au plus
+  grand nombre
+
+**Sa méthode** (matière pour la page À propos) :
+- Premier contact : appel ou rencontre gratuite pour parler des objectifs et des envies
+- Puis un plan construit ensemble, adapté à la personne : contraintes physiques, emploi du
+  temps, charge mentale
+- Début de chaque séance : point sur la forme du jour (fatigue, stress) pour adapter la séance
+- Pendant : reprise des mouvements de base, retours auditifs/visuels/physiques si besoin, notes
+  prises sur chaque série (charge, intensité, récupération)
+- Fin de séance : retour au calme, débrief, point sur la suite du programme, conseils de
+  récupération pour la semaine
+- Disponible entre les séances
+- Séances orientées objectifs, et volontairement agréables
+
+**Pratique, pour toutes les prestations de coaching** :
+- Rien à préparer, sauf un sac de sport : tenue, bouteille d'eau, serviette
+- Rythme conseillé : 2 à 3 fois par semaine. 1 fois peut suffire pour quelqu'un d'expérimenté ou
+  n'ayant pas besoin de suivi rapproché
+
+**Photo** : à venir, fournie par Enzo — emplacement à prévoir sur accueil et à propos, ne pas
+bloquer dessus en attendant.
+
+**Relecture FI/SV** : confirmée par la femme d'Enzo.
+
+⚠️ **Correction de vocabulaire obligatoire avant toute publication.** Les réponses brutes
+d'Enzo emploient *réhabilitation*, *assessment*, *pathologie*, *prehab* — vocabulaire de terrain,
+pas celui du site tant que l'autorisation Valvira n'est pas obtenue. Traductions à appliquer
+partout : *réhabilitation* → retour à l'activité, progression ; *assessment* → point de départ,
+échange sur les objectifs ; *pathologie* → contraintes, historique sportif ; *massage
+thérapeutique* → massage de récupération. Aucune promesse de résultat de santé (*soulage*,
+*soigne*, *traite*, *guérit*) dans le contenu publié.
+
+---
+
+## Propositions de description par prestation — EN ATTENTE DE VALIDATION PAR ENZO
+
+Rédigées le 16/08/2026 à partir des réponses ci-dessus. **Ne pas publier ni intégrer dans une
+page avant validation explicite.** Registre coaching/entraînement uniquement, aucune promesse de
+résultat de santé, `TODO` posé partout où le contenu est déduit plutôt que fourni par Enzo.
+
+**1. Physiotherapy session** (45–60 min · €70 · not yet bookable)
+> A one-to-one session focused on your movement and physical goals, guided by someone completing
+> advanced training in physiotherapy. This service isn't bookable yet: a Finnish practice licence
+> is required before physiotherapy sessions can be offered, and Enzo would rather be upfront
+> about that than approximate what he can offer.
+>
+> `TODO` : structure exacte de la séance — non définie par Enzo, prestation pas encore active.
+
+**2. Massage** (30 / 45 / 60 min · €30 / €40 / €50)
+> A recovery-focused massage to release tension built up from training and daily life, and
+> support general wellbeing. Available in three lengths — 30, 45 or 60 minutes — so it can fit a
+> single hard week or become part of a regular routine. No preparation needed beyond comfortable
+> clothing.
+>
+> Aucun TODO — reprend le registre du texte Canva déjà validé (détente, relâchement, bien-être).
+
+**3. Animal Massage** (— · €50)
+> Recovery-focused massage for horses, combined with movement analysis of horse and rider and
+> targeted strengthening work. Enzo is actively building his knowledge in this area — on his own
+> and through coursework at SAMK — and is not yet certified in animal care; this service is
+> offered on that basis.
+>
+> `TODO` : le prix actuel (50 €) ne précise pas l'espèce. Les réponses d'Enzo ne parlent que de
+> chevaux et cavaliers (et il est maréchal-ferrant) ; une version antérieure du projet mentionnait
+> aussi les chiens. À trancher avec Enzo avant publication — ne pas assumer que les chiens restent
+> inclus.
+
+**4. Full-Body Mobility** (4 weeks, 7 sessions/week · €50)
+> A four-week mobility program with a session most days of the week, designed to improve how your
+> body moves as a whole. Sessions are adapted to your own starting point and goals, starting with
+> a short call or meeting to talk through what you want to get out of it.
+>
+> `TODO` : exercices précis et résultats attendus — non détaillés par Enzo, méthode générale de
+> coaching reprise ici en base.
+
+**5. Strength Program** (4 weeks, 3 sessions/week, full body · €40)
+> A four-week strength program, three sessions a week, covering the full body. Each plan is built
+> around you — your schedule, your current strength level, and what you want to achieve —
+> starting with a short call or meeting to set goals before the program begins.
+>
+> `TODO` : exercices précis et logique de progression — non détaillés par Enzo.
+
+**6. Personalized Program** (4 weeks, 3 sessions · €55)
+> A four-week program built entirely around you. It starts with a free introductory call or
+> meeting to talk through your goals and constraints — schedule, physical limitations, whatever's
+> relevant — followed by a plan designed specifically for that. Each session opens with a quick
+> check-in on how you're feeling that day, moves through your programmed work with feedback along
+> the way, and closes with a cool-down and a look at what's next. Enzo stays reachable between
+> sessions.
+>
+> Aucun TODO — directement issu de la méthode décrite par Enzo.
+
+**7. Individual Coaching** (60 min / 45 min)
+> A one-to-one coaching session built around your own goals — general fitness, a specific sport,
+> or simply moving better day to day. Sessions open with a quick check-in on how you're feeling,
+> move through your programmed work with feedback as you go, and close with a cool-down and a
+> look ahead at your next session. Available in 45 or 60 minutes.
+>
+> Aucun TODO — directement issu de la méthode décrite par Enzo.
+
+**8. Group training** (60 min, minimum 3 people · €6/person)
+> A 60-minute group session (minimum three people), designed to be an accessible way into
+> structured training — including for complete beginners. Same coaching approach as one-to-one
+> sessions, adapted for a group setting: goal-focused, but kept enjoyable.
+>
+> `TODO` : format précis de la séance de groupe — non détaillé par Enzo au-delà de la méthode
+> générale ci-dessus.
+
+Rappel pratique commun (à placer près du CTA de réservation sur les prestations de coaching,
+pas dans la description elle-même) : rien à préparer sauf un sac de sport (tenue, eau, serviette) ;
+rythme conseillé 2 à 3 fois par semaine, 1 fois pouvant suffire pour une personne expérimentée ou
+n'ayant pas besoin de suivi rapproché.
 
 ---
 
