@@ -453,6 +453,15 @@ d'accessibilité par sabotage (le test doit échouer si on retire l'attribut ARI
 **Critères d'acceptation E2-US2** — chaque page : `h1` unique, description du problème traité,
 déroulé de séance, durée, tarif, CTA de réservation, JSON-LD `MedicalProcedure`.
 
+> ⚠️ **E2-US4 et E2-US6 — statut du contenu, 16/08/2026.** Construites et poussées en FI/EN/SV,
+> mais le contenu FI et SV est un **premier jet machine** (traduit par l'assistant IA depuis le
+> contenu source anglais, à la demande explicite de l'utilisateur qui a écarté pour ces deux
+> pages la règle « traduction humaine uniquement », normalement absolue en internationalisation).
+> L'EN reprend directement `docs/contenu-canva.md`, contenu réel d'Enzo — fiable. Le FI et le SV
+> n'ont **pas** été relus par un locuteur natif. Ni l'une ni l'autre US ne peut être marquée Done
+> au sens de la DoD (§9, « Contenu présent en FI, EN et SV ») tant que cette relecture n'a pas eu
+> lieu. Ne pas perdre ce statut de vue au fil des sprints suivants.
+
 ---
 
 ### EPIC 3 — Internationalisation FI / EN / SV
