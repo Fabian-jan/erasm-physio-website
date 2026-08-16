@@ -447,11 +447,19 @@ d'accessibilité par sabotage (le test doit échouer si on retire l'attribut ARI
 | E2-US2 | En tant que visiteur, je veux une page par prestation afin de savoir si mon problème est traité | 8 |
 | E2-US3 | En tant que visiteur, je veux une page « à propos » avec parcours et diplômes afin d'avoir confiance | 3 |
 | E2-US4 | En tant que visiteur, je veux une page tarifs claire afin de savoir combien je vais payer | 3 |
-| E2-US5 | En tant que visiteur, je veux une page accès (carte, transports, stationnement, accessibilité PMR du cabinet) afin de venir sans stress | 3 |
+| E2-US5 | En tant que visiteur, je veux une page zone d'intervention (rayon d'action, tarif kilométrique, villes couvertes) afin de savoir si Enzo peut se déplacer chez moi | 3 |
 | E2-US6 | En tant que visiteur, je veux une page 404 utile afin de retrouver mon chemin | 1 |
 
 **Critères d'acceptation E2-US2** — chaque page : `h1` unique, description du problème traité,
 déroulé de séance, durée, tarif, CTA de réservation, JSON-LD `MedicalProcedure`.
+
+**Critères d'acceptation E2-US5** — la page annonce le rayon d'intervention (100 km autour de
+Pori), les modalités (domicile, écurie, distanciel) et le tarif kilométrique (0,40 €/km, identique
+quel que soit le type de visite) ; elle cite explicitement les villes significatives de la zone en
+texte visible (c'est ce texte, pas le rayon en JSON-LD, qui fait remonter le site sur les
+recherches locales de ces villes) ; l'adresse personnelle d'Enzo (domicile privé, pas un lieu
+recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JSON-LD
+`LocalBusiness` avec `areaServed` en `GeoCircle` (centre Pori, rayon 100 000 m).
 
 > ⚠️ **E2-US4 et E2-US6 — statut du contenu, 16/08/2026.** Construites et poussées en FI/EN/SV,
 > mais le contenu FI et SV est un **premier jet machine** (traduit par l'assistant IA depuis le
@@ -461,6 +469,21 @@ déroulé de séance, durée, tarif, CTA de réservation, JSON-LD `MedicalProced
 > n'ont **pas** été relus par un locuteur natif. Ni l'une ni l'autre US ne peut être marquée Done
 > au sens de la DoD (§9, « Contenu présent en FI, EN et SV ») tant que cette relecture n'a pas eu
 > lieu. Ne pas perdre ce statut de vue au fil des sprints suivants.
+
+> ⚠️ **E2-US5 — repivotée en « zone d'intervention », 16/08/2026.** La page « accès » supposait un
+> lieu recevant du public (carte, stationnement, transports, accessibilité PMR) ; l'adresse
+> d'Enzo est en réalité un domicile privé. Repivotée en page « zone d'intervention » : rayon
+> d'action (100 km autour de Pori), modalités (domicile, écurie, distanciel), tarif kilométrique.
+> Les trois anciens TODO (stationnement, transports, PMR) sont retirés — sans objet pour ce type
+> de prestataire, pas oubliés. L'adresse complète d'Enzo (Taiteilijankatu 1, 28100 Pori) est
+> enregistrée dans `src/lib/local-business.ts` en commentaire pour un futur système de
+> réservation, mais **volontairement absente** du JSON-LD lui-même — voir la note dans ce fichier :
+> les données structurées sont lisibles par Google indépendamment du rendu visuel de la page,
+> donc une adresse complète en JSON-LD peut fuiter publiquement une adresse jamais affichée à
+> l'écran. Le JSON-LD ne porte que la localité (Pori, 28100, FI) et un `areaServed` en
+> `GeoCircle`. La liste des villes couvertes reste elle-même un TODO le temps de la validation par
+> l'utilisateur (US en cours d'échange au moment de ce commit) : ne pas la considérer Done tant
+> qu'elle n'est pas intégrée.
 
 ---
 

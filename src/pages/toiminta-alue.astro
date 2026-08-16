@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import TodoNotice from '@/components/TodoNotice.astro';
+import { localBusiness } from '@/lib/local-business';
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/toiminta-alue/' },
+  { code: 'en' as const, label: 'English', href: '/en/service-area/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/verksamhetsomrade/' },
+];
+---
+
+<BaseLayout title="Toiminta-alue — ERASM PHYSIO" lang="fi">
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusiness)} />
+  </Fragment>
+
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="fi" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Toiminta-alue</h1>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      ERASM PHYSIO toimii Porista käsin, kotikäynteinä ja tallikäynteinä 100 km säteellä — sekä
+      etävastaanottona kaikkialta.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Näin käynnit toimivat</h2>
+    <p class="text-body mt-2 max-w-prose text-sm">
+      Käynnit kotiin ja talliin (eläimille), sekä etävastaanotto.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Matkakulu</h2>
+    <p class="text-body mt-2 max-w-prose text-sm">
+      Koti- ja tallikäynneistä veloitetaan 0,40 €/km, käyntityypistä riippumatta.
+    </p>
+
+    <TodoNotice label="Kaupunkiluettelo">
+      Tarkka luettelo toiminta-alueen kaupungeista puuttuu vielä — täydennetään, kun Enzo on
+      vahvistanut listan.
+    </TodoNotice>
+  </div>
+</BaseLayout>
