@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+
+// Foto av Enzo kommer senare (tillhandahålls separat, se docs/contenu-canva.md) — plats
+// reserverad här, bredvid "Bakgrund", blockerar inte publiceringen än så länge.
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/minusta/' },
+  { code: 'en' as const, label: 'English', href: '/en/about/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/om-mig/' },
+];
+
+const background = [
+  'BPJEPS Haltérophilie / Musculation (ett franskt tränarcertifikat), avslutat 2024, utbildning vid ett CrossFit-gym med fokus på hälsofrämjande träning',
+  'Andraårsstudent i fysioterapi vid SAMK, i Pori',
+  'Coachar vid SAMK: cross-training, kettlebell, teknik för grundläggande rörelser',
+  'Coachingbakgrund: CrossFit, strongman, ridsport',
+  'Även utbildad hovslagare',
+  'Bygger aktivt sin kunskap om djurs rörelse och omvårdnad, på egen hand och genom SAMK — inte ännu certifierad inom området',
+];
+
+const method = [
+  'Första kontakten: ett samtal eller ett kostnadsfritt introduktionsmöte för att prata om mål och önskemål',
+  'En plan som byggs tillsammans, med hänsyn till schema, fysiska begränsningar och mental belastning',
+  'I början av varje pass: en snabb koll på hur du mår den dagen (trötthet, stress), så att passet kan anpassas',
+  'Under passet: genomgång av grundläggande rörelser, muntlig, visuell och vid behov fysisk feedback, anteckningar på varje set (belastning, intensitet, återhämtning)',
+  'I slutet av passet: nedvarvning, avstämning, en blick på nästa steg, återhämtningstips för veckan',
+  'Nåbar mellan passen',
+  'Passen är målinriktade, och görs medvetet trevliga',
+];
+---
+
+<BaseLayout
+  title="Om mig — ERASM PHYSIO"
+  description="Enzo Janczewski, ERASM PHYSIO: bakgrund, utbildning och arbetssätt. Fysioterapistudent vid SAMK, styrke- och rörelsecoach i Pori."
+  lang="sv"
+>
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="sv" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Om mig</h1>
+
+    <p class="text-body mt-6 max-w-prose text-sm">
+      Ett hälsofrämjande gym väckte mitt intresse för att förstå kroppen på djupet, vilket ledde
+      till fysioterapistudier — jag valde att studera utomlands för det internationella. Intresset
+      för djur och hästar kom senare, efter att jag träffade min fru.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Bakgrund</h2>
+    <ul class="text-body mt-4 flex flex-col gap-2 text-sm">
+      {
+        background.map((item) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true">·</span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Så jobbar jag</h2>
+    <ul class="text-body mt-4 flex flex-col gap-2 text-sm">
+      {
+        method.map((item) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true">·</span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

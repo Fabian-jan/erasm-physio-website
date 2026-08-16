@@ -30,6 +30,9 @@ module.exports = {
         'http://localhost/palvelut/fysioterapiakaynti/index.html',
         'http://localhost/en/services/physiotherapy-session/index.html',
         'http://localhost/sv/tjanster/fysioterapibesok/index.html',
+        'http://localhost/minusta/index.html',
+        'http://localhost/en/about/index.html',
+        'http://localhost/sv/om-mig/index.html',
       ],
     },
     assert: {

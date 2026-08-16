@@ -472,6 +472,18 @@ aucune promesse de santé » — voir le commit `9083d07`).
 > encore intégrée (à venir, emplacement prévu en commentaire dans le code) — ne bloque pas la
 > publication du reste.
 
+> ✅ **E2-US3 livrée le 16/08/2026.** Page à propos en FI/EN/SV (`src/pages/minusta.astro`,
+> `en/about.astro`, `sv/om-mig.astro`) : parcours et méthode directement issus de l'interview
+> d'Enzo (`docs/contenu-canva.md`). Vocabulaire volontairement aligné sur celui déjà utilisé pour
+> l'accueil et les prestations animales : « connaissance du mouvement et des soins animaliers »,
+> jamais « kinésithérapie animale » (l'interview d'Enzo employait ce terme, mais la note du
+> 16/08/2026 sur les prestations animales met explicitement en garde contre tout vocabulaire
+> glissant vers la kinésithérapie/physiothérapie animale — régime vétérinaire distinct, non
+> traité par ce projet). BPJEPS Haltérophilie / Musculation conservé tel quel dans les trois
+> langues : c'est un diplôme français nommé, pas un intitulé à traduire. Même statut FI/SV
+> premier jet machine que le reste du contenu neuf de ce sprint. Photo d'Enzo : même traitement
+> que E2-US1, emplacement prévu, ne bloque pas.
+
 **Critères d'acceptation E2-US4**, formalisés le 16/08/2026 sur l'implémentation déjà livrée —
 la page liste les onze lignes de tarifs (huit prestations distinctes, certaines déclinées en
 plusieurs durées) groupées par catégorie (séances individuelles / programmes et coaching), avec

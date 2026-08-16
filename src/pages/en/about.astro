@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+
+// Photo of Enzo to come (provided separately, see docs/contenu-canva.md) — space reserved here,
+// next to "Background", not blocking publication in the meantime.
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/minusta/' },
+  { code: 'en' as const, label: 'English', href: '/en/about/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/om-mig/' },
+];
+
+const background = [
+  'BPJEPS Haltérophilie / Musculation (a French vocational coaching diploma), completed in 2024, trained at a CrossFit gym with a sport-health focus',
+  'Second-year physiotherapy student at SAMK, in Pori',
+  'Coaches at SAMK: cross-training, kettlebell work, fundamental movement technique',
+  'Coaching background: CrossFit, strongman, equestrian sports',
+  'Also a qualified farrier',
+  'Actively building his knowledge of animal movement and care, on his own and through SAMK — not yet certified in this area',
+];
+
+const method = [
+  "First contact: a call or a free introductory meeting to talk through goals and what you're looking for",
+  'A plan built together, factoring in schedule, physical constraints, and mental load',
+  "Start of each session: a quick check on how you're feeling that day (fatigue, stress), so the session can adapt",
+  'During the session: working through fundamental movements, verbal, visual and hands-on feedback as needed, notes taken on every set (load, intensity, recovery)',
+  "End of session: cool-down, debrief, a look at what's next, recovery tips for the week",
+  'Reachable between sessions',
+  'Sessions built around your goals, and kept genuinely enjoyable',
+];
+---
+
+<BaseLayout
+  title="About — ERASM PHYSIO"
+  description="Enzo Janczewski, ERASM PHYSIO: background, training, and how he works. Physiotherapy student at SAMK, strength and movement coach in Pori."
+  lang="en"
+>
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="en" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">About</h1>
+
+    <p class="text-body mt-6 max-w-prose text-sm">
+      A sport-health-focused gym sparked my interest in understanding the human body in more depth,
+      which led me to physiotherapy studies — I chose to study abroad for the international
+      experience. My interest in animals and horses came later, after meeting my wife.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Background</h2>
+    <ul class="text-body mt-4 flex flex-col gap-2 text-sm">
+      {
+        background.map((item) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true">·</span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">How I work</h2>
+    <ul class="text-body mt-4 flex flex-col gap-2 text-sm">
+      {
+        method.map((item) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true">·</span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

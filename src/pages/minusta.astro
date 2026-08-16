@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+
+// Photo d'Enzo à venir (fournie séparément, brief §contenu-canva.md) — emplacement prévu ici,
+// à côté de la section "Tausta", sans bloquer la publication en attendant.
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/minusta/' },
+  { code: 'en' as const, label: 'English', href: '/en/about/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/om-mig/' },
+];
+
+const background = [
+  'BPJEPS Haltérophilie / Musculation -tutkinto, suoritettu 2024, valmisteltu CrossFit-salilla, jonka painopiste on liikunta terveyden tukena',
+  'Fysioterapian toisen vuoden opiskelija SAMK:ssa, Porissa',
+  'Valmentaa SAMK:ssa: cross-trainingia, kahvakuulaa, perusliikkeiden tekniikkaa',
+  'Valmennuskokemusta: CrossFit, strongman, ratsastus',
+  'Myös kengittäjä',
+  'Kehittää aktiivisesti osaamistaan eläinten liikkumisesta ja hoidosta, sekä omatoimisesti että SAMK:n kautta — ei vielä sertifioitu tällä alueella',
+];
+
+const method = [
+  'Ensikontakti: puhelu tai maksuton tapaaminen tavoitteista ja toiveista',
+  'Yhdessä rakennettu suunnitelma, joka huomioi aikataulun, fyysiset rajoitteet ja henkisen kuormituksen',
+  'Käynnin alussa: päivän vireystilan tarkistus (väsymys, stressi), jonka mukaan käyntiä muokataan',
+  'Käynnin aikana: perusliikkeiden läpikäynti, suulliset, visuaaliset ja tarvittaessa fyysiset ohjeet, muistiinpanot jokaisesta sarjasta (kuorma, intensiteetti, palautuminen)',
+  'Käynnin lopussa: rauhoittuminen, läpikäynti, seuraavat askeleet, palautumisvinkit viikolle',
+  'Tavoitettavissa käyntien välillä',
+  'Käynnit tähtäävät tavoitteisiin, ja niistä pidetään huolta, että ne ovat mukavia',
+];
+---
+
+<BaseLayout
+  title="Minusta — ERASM PHYSIO"
+  description="Enzo Janczewski, ERASM PHYSIO: tausta, koulutus ja tapa työskennellä. Fysioterapian opiskelija SAMK:ssa, voima- ja liikeharjoittelun valmentaja Porissa."
+  lang="fi"
+>
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="fi" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Minusta</h1>
+
+    <p class="text-body mt-6 max-w-prose text-sm">
+      Sport-health-henkinen kuntosali herätti minussa halun syventää ihmiskehon tuntemusta, mistä
+      syntyi päätös opiskella fysioterapiaa — valitsin opinnot ulkomailta kansainvälisyyden vuoksi.
+      Kiinnostus eläimiin ja hevosiin heräsi vaimoni myötä.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Tausta</h2>
+    <ul class="text-body mt-4 flex flex-col gap-2 text-sm">
+      {
+        background.map((item) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true">·</span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Näin työskentelen</h2>
+    <ul class="text-body mt-4 flex flex-col gap-2 text-sm">
+      {
+        method.map((item) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true">·</span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
