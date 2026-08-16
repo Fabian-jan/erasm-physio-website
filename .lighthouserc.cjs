@@ -17,6 +17,8 @@ module.exports = {
       // toutes les pages buildées) — ce n'est que l'échantillon Lighthouse qui est réduit.
       url: [
         'http://localhost/index.html',
+        'http://localhost/en/index.html',
+        'http://localhost/sv/index.html',
         'http://localhost/styleguide/index.html',
         'http://localhost/hinnasto/index.html',
         'http://localhost/en/pricing/index.html',

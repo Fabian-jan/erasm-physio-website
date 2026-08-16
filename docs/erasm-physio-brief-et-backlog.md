@@ -453,7 +453,24 @@ d'accessibilité par sabotage (le test doit échouer si on retire l'attribut ARI
 | E2-US6 | En tant que visiteur, je veux une page 404 utile afin de retrouver mon chemin | 1 |
 
 **Critères d'acceptation E2-US2** — chaque page : `h1` unique, description du problème traité,
-déroulé de séance, durée, tarif, CTA de réservation, JSON-LD `MedicalProcedure`.
+déroulé de séance, durée, tarif, CTA de réservation, JSON-LD `Service` (**corrigé le 16/08/2026** :
+le brief demandait `MedicalProcedure`, mais appliquer un type schema.org médical à un programme de
+coaching ou une séance de massage contredirait directement la règle « registre coaching uniquement,
+aucune promesse de santé » — voir le commit `9083d07`).
+
+> ✅ **E2-US2 livrée le 16/08/2026.** 24 pages (8 prestations × FI/EN/SV), routes dynamiques
+> (`src/pages/palvelut/[slug].astro` et équivalents EN/SV), données dans
+> `src/lib/prestations.ts`. Descriptions EN validées mot pour mot par Enzo ; FI/SV premier jet
+> machine (même statut que E2-US4/US5/US6 avant relecture). CTA = mailto préqualifié, pas de
+> vrai moteur de réservation (EPIC 5 non commencé).
+
+> ✅ **E2-US1 livrée le 16/08/2026.** Page d'accueil en FI/EN/SV (`src/pages/index.astro`,
+> `en/index.astro`, `sv/index.astro`) : accroche et différenciateurs directement issus de
+> l'interview d'Enzo (`docs/contenu-canva.md`), JSON-LD `LocalBusiness` réutilisé. EN = texte
+> source d'Enzo (bio du Canva, corrigée du mot interdit *rehabilitation* trouvé le 16/08/2026 —
+> voir commit `a5de315`). FI/SV = traduction nouvelle, premier jet machine. Photo d'Enzo pas
+> encore intégrée (à venir, emplacement prévu en commentaire dans le code) — ne bloque pas la
+> publication du reste.
 
 **Critères d'acceptation E2-US4**, formalisés le 16/08/2026 sur l'implémentation déjà livrée —
 la page liste les onze lignes de tarifs (huit prestations distinctes, certaines déclinées en

@@ -1,8 +1,90 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Button from '@/components/Button.astro';
+import { buildLocalBusiness } from '@/lib/local-business';
+
+// Photo d'Enzo à venir (fournie séparément, brief §contenu-canva.md) — emplacement prévu ici,
+// à droite de l'accroche sur desktop, sans bloquer la publication en attendant.
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/' },
+  { code: 'en' as const, label: 'English', href: '/en/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/' },
+];
+
+const differentiators = [
+  'Jokainen liike sovitetaan sinun tarpeisiisi',
+  'Juuri sinulle räätälöity ohjelmointi',
+  'Otetaan vastaan täydet aloittelijat ja liikunnan pariin tutustuvat',
+  'Arjen parantaminen, ei pelkkä suorituskyky',
+  'Tarkoituksella edulliset hinnat, jotta ohjattu liikunta on mahdollisimman monen saatavilla',
+];
+
+const localBusiness = buildLocalBusiness({ url: Astro.url.href, inLanguage: 'fi' });
 ---
 
-<BaseLayout title="ERASM PHYSIO">
-  <!-- TODO(E2-US1) : page d'accueil réelle, hors périmètre de E0-US1 (socle technique). -->
-  <h1 class="font-heading text-ink">ERASM PHYSIO</h1>
+<BaseLayout
+  title="ERASM PHYSIO — Pori"
+  description="ERASM PHYSIO: voima- ja liikeharjoittelun valmennusta Porissa. Yksilö- ja ryhmävalmennusta, hierontaa ja hevosten liikkeen analysointia."
+  lang="fi"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusiness)} />
+  </Fragment>
+
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="fi" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">ERASM PHYSIO</h1>
+    <p class="tracking-overline text-muted mt-2 text-xs font-bold uppercase">
+      Healing Beyond Limits
+    </p>
+
+    <p class="text-body mt-6 max-w-prose text-sm">
+      Olen Enzo — voima- ja liikeharjoittelun valmentaja, jolla on yli kolmen vuoden kokemus
+      harjoittelusta ja liikkumisesta, ja viimeistelen parhaillaan fysioterapian opintojani. Kehitän
+      myös osaamistani eläinten liikkumisesta ja hoidosta — käytännön kengittäjän työn ja jatkuvan
+      opiskelun kautta, sekä omatoimisesti että SAMK:n opintojen kautta — vaikka en ole vielä
+      sertifioitu tällä alueella.
+    </p>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      Tarjoan tänään: yksilö- ja ryhmävalmennusta, rakennettuja voima- ja liikkuvuusohjelmia,
+      palauttavaa hierontaa ihmisille ja hevosille, sekä hevosen ja ratsastajan liikkeen
+      analysointia. Työni perustuu jäsenneltyyn ohjelmointiin, asteittaiseen harjoitteluun ja
+      selkeisiin tavoitteisiin — jotta voit seurata edistymistäsi viikko viikolta sen sijaan, että
+      arvailisit.
+    </p>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      Seuraavaksi: fysioterapiakäynnit. Ne edellyttävät Suomessa ammatinharjoittamisoikeutta, jota
+      haen heti opintojeni valmistuttua. Siihen asti tämä palvelu näkyy sivustolla, mutta sitä ei
+      voi vielä varata. Kerron mieluummin suoraan, missä olen menossa, kuin annan ymmärtää enemmän
+      kuin voin tarjota.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Miksi ERASM PHYSIO</h2>
+    <ul class="text-body mt-4 flex flex-col gap-2 text-sm">
+      {
+        differentiators.map((item) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true">·</span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-8 flex flex-wrap gap-4">
+      <Button variant="primary" href="/hinnasto/"> Katso hinnasto </Button>
+      <Button variant="outline" href="/toiminta-alue/"> Toiminta-alue </Button>
+    </div>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Yhteystiedot</h2>
+    <p class="text-body mt-2 max-w-prose text-sm">
+      Pori 28100, Suomi · +358 41 720 1730 · erasmphysio@gmail.com<br />
+      Ma–pe 08:00–18:00 · lauantaisin sopimuksen mukaan · sunnuntaisin suljettu
+    </p>
+  </div>
 </BaseLayout>

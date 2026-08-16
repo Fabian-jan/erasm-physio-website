@@ -1,0 +1,88 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Button from '@/components/Button.astro';
+import { buildLocalBusiness } from '@/lib/local-business';
+
+// Photo of Enzo to come (provided separately, see docs/contenu-canva.md) — space reserved here,
+// to the right of the intro on desktop, not blocking publication in the meantime.
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/' },
+  { code: 'en' as const, label: 'English', href: '/en/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/' },
+];
+
+const differentiators = [
+  'Every movement adapted to your needs',
+  'Programming built specifically for you',
+  'Complete beginners and anyone discovering physical activity are welcome',
+  'Focused on improving everyday life, not just performance',
+  'Deliberately affordable pricing, to make coached physical activity accessible to as many people as possible',
+];
+
+const localBusiness = buildLocalBusiness({ url: Astro.url.href, inLanguage: 'en' });
+---
+
+<BaseLayout
+  title="ERASM PHYSIO — Pori"
+  description="ERASM PHYSIO: strength and movement coaching in Pori, Finland. Individual and group coaching, massage, and horse movement analysis."
+  lang="en"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusiness)} />
+  </Fragment>
+
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="en" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">ERASM PHYSIO</h1>
+    <p class="tracking-overline text-muted mt-2 text-xs font-bold uppercase">
+      Healing Beyond Limits
+    </p>
+
+    <p class="text-body mt-6 max-w-prose text-sm">
+      I'm Enzo — a strength and conditioning coach with over three years of experience in training
+      and movement, and I'm currently completing my physiotherapy studies. I'm also building my
+      knowledge of animal movement and care — through hands-on farrier work and ongoing study, on my
+      own and through coursework at SAMK — though I'm not yet certified in this area.
+    </p>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      What I offer today: individual and group coaching, structured strength and mobility
+      programmes, recovery massage for people and animals, and movement analysis for horse and
+      rider. My work is built on structured programming, progressive training and clear goals — so
+      you can follow your progress week after week rather than guess at it.
+    </p>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      What comes next: physiotherapy sessions. These require a Finnish practice licence, which I
+      will apply for once my studies are complete. Until then, that service appears on this site but
+      cannot be booked. I would rather be transparent about where I stand than approximate about
+      what I can offer.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Why ERASM PHYSIO</h2>
+    <ul class="text-body mt-4 flex flex-col gap-2 text-sm">
+      {
+        differentiators.map((item) => (
+          <li class="flex gap-2">
+            <span aria-hidden="true">·</span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-8 flex flex-wrap gap-4">
+      <Button variant="primary" href="/en/pricing/"> See pricing </Button>
+      <Button variant="outline" href="/en/service-area/"> Service area </Button>
+    </div>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Contact</h2>
+    <p class="text-body mt-2 max-w-prose text-sm">
+      Pori 28100, Finland · +358 41 720 1730 · erasmphysio@gmail.com<br />
+      Mon–Fri 08:00–18:00 · Saturday by arrangement · closed Sunday
+    </p>
+  </div>
+</BaseLayout>
