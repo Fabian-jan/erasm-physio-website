@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import PrestationsTable from '@/components/PrestationsTable.astro';
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/hinnasto/' },
+  { code: 'en' as const, label: 'English', href: '/en/pricing/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/prislista/' },
+];
+
+const categories = [
+  {
+    title: 'Individuella besök',
+    rows: [
+      {
+        name: 'Fysioterapibesök',
+        duration: '45–60 min',
+        price: '70 €',
+        bookable: false,
+        notBookableLabel: 'Inte bokningsbar ännu',
+        tooltipId: 'tooltip-fysioterapi',
+        tooltipTriggerLabel: 'Varför?',
+        tooltipContent:
+          'Den här tjänsten går inte att boka än. Jag slutför mina fysioterapistudier, och för att erbjuda fysioterapi i Finland krävs en yrkeslegitimation. Massage, träningsprogram och djurmassage går att boka under tiden.',
+      },
+      { name: 'Massage', duration: '30 min', price: '30 €', bookable: true },
+      { name: 'Massage', duration: '45 min', price: '40 €', bookable: true },
+      { name: 'Massage', duration: '60 min', price: '50 €', bookable: true },
+      { name: 'Djurmassage', duration: '—', price: '50 €', bookable: true },
+    ],
+  },
+  {
+    title: 'Tränings- och coachingprogram',
+    rows: [
+      {
+        name: 'Rörlighetsprogram för hela kroppen',
+        duration: '4 veckor, 7 pass/vecka',
+        price: '50 €',
+        bookable: true,
+      },
+      {
+        name: 'Styrkeprogram',
+        duration: '4 veckor, 3 pass/vecka, hela kroppen',
+        price: '40 €',
+        bookable: true,
+      },
+      {
+        name: 'Individuellt program',
+        duration: '4 veckor, 3 pass',
+        price: '55 €',
+        bookable: true,
+      },
+      { name: 'Individuell coaching', duration: '60 min', price: '60 €', bookable: true },
+      { name: 'Individuell coaching', duration: '45 min', price: '50 €', bookable: true },
+      {
+        name: 'Gruppträning',
+        duration: '60 min, minst 3 personer',
+        price: '6 €/person',
+        bookable: true,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Prislista — ERASM PHYSIO" lang="sv">
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="sv" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Prislista</h1>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      Alla priser inkluderar moms. För hem- och stallbesök tillkommer en reseavgift på 0,40 €/km.
+    </p>
+
+    <PrestationsTable
+      headers={{ service: 'Tjänst', duration: 'Varaktighet', price: 'Pris', bookable: 'Bokning' }}
+      bookableLabel="Bokningsbar"
+      categories={categories}
+    />
+  </div>
+</BaseLayout>

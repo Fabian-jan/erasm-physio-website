@@ -8,7 +8,14 @@ module.exports = {
       staticDistDir: './dist',
       // TODO(EPIC 2) : ajouter ici le chemin de chaque nouvelle page vitrine au fur et à
       // mesure de sa création, pour que Lighthouse CI la couvre aussi.
-      url: ['http://localhost/index.html', 'http://localhost/styleguide/index.html'],
+      url: [
+        'http://localhost/index.html',
+        'http://localhost/styleguide/index.html',
+        'http://localhost/hinnasto/index.html',
+        'http://localhost/en/pricing/index.html',
+        'http://localhost/sv/prislista/index.html',
+        'http://localhost/404.html',
+      ],
     },
     assert: {
       assertions: {

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import PrestationsTable from '@/components/PrestationsTable.astro';
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/hinnasto/' },
+  { code: 'en' as const, label: 'English', href: '/en/pricing/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/prislista/' },
+];
+
+const categories = [
+  {
+    title: 'Individual sessions',
+    rows: [
+      {
+        name: 'Physiotherapy session',
+        duration: '45–60 min',
+        price: '€70',
+        bookable: false,
+        notBookableLabel: 'Not yet bookable',
+        tooltipId: 'tooltip-physiotherapy',
+        tooltipTriggerLabel: 'Why?',
+        tooltipContent:
+          "This service isn't bookable yet. I'm completing my physiotherapy studies, and a Finnish practice licence is required before I can offer physiotherapy sessions. Massage, coaching programmes, and animal massage remain available.",
+      },
+      { name: 'Massage', duration: '30 min', price: '€30', bookable: true },
+      { name: 'Massage', duration: '45 min', price: '€40', bookable: true },
+      { name: 'Massage', duration: '60 min', price: '€50', bookable: true },
+      { name: 'Animal Massage', duration: '—', price: '€50', bookable: true },
+    ],
+  },
+  {
+    title: 'Programmes and coaching',
+    rows: [
+      {
+        name: 'Full-Body Mobility',
+        duration: '4 weeks, 7 sessions/week',
+        price: '€50',
+        bookable: true,
+      },
+      {
+        name: 'Strength Program',
+        duration: '4 weeks, 3 sessions/week, full body',
+        price: '€40',
+        bookable: true,
+      },
+      {
+        name: 'Personalized Program',
+        duration: '4 weeks, 3 sessions',
+        price: '€55',
+        bookable: true,
+      },
+      { name: 'Individual Coaching', duration: '60 min', price: '€60', bookable: true },
+      { name: 'Individual Coaching', duration: '45 min', price: '€50', bookable: true },
+      {
+        name: 'Group training',
+        duration: '60 min, minimum 3 people',
+        price: '€6/person',
+        bookable: true,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Pricing — ERASM PHYSIO" lang="en">
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="en" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Pricing</h1>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      All prices include VAT. Home and stable visits incur an additional travel fee of €0.40/km.
+    </p>
+
+    <PrestationsTable
+      headers={{ service: 'Service', duration: 'Duration', price: 'Price', bookable: 'Booking' }}
+      bookableLabel="Bookable"
+      categories={categories}
+    />
+  </div>
+</BaseLayout>

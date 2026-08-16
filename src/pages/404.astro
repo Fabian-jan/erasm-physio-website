@@ -1,0 +1,33 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// Un seul 404.astro : Astro ne génère qu'une page d'erreur statique par site (pas de routage
+// par langue sans middleware, hors périmètre ici). Les trois langues sont donc empilées sur
+// la même page plutôt que de forcer un choix arbitraire — un seul <h1> (FI, langue par défaut),
+// les deux autres en <h2> avec leur propre attribut lang.
+---
+
+<BaseLayout title="404 — ERASM PHYSIO" lang="fi" noindex>
+  <div class="mx-auto max-w-xl px-6 py-16 text-center">
+    <p class="tracking-overline text-muted text-2xs font-bold uppercase">404</p>
+    <h1 class="font-heading tracking-heading text-ink mt-2 text-3xl">Sivua ei löytynyt</h1>
+    <p class="text-body mt-3 text-sm">Etsimääsi sivua ei ole olemassa tai se on siirretty.</p>
+    <a href="/" class="text-navy mt-6 inline-block font-bold underline">Etusivulle</a>
+
+    <hr class="my-10 border-black/10" />
+
+    <div lang="en">
+      <h2 class="font-heading tracking-heading text-ink text-xl">Page not found</h2>
+      <p class="text-body mt-3 text-sm">The page you're looking for doesn't exist or has moved.</p>
+      <a href="/" class="text-navy mt-4 inline-block font-bold underline">Home</a>
+    </div>
+
+    <hr class="my-10 border-black/10" />
+
+    <div lang="sv">
+      <h2 class="font-heading tracking-heading text-ink text-xl">Sidan hittades inte</h2>
+      <p class="text-body mt-3 text-sm">Sidan du letar efter finns inte eller har flyttats.</p>
+      <a href="/" class="text-navy mt-4 inline-block font-bold underline">Till startsidan</a>
+    </div>
+  </div>
+</BaseLayout>

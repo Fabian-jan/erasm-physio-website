@@ -1,0 +1,82 @@
+---
+import Tooltip from '@/components/Tooltip.astro';
+
+interface Row {
+  name: string;
+  duration: string;
+  price: string;
+  bookable: boolean;
+  notBookableLabel?: string;
+  tooltipId?: string;
+  tooltipTriggerLabel?: string;
+  tooltipContent?: string;
+}
+
+interface Category {
+  title: string;
+  rows: Row[];
+}
+
+interface Props {
+  headers: { service: string; duration: string; price: string; bookable: string };
+  categories: Category[];
+  bookableLabel: string;
+}
+
+const { headers, categories, bookableLabel } = Astro.props;
+---
+
+{
+  categories.map((category) => (
+    <div class="mt-8">
+      <h2 class="font-heading tracking-heading text-ink text-xl">{category.title}</h2>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full min-w-[480px] border-collapse text-sm">
+          <thead>
+            <tr class="border-b-2 border-black/10 text-left">
+              <th scope="col" class="text-ink py-2 pr-4 font-bold">
+                {headers.service}
+              </th>
+              <th scope="col" class="text-ink py-2 pr-4 font-bold">
+                {headers.duration}
+              </th>
+              <th scope="col" class="text-ink py-2 pr-4 font-bold">
+                {headers.price}
+              </th>
+              <th scope="col" class="text-ink py-2 font-bold">
+                {headers.bookable}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {category.rows.map((row) => (
+              <tr class="border-b border-black/5">
+                <th scope="row" class="text-ink py-3 pr-4 text-left font-bold">
+                  {row.name}
+                </th>
+                <td class="text-body py-3 pr-4">{row.duration}</td>
+                <td class="text-body py-3 pr-4">{row.price}</td>
+                <td class="py-3">
+                  {row.bookable ? (
+                    <span class="text-body">{bookableLabel}</span>
+                  ) : (
+                    <span class="inline-flex items-center gap-2">
+                      <span class="text-muted font-bold">{row.notBookableLabel}</span>
+                      {row.tooltipId && (
+                        <Tooltip
+                          id={row.tooltipId}
+                          triggerLabel={row.tooltipTriggerLabel ?? ''}
+                          content={row.tooltipContent ?? ''}
+                        />
+                      )}
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  ))
+}

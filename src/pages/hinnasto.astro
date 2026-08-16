@@ -1,0 +1,85 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import PrestationsTable from '@/components/PrestationsTable.astro';
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/hinnasto/' },
+  { code: 'en' as const, label: 'English', href: '/en/pricing/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/prislista/' },
+];
+
+const categories = [
+  {
+    title: 'Yksilölliset käynnit',
+    rows: [
+      {
+        name: 'Fysioterapiakäynti',
+        duration: '45–60 min',
+        price: '70 €',
+        bookable: false,
+        notBookableLabel: 'Ei vielä varattavissa',
+        tooltipId: 'tooltip-fysioterapia',
+        tooltipTriggerLabel: 'Miksi?',
+        tooltipContent:
+          'Tätä palvelua ei voi vielä varata. Viimeistelen fysioterapiaopintojani, ja fysioterapian harjoittamiseen vaaditaan Suomessa ammatinharjoittamisoikeus. Hieronta, valmennusohjelmat ja eläinhieronta ovat sillä välin varattavissa.',
+      },
+      { name: 'Hieronta', duration: '30 min', price: '30 €', bookable: true },
+      { name: 'Hieronta', duration: '45 min', price: '40 €', bookable: true },
+      { name: 'Hieronta', duration: '60 min', price: '50 €', bookable: true },
+      { name: 'Eläinhieronta', duration: '—', price: '50 €', bookable: true },
+    ],
+  },
+  {
+    title: 'Valmennusohjelmat',
+    rows: [
+      {
+        name: 'Kehon liikkuvuusohjelma',
+        duration: '4 viikkoa, 7 kertaa/viikko',
+        price: '50 €',
+        bookable: true,
+      },
+      {
+        name: 'Voimaohjelma',
+        duration: '4 viikkoa, 3 kertaa/viikko, koko keho',
+        price: '40 €',
+        bookable: true,
+      },
+      {
+        name: 'Yksilöllinen ohjelma',
+        duration: '4 viikkoa, 3 kertaa',
+        price: '55 €',
+        bookable: true,
+      },
+      { name: 'Yksilövalmennus', duration: '60 min', price: '60 €', bookable: true },
+      { name: 'Yksilövalmennus', duration: '45 min', price: '50 €', bookable: true },
+      {
+        name: 'Ryhmätreeni',
+        duration: '60 min, vähintään 3 henkilöä',
+        price: '6 €/henkilö',
+        bookable: true,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Hinnasto — ERASM PHYSIO" lang="fi">
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="fi" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Hinnasto</h1>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      Kaikki hinnat sisältävät alv:n. Koti- ja tallikäynneistä veloitetaan lisäksi matkakulu 0,40
+      €/km.
+    </p>
+
+    <PrestationsTable
+      headers={{ service: 'Palvelu', duration: 'Kesto', price: 'Hinta', bookable: 'Varattavuus' }}
+      bookableLabel="Varattavissa"
+      categories={categories}
+    />
+  </div>
+</BaseLayout>
