@@ -1,0 +1,96 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Button from '@/components/Button.astro';
+import Tooltip from '@/components/Tooltip.astro';
+import { prestations, type Prestation } from '@/lib/prestations';
+
+export function getStaticPaths() {
+  return prestations.map((prestation) => ({
+    params: { slug: prestation.slug.fi },
+    props: { prestation },
+  }));
+}
+
+interface Props {
+  prestation: Prestation;
+}
+
+const { prestation } = Astro.props;
+const paragraphs = prestation.description.fi.split('\n\n');
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: `/palvelut/${prestation.slug.fi}/` },
+  { code: 'en' as const, label: 'English', href: `/en/services/${prestation.slug.en}/` },
+  { code: 'sv' as const, label: 'Svenska', href: `/sv/tjanster/${prestation.slug.sv}/` },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: prestation.name.fi,
+  description: prestation.description.fi.split('\n\n')[0],
+  provider: { '@type': 'LocalBusiness', name: 'ERASM PHYSIO' },
+  areaServed: { '@type': 'City', name: 'Pori' },
+  offers: prestation.variants.fi.map((v) => ({
+    '@type': 'Offer',
+    price: v.price.replace('€', '').replace('/henkilö', '').trim(),
+    priceCurrency: 'EUR',
+  })),
+  url: Astro.url.href,
+  inLanguage: 'fi',
+};
+
+const mailSubject = encodeURIComponent(`Varaus: ${prestation.name.fi}`);
+---
+
+<BaseLayout
+  title={`${prestation.name.fi} — ERASM PHYSIO`}
+  description={paragraphs[0].slice(0, 155)}
+  lang="fi"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="fi" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">{prestation.name.fi}</h1>
+
+    <ul class="mt-4 flex flex-wrap gap-3">
+      {
+        prestation.variants.fi.map((variant) => (
+          <li class="border-navy/20 text-ink rounded-full border-2 px-4 py-1.5 text-sm font-bold">
+            {variant.duration} · {variant.price}
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-6 max-w-prose">
+      {paragraphs.map((paragraph) => <p class="text-body mt-3 text-sm">{paragraph}</p>)}
+    </div>
+
+    <div class="mt-6">
+      {
+        prestation.bookable ? (
+          <Button variant="primary" href={`mailto:erasmphysio@gmail.com?subject=${mailSubject}`}>
+            Varaa sähköpostitse
+          </Button>
+        ) : (
+          <div class="flex flex-wrap items-center gap-4">
+            <Button disabled>{prestation.name.fi}</Button>
+            <Tooltip
+              id={`tooltip-${prestation.id}`}
+              triggerLabel="Miksi?"
+              content="Tätä palvelua ei voi vielä varata. Viimeistelen fysioterapiaopintojani, ja fysioterapian harjoittamiseen vaaditaan Suomessa ammatinharjoittamisoikeus. Hieronta, valmennusohjelmat ja eläinhieronta ovat sillä välin varattavissa."
+            />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

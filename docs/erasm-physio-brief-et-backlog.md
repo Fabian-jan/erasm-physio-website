@@ -741,6 +741,14 @@ langue, une page ville, `/styleguide` — plutôt que chaque URL réelle. Noté 
 découvrir en urgence le jour où la CI devient trop lente ; rien à faire tant qu'on est sous le
 seuil.
 
+> ✅ **Appliquée, 16/08/2026.** Seuil franchi d'un coup avec E2-US2 : 24 nouvelles pages de
+> prestation individuelles (8 prestations × 3 langues, même gabarit piloté par
+> `src/lib/prestations.ts`). `.lighthouserc.cjs` échantillonne désormais une seule page de
+> prestation par langue (Physiotherapy session — gabarit le plus distinct, bouton désactivé +
+> infobulle) au lieu des 24. L'accessibilité de chacune des 24 pages reste vérifiée
+> intégralement par axe-core, qui découvre automatiquement toutes les pages buildées — seul
+> l'échantillon Lighthouse est réduit.
+
 **Passage à un flux par branches avec PR et preview.** Aujourd'hui (sprint 1), tous les commits
 vont directement sur `main` : pas de branche, pas de PR, pas de preview Vercel générée avant mise
 en production. Ce n'est pas un problème tant que le risque d'une régression est faible et
