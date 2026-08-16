@@ -62,10 +62,10 @@ injuries*) incompatible avec le statut d’étudiant. Version à valider par Enz
 > My work is built on structured programming, progressive training and clear goals — so you can
 > follow your progress week after week rather than guess at it.
 > 
-> **What comes next:** physiotherapy and rehabilitation sessions. These require a Finnish
-> practice licence, which I will apply for once my studies are complete. Until then, those
-> services appear on this site but cannot be booked. I would rather be transparent about where
-> I stand than approximate about what I can offer.
+> **What comes next:** physiotherapy sessions. These require a Finnish practice licence, which I
+> will apply for once my studies are complete. Until then, that service appears on this site but
+> cannot be booked. I would rather be transparent about where I stand than approximate about
+> what I can offer.
 > 
 > Whether you train, compete, or simply want to move better in daily life, I’m here to help you
 > get there.
