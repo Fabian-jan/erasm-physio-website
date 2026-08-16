@@ -481,9 +481,20 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > les données structurées sont lisibles par Google indépendamment du rendu visuel de la page,
 > donc une adresse complète en JSON-LD peut fuiter publiquement une adresse jamais affichée à
 > l'écran. Le JSON-LD ne porte que la localité (Pori, 28100, FI) et un `areaServed` en
-> `GeoCircle`. La liste des villes couvertes reste elle-même un TODO le temps de la validation par
-> l'utilisateur (US en cours d'échange au moment de ce commit) : ne pas la considérer Done tant
-> qu'elle n'est pas intégrée.
+> `GeoCircle`.
+>
+> **Liste des 18 communes validée par l'utilisateur le 16/08/2026** (ordre de validation :
+> Ulvila, Nakkila, Harjavalta, Kokemäki, Eurajoki, Rauma, Merikarvia, Pomarkku, Siikainen,
+> Kankaanpää, Jämijärvi, Karvia, Eura, Säkylä, Huittinen, Sastamala, Laitila, Uusikaupunki),
+> intégrée en deux temps : une phrase d'en-tête lisible citant trois villes reconnaissables
+> (Rauma, Kankaanpää, Huittinen), puis un bloc « Communes desservies » groupé par zone
+> géographique (`src/lib/service-area.ts`, source unique pour les trois langues — pas d'énumération
+> brute de 18 noms, refusée explicitement comme bourrage de mots-clés). Noms de communes
+> **identiques et non déclinés** dans les trois langues — seuls les libellés de zone sont
+> traduits. Quatre communes initialement proposées ont été écartées car fusionnées avec une autre
+> depuis : Noormarkku (Pori, 2010), Luvia (Eurajoki, 2017), Honkajoki (Kankaanpää, 2021), Vammala
+> → Sastamala (2009, renommage). Turku exclue (≈ 140 km, hors rayon). Carte reportée à l'EPIC 4,
+> avec le reste du SEO local, à la création du Google Business Profile.
 
 ---
 

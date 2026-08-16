@@ -8,25 +8,38 @@
 // futur système de réservation/back-office non public, quand celui-ci existera (EPIC 5/11).
 //
 // geoMidpoint utilise le centre-ville de Pori (coordonnée publique), pas l'adresse d'Enzo.
-export const localBusiness = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'ERASM PHYSIO',
-  telephone: '+358417201730',
-  email: 'erasmphysio@gmail.com',
-  address: {
-    '@type': 'PostalAddress',
-    postalCode: '28100',
-    addressLocality: 'Pori',
-    addressCountry: 'FI',
-  },
-  areaServed: {
-    '@type': 'GeoCircle',
-    geoMidpoint: {
-      '@type': 'GeoCoordinates',
-      latitude: 61.4851,
-      longitude: 21.7972,
+//
+// Fonction plutôt qu'objet statique : `url` et `inLanguage` doivent refléter la page qui embarque
+// le JSON-LD, pas être partagés à l'identique entre les trois versions linguistiques — trois
+// pages différentes ne peuvent pas déclarer la même URL canonique.
+interface LocalBusinessOptions {
+  url: string;
+  inLanguage: 'fi' | 'en' | 'sv';
+}
+
+export function buildLocalBusiness({ url, inLanguage }: LocalBusinessOptions) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'ERASM PHYSIO',
+    url,
+    inLanguage,
+    telephone: '+358417201730',
+    email: 'erasmphysio@gmail.com',
+    address: {
+      '@type': 'PostalAddress',
+      postalCode: '28100',
+      addressLocality: 'Pori',
+      addressCountry: 'FI',
     },
-    geoRadius: '100000',
-  },
-};
+    areaServed: {
+      '@type': 'GeoCircle',
+      geoMidpoint: {
+        '@type': 'GeoCoordinates',
+        latitude: 61.4851,
+        longitude: 21.7972,
+      },
+      geoRadius: '100000',
+    },
+  };
+}

@@ -1,0 +1,23 @@
+---
+import type { ServiceZone } from '@/lib/service-area';
+
+interface Props {
+  heading: string;
+  zones: ServiceZone[];
+  zoneLabels: Record<ServiceZone['key'], string>;
+}
+
+const { heading, zones, zoneLabels } = Astro.props;
+---
+
+<h2 class="font-heading tracking-heading text-ink mt-8 text-xl">{heading}</h2>
+<ul class="mt-4 flex flex-col gap-4">
+  {
+    zones.map((zone) => (
+      <li>
+        <p class="text-ink text-sm font-bold">{zoneLabels[zone.key]}</p>
+        <p class="text-body mt-1 max-w-prose text-sm">{zone.towns.join(', ')}</p>
+      </li>
+    ))
+  }
+</ul>

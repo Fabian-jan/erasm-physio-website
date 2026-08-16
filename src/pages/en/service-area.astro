@@ -1,14 +1,24 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
-import TodoNotice from '@/components/TodoNotice.astro';
-import { localBusiness } from '@/lib/local-business';
+import ServiceAreaList from '@/components/ServiceAreaList.astro';
+import { buildLocalBusiness } from '@/lib/local-business';
+import { serviceZones } from '@/lib/service-area';
 
 const languages = [
   { code: 'fi' as const, label: 'Suomi', href: '/toiminta-alue/' },
   { code: 'en' as const, label: 'English', href: '/en/service-area/' },
   { code: 'sv' as const, label: 'Svenska', href: '/sv/verksamhetsomrade/' },
 ];
+
+const zoneLabels = {
+  near: 'Around Pori',
+  rauma: 'Rauma area',
+  north: 'Northern coast',
+  east: 'Eastern inland',
+} as const;
+
+const localBusiness = buildLocalBusiness({ url: Astro.url.href, inLanguage: 'en' });
 ---
 
 <BaseLayout title="Service area — ERASM PHYSIO" lang="en">
@@ -23,8 +33,8 @@ const languages = [
 
     <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Service area</h1>
     <p class="text-body mt-3 max-w-prose text-sm">
-      ERASM PHYSIO operates out of Pori, with home and stable visits within a 100 km radius — plus
-      remote sessions from anywhere.
+      ERASM PHYSIO operates out of Pori within a 100 km radius — including Rauma, Kankaanpää, and
+      Huittinen. Home and stable visits, plus remote sessions from anywhere.
     </p>
 
     <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">How visits work</h2>
@@ -37,9 +47,6 @@ const languages = [
       Home and stable visits incur a €0.40/km travel fee, regardless of visit type.
     </p>
 
-    <TodoNotice label="List of covered towns">
-      The precise list of towns within the service area is still missing — to be added once Enzo has
-      confirmed it.
-    </TodoNotice>
+    <ServiceAreaList heading="Towns covered" zones={serviceZones} zoneLabels={zoneLabels} />
   </div>
 </BaseLayout>

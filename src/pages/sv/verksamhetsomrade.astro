@@ -1,14 +1,24 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
-import TodoNotice from '@/components/TodoNotice.astro';
-import { localBusiness } from '@/lib/local-business';
+import ServiceAreaList from '@/components/ServiceAreaList.astro';
+import { buildLocalBusiness } from '@/lib/local-business';
+import { serviceZones } from '@/lib/service-area';
 
 const languages = [
   { code: 'fi' as const, label: 'Suomi', href: '/toiminta-alue/' },
   { code: 'en' as const, label: 'English', href: '/en/service-area/' },
   { code: 'sv' as const, label: 'Svenska', href: '/sv/verksamhetsomrade/' },
 ];
+
+const zoneLabels = {
+  near: 'Närområdet',
+  rauma: 'Raumatrakten',
+  north: 'Norra kusten',
+  east: 'Östra inlandet',
+} as const;
+
+const localBusiness = buildLocalBusiness({ url: Astro.url.href, inLanguage: 'sv' });
 ---
 
 <BaseLayout title="Verksamhetsområde — ERASM PHYSIO" lang="sv">
@@ -23,8 +33,9 @@ const languages = [
 
     <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Verksamhetsområde</h1>
     <p class="text-body mt-3 max-w-prose text-sm">
-      ERASM PHYSIO utgår från Pori, med hem- och stallbesök inom en radie på 100 km — samt
-      distansbesök varifrån som helst.
+      ERASM PHYSIO utgår från Pori inom en radie på 100 km — bland annat Rauma, Kankaanpää och
+      Huittinen ingår i verksamhetsområdet. Hem- och stallbesök, samt distansbesök varifrån som
+      helst.
     </p>
 
     <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Så går besöken till</h2>
@@ -37,9 +48,10 @@ const languages = [
       För hem- och stallbesök tillkommer en reseavgift på 0,40 €/km, oavsett besökstyp.
     </p>
 
-    <TodoNotice label="Lista över orter">
-      Den exakta listan över orter inom verksamhetsområdet saknas ännu — läggs till när Enzo har
-      bekräftat den.
-    </TodoNotice>
+    <ServiceAreaList
+      heading="Kommuner i verksamhetsområdet"
+      zones={serviceZones}
+      zoneLabels={zoneLabels}
+    />
   </div>
 </BaseLayout>
