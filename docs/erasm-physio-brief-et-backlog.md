@@ -455,6 +455,20 @@ d'accessibilité par sabotage (le test doit échouer si on retire l'attribut ARI
 **Critères d'acceptation E2-US2** — chaque page : `h1` unique, description du problème traité,
 déroulé de séance, durée, tarif, CTA de réservation, JSON-LD `MedicalProcedure`.
 
+**Critères d'acceptation E2-US4**, formalisés le 16/08/2026 sur l'implémentation déjà livrée —
+la page liste les onze lignes de tarifs (huit prestations distinctes, certaines déclinées en
+plusieurs durées) groupées par catégorie (séances individuelles / programmes et coaching), avec
+durée/format et prix pour chacune ; la Physiotherapy session reste visible mais non réservable,
+avec l'infobulle accessible expliquant l'attente de l'autorisation Valvira ; meta description
+renseignée et propre à la page (jamais un texte générique dupliqué d'une autre page).
+
+**Critères d'acceptation E2-US6**, formalisés le 16/08/2026 sur l'implémentation déjà livrée —
+répond avec un vrai statut HTTP 404 sur toute route non reconnue, vérifié en production par
+requête directe (pas seulement en local) ; contenu utile dans les trois langues sur une seule
+page (Astro ne route pas nativement par langue sans middleware, périmètre non couvert par ce
+projet) ; un seul `h1` (FI, langue par défaut), les deux autres langues en `h2` ; lien de retour
+vers l'accueil dans chaque langue ; balisée `noindex`.
+
 **Critères d'acceptation E2-US5** — la page annonce le rayon d'intervention (100 km autour de
 Pori), les modalités (domicile, écurie, distanciel) et le tarif kilométrique (0,40 €/km, identique
 quel que soit le type de visite) ; elle cite explicitement les villes significatives de la zone en
