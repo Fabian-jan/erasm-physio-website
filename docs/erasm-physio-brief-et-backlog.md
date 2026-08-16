@@ -319,7 +319,9 @@ construit la crédibilité et prépare la demande pour le jour où la licence to
 
 ### 4. Humains et animaux, deux régimes juridiques
 
-La rééducation animale (chiens, chevaux) ne relève ni de Valvira, ni de Soteri, ni de Kanta :
+La rééducation animale (chevaux — Enzo confirme le 16/08/2026 ne travailler qu'avec des chevaux ;
+la mention « chiens » venait des anciennes maquettes et n'a jamais correspondu à l'offre réelle,
+retirée) ne relève ni de Valvira, ni de Soteri, ni de Kanta :
 ce n'est pas un soin de santé au sens de la loi finlandaise. Toute la §2 ne s'applique qu'aux
 clients humains. Conséquence d'architecture : **séparer les deux flux de réservation dès le
 modèle de données**, avec des règles de conservation distinctes. C'est plus simple à faire au

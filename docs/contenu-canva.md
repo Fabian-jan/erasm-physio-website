@@ -185,15 +185,17 @@ thérapeutique* → massage de récupération. Aucune promesse de résultat de s
 
 ## Propositions de description par prestation — EN ATTENTE DE VALIDATION PAR ENZO
 
-Rédigées le 16/08/2026 à partir des réponses ci-dessus. **Ne pas publier ni intégrer dans une
-page avant validation explicite.** Registre coaching/entraînement uniquement, aucune promesse de
+Rédigées le 16/08/2026, revues une première fois le 16/08/2026 sur retour de l'utilisateur
+(quatre corrections : simplifier #1, différencier #6/#7, étoffer #4/#5/#8 avec la méthode réelle
+d'Enzo, ajouter le rythme conseillé où pertinent). **Ne pas publier ni intégrer dans une page
+avant validation explicite.** Registre coaching/entraînement uniquement, aucune promesse de
 résultat de santé, `TODO` posé partout où le contenu est déduit plutôt que fourni par Enzo.
 
 **1. Physiotherapy session** (45–60 min · €70 · not yet bookable)
-> A one-to-one session focused on your movement and physical goals, guided by someone completing
-> advanced training in physiotherapy. This service isn't bookable yet: a Finnish practice licence
-> is required before physiotherapy sessions can be offered, and Enzo would rather be upfront
-> about that than approximate what he can offer.
+> A one-to-one session focused on your movement and physical goals, guided by Enzo, a
+> second-year physiotherapy student at SAMK. This service isn't bookable yet: a Finnish practice
+> licence is required before physiotherapy sessions can be offered, and Enzo would rather be
+> upfront about that than approximate what he can offer.
 >
 > `TODO` : structure exacte de la séance — non définie par Enzo, prestation pas encore active.
 
@@ -205,62 +207,67 @@ résultat de santé, `TODO` posé partout où le contenu est déduit plutôt que
 >
 > Aucun TODO — reprend le registre du texte Canva déjà validé (détente, relâchement, bien-être).
 
-**3. Animal Massage** (— · €50)
+**3. Animal Massage** (— · €50) — chevaux uniquement, confirmé par Enzo le 16/08/2026
 > Recovery-focused massage for horses, combined with movement analysis of horse and rider and
 > targeted strengthening work. Enzo is actively building his knowledge in this area — on his own
 > and through coursework at SAMK — and is not yet certified in animal care; this service is
 > offered on that basis.
 >
-> `TODO` : le prix actuel (50 €) ne précise pas l'espèce. Les réponses d'Enzo ne parlent que de
-> chevaux et cavaliers (et il est maréchal-ferrant) ; une version antérieure du projet mentionnait
-> aussi les chiens. À trancher avec Enzo avant publication — ne pas assumer que les chiens restent
-> inclus.
+> Aucun TODO — espèce confirmée (chevaux), le reste directement issu de la réponse d'Enzo.
 
 **4. Full-Body Mobility** (4 weeks, 7 sessions/week · €50)
-> A four-week mobility program with a session most days of the week, designed to improve how your
-> body moves as a whole. Sessions are adapted to your own starting point and goals, starting with
-> a short call or meeting to talk through what you want to get out of it.
+> A four-week mobility program with a session most days of the week, working through fundamental
+> movement patterns and building from there. Each set is noted — load, intensity, how you're
+> recovering — so progress is tracked rather than guessed at, with verbal, visual and hands-on
+> feedback along the way. Enzo stays reachable between sessions. Nothing to prepare beyond a gym
+> bag: kit, water, a towel.
 >
-> `TODO` : exercices précis et résultats attendus — non détaillés par Enzo, méthode générale de
-> coaching reprise ici en base.
+> Aucun TODO — méthode directement issue de la réponse d'Enzo, appliquée ici. Rythme non ajouté :
+> déjà fixé par le format (7 séances/semaine).
 
 **5. Strength Program** (4 weeks, 3 sessions/week, full body · €40)
-> A four-week strength program, three sessions a week, covering the full body. Each plan is built
-> around you — your schedule, your current strength level, and what you want to achieve —
-> starting with a short call or meeting to set goals before the program begins.
+> A four-week strength program, three sessions a week, covering the full body — working through
+> fundamental movement patterns first, then building load from there. Each set is noted (load,
+> intensity, recovery) so progress is tracked rather than guessed at, with verbal, visual and
+> hands-on feedback as needed. Enzo stays reachable between sessions. Nothing to prepare beyond a
+> gym bag: kit, water, a towel.
 >
-> `TODO` : exercices précis et logique de progression — non détaillés par Enzo.
+> Aucun TODO — méthode directement issue de la réponse d'Enzo. Rythme non ajouté : déjà fixé par
+> le format (3 séances/semaine).
 
-**6. Personalized Program** (4 weeks, 3 sessions · €55)
+**6. Personalized Program** (4 weeks, 3 sessions · €55) — différenciée d'Individual Coaching sur
+l'arc du programme (voir #7)
 > A four-week program built entirely around you. It starts with a free introductory call or
 > meeting to talk through your goals and constraints — schedule, physical limitations, whatever's
-> relevant — followed by a plan designed specifically for that. Each session opens with a quick
-> check-in on how you're feeling that day, moves through your programmed work with feedback along
-> the way, and closes with a cool-down and a look at what's next. Enzo stays reachable between
-> sessions.
+> relevant — and a plan is built from there. Across the four weeks, each session's work is noted
+> (load, intensity, recovery) so your plan can adapt as you go, not stay fixed from day one. Enzo
+> stays reachable between sessions throughout the program.
 >
 > Aucun TODO — directement issu de la méthode décrite par Enzo.
 
-**7. Individual Coaching** (60 min / 45 min)
-> A one-to-one coaching session built around your own goals — general fitness, a specific sport,
-> or simply moving better day to day. Sessions open with a quick check-in on how you're feeling,
-> move through your programmed work with feedback as you go, and close with a cool-down and a
-> look ahead at your next session. Available in 45 or 60 minutes.
+**7. Individual Coaching** (60 min / 45 min) — différenciée de Personalized Program sur le format
+séance unique, sans engagement
+> A single one-to-one coaching session, booked as you need it — no four-week commitment. Each
+> session opens with a quick check-in on how you're feeling that day, works through your
+> programmed movements with verbal, visual and hands-on feedback as needed, and closes with a
+> cool-down. Available in 45 or 60 minutes.
+>
+> Recommended frequency: two to three times a week if you're building a routine — once a week can
+> be enough if you're already experienced or don't need close follow-up.
 >
 > Aucun TODO — directement issu de la méthode décrite par Enzo.
 
 **8. Group training** (60 min, minimum 3 people · €6/person)
-> A 60-minute group session (minimum three people), designed to be an accessible way into
-> structured training — including for complete beginners. Same coaching approach as one-to-one
-> sessions, adapted for a group setting: goal-focused, but kept enjoyable.
+> A 60-minute group session (minimum three people), working through fundamental movements
+> together with the same attention to feedback as a one-to-one session — verbal, visual and
+> hands-on cues as needed. Designed to be an accessible way into structured training, including
+> for complete beginners. Nothing to prepare beyond a gym bag: kit, water, a towel.
 >
-> `TODO` : format précis de la séance de groupe — non détaillé par Enzo au-delà de la méthode
-> générale ci-dessus.
-
-Rappel pratique commun (à placer près du CTA de réservation sur les prestations de coaching,
-pas dans la description elle-même) : rien à préparer sauf un sac de sport (tenue, eau, serviette) ;
-rythme conseillé 2 à 3 fois par semaine, 1 fois pouvant suffire pour une personne expérimentée ou
-n'ayant pas besoin de suivi rapproché.
+> Recommended frequency: two to three times a week — once a week can be enough if you're already
+> experienced or don't need close follow-up.
+>
+> Aucun TODO — méthode directement issue de la réponse d'Enzo ; aucun format de groupe précis
+> fourni au-delà de ça, mais rien n'a été inventé pour le combler.
 
 ---
 
