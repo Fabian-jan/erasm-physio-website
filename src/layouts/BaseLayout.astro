@@ -3,12 +3,14 @@ import '@/styles/global.css';
 
 interface Props {
   title: string;
+  /** Balise meta description — absente sur les pages internes/pas encore rédigées, jamais un texte générique dupliqué d'une page à l'autre. */
+  description?: string;
   lang?: 'fi' | 'en' | 'sv';
   /** Pages internes (styleguide, back-office...) jamais destinées à l'indexation. */
   noindex?: boolean;
 }
 
-const { title, lang = 'fi', noindex = false } = Astro.props;
+const { title, description, lang = 'fi', noindex = false } = Astro.props;
 ---
 
 <html lang={lang}>
@@ -19,6 +21,7 @@ const { title, lang = 'fi', noindex = false } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {description && <meta name="description" content={description} />}
     <title>{title}</title>
     <slot name="head" />
   </head>

@@ -21,7 +21,11 @@ const zoneLabels = {
 const localBusiness = buildLocalBusiness({ url: Astro.url.href, inLanguage: 'sv' });
 ---
 
-<BaseLayout title="Verksamhetsområde — ERASM PHYSIO" lang="sv">
+<BaseLayout
+  title="Verksamhetsområde — ERASM PHYSIO"
+  description="ERASM PHYSIOs verksamhetsområde: hem- och stallbesök inom 100 km från Pori, samt distansbesök. Reseavgift och kommuner som omfattas."
+  lang="sv"
+>
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusiness)} />
   </Fragment>

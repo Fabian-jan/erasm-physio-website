@@ -21,7 +21,11 @@ const zoneLabels = {
 const localBusiness = buildLocalBusiness({ url: Astro.url.href, inLanguage: 'fi' });
 ---
 
-<BaseLayout title="Toiminta-alue — ERASM PHYSIO" lang="fi">
+<BaseLayout
+  title="Toiminta-alue — ERASM PHYSIO"
+  description="ERASM PHYSIOn toiminta-alue: koti- ja tallikäynnit 100 km säteellä Porista, sekä etävastaanotto. Matkakulu ja toiminta-alueen kunnat."
+  lang="fi"
+>
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusiness)} />
   </Fragment>
