@@ -1,0 +1,17 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="border-navy mt-8 rounded-lg border-l-4 bg-white p-4">
+  <p class="text-ink text-xs font-bold">
+    <code class="font-mono">TODO</code>{' '}
+    {label}
+  </p>
+  <p class="text-body mt-2 text-xs leading-relaxed">
+    <slot />
+  </p>
+</div>

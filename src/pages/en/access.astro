@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import TodoNotice from '@/components/TodoNotice.astro';
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: '/sijainti/' },
+  { code: 'en' as const, label: 'English', href: '/en/access/' },
+  { code: 'sv' as const, label: 'Svenska', href: '/sv/plats/' },
+];
+---
+
+<BaseLayout title="Location and access — ERASM PHYSIO" lang="en">
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="en" languages={languages} />
+    </div>
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Location and access</h1>
+    <p class="text-body mt-3 max-w-prose text-sm">
+      ERASM PHYSIO is based in Pori (28100), Finland.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">How sessions are held</h2>
+    <p class="text-body mt-2 max-w-prose text-sm">
+      Home and stable visits (for animals), and remote sessions.
+    </p>
+
+    <h2 class="font-heading tracking-heading text-ink mt-8 text-xl">Travel fee</h2>
+    <p class="text-body mt-2 max-w-prose text-sm">
+      Home and stable visits incur a €0.40/km travel fee.
+    </p>
+
+    <TodoNotice label="Parking, public transport, and accessibility">
+      The exact street address, parking instructions, nearest public transport links, and
+      step-free/PMR accessibility of the studio are still missing — to be added once Enzo has
+      confirmed them.
+    </TodoNotice>
+  </div>
+</BaseLayout>

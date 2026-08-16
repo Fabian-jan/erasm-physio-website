@@ -15,6 +15,9 @@ module.exports = {
         'http://localhost/en/pricing/index.html',
         'http://localhost/sv/prislista/index.html',
         'http://localhost/404.html',
+        'http://localhost/sijainti/index.html',
+        'http://localhost/en/access/index.html',
+        'http://localhost/sv/plats/index.html',
       ],
     },
     assert: {
