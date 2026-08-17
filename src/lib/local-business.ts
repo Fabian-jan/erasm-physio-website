@@ -57,14 +57,14 @@ export function buildLocalBusiness({ url, inLanguage }: LocalBusinessOptions) {
       },
       geoRadius: '100000',
     },
-    // Enzo confirme travailler 7 jours sur 7 (correction du 17/08/2026 — les horaires des
-    // anciennes maquettes, lun-ven + samedi sur arrangement + dimanche fermé, sont périmés,
-    // ne plus les réintroduire). `opens`/`closes` volontairement omis : les heures exactes ne
-    // sont pas encore confirmées avec Enzo, et une valeur inventée serait une donnée structurée
-    // fausse publiée pour Google — pire qu'une absence. TODO : ajouter opens/closes dès que les
-    // heures réelles sont connues (garder un seul dayOfWeek à 7 valeurs tant qu'elles sont
-    // identiques chaque jour ; les séparer en plusieurs OpeningHoursSpecification si Enzo confirme
-    // des horaires différents selon le jour).
+    // Horaires confirmés par Enzo le 17/08/2026 : 08:00–20:00, sept jours sur sept (remplace les
+    // horaires des anciennes maquettes — lun-ven + samedi sur arrangement + dimanche fermé —
+    // périmés, ne plus les réintroduire). C'est une plage d'amplitude, pas des heures de travail
+    // fixes : l'intervalle pendant lequel Enzo accepte d'être contacté et de se déplacer, en tant
+    // qu'auto-entrepreneur en démarrage qui prend les créneaux au fil de l'eau — d'où « sur
+    // rendez-vous » dans le texte visible du site, une nuance que schema.org n'a pas de propriété
+    // dédiée pour exprimer (OpeningHoursSpecification reste la représentation standard la plus
+    // proche : l'intervalle où le contacter/le faire venir, même sans permanence physique).
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: [
@@ -76,6 +76,8 @@ export function buildLocalBusiness({ url, inLanguage }: LocalBusinessOptions) {
         'https://schema.org/Saturday',
         'https://schema.org/Sunday',
       ],
+      opens: '08:00',
+      closes: '20:00',
     },
     // Catalogue des huit prestations (E4-US2), construit depuis la même source que les pages de
     // tarifs et de prestation individuelle (src/lib/prestations.ts) — jamais recopié à la main,

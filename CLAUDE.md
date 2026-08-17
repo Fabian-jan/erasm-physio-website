@@ -97,9 +97,10 @@ avec un test de concurrence automatisé.
 
 Pori 28100, Finlande · visites à domicile et en écurie · distanciel
 +358 41 720 1730 · erasmphysio@gmail.com · @erasmphysio
-Ouvert 7 jours sur 7 (correction du 17/08/2026 — les anciens horaires lun–ven + samedi sur
-arrangement + dimanche fermé, hérités des maquettes, sont périmés). Heures exactes `TODO` : à
-confirmer avec Enzo.
+7 jours sur 7, 08:00–20:00, sur rendez-vous (confirmé par Enzo le 17/08/2026 — remplace les
+horaires lun–ven + samedi sur arrangement + dimanche fermé, hérités des maquettes et périmés).
+C'est une plage d'amplitude — l'intervalle où Enzo accepte d'être contacté et de se déplacer, pas
+des heures de travail fixes ni une permanence.
 Baseline : *Healing Beyond Limits*
 
 ## Pièges connus

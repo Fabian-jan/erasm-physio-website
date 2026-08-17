@@ -204,8 +204,9 @@ libellé marine (9,6:1), jamais blanc. C'est le seul écart bloquant que j'ai tr
 - **Lieu** : studio de Pori (28100), visites à domicile et en écurie, distanciel
 - **Contact** : +358 41 720 1730 · erasmphysio@gmail.com · @erasmphysio
 - **Horaires** *(❌ périmé, correction du 17/08/2026 — voir « Informations du cabinet », CLAUDE.md)* :
-  ~~lun–ven 08:00–18:00 · samedi sur arrangement · dimanche fermé~~ Enzo confirme travailler
-  7 jours sur 7 ; heures exactes non encore confirmées, `TODO`.
+  ~~lun–ven 08:00–18:00 · samedi sur arrangement · dimanche fermé~~ 7 jours sur 7, 08:00–20:00, sur
+  rendez-vous — une plage d'amplitude (intervalle où Enzo accepte d'être contacté et de se
+  déplacer), pas des heures de travail fixes.
 - **Prestations** *(❌ périmé — voir remplacement daté du 14/08/2026 juste en dessous)* :
   ~~1:1 Physiotherapy 60 min 55 € · Injury Rehab Plan 6 semaines 180 € · Strength & Conditioning
   mensuel 90 € · Online Coaching Call 45 min 40 € · Animal Rehab Session 60 min 60 €~~
@@ -692,12 +693,14 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > `openingHoursSpecification` sur la base d'horaires déjà faux aurait aggravé le problème plutôt
 > que de le régler.
 >
-> `openingHoursSpecification` déclaré avec `dayOfWeek` sur les sept jours, mais **`opens`/`closes`
-> volontairement omis** : les heures exactes ne sont pas encore confirmées avec Enzo, et une valeur
-> inventée serait une donnée structurée fausse publiée pour Google — pire qu'une absence. `TODO`
-> posé dans le code (`src/lib/local-business.ts`) pour les ajouter dès confirmation ; à séparer en
-> plusieurs `OpeningHoursSpecification` si les horaires s'avèrent différents selon le jour, un seul
-> pour l'instant puisque rien n'indique le contraire.
+> `openingHoursSpecification` déclaré avec `dayOfWeek` sur les sept jours ; `opens`/`closes`
+> d'abord volontairement omis en attendant confirmation, puis **renseignés le 17/08/2026 même
+> jour** : `08:00`–`20:00`, confirmés par Enzo. Ce n'est pas un horaire de travail fixe mais une
+> plage d'amplitude — l'intervalle où Enzo, auto-entrepreneur en démarrage qui prend les créneaux
+> au fil de l'eau, accepte d'être contacté et de se déplacer. `schema.org` n'a pas de propriété
+> dédiée à cette nuance ; `openingHoursSpecification` reste la représentation standard la plus
+> proche. Un seul `OpeningHoursSpecification` à 7 jours identiques pour l'instant, à séparer si
+> Enzo confirme un jour des horaires différents selon le jour.
 >
 > `hasOfferCatalog` ajouté, construit depuis `src/lib/prestations.ts` (jamais recopié à la main) :
 > huit `Offer`, un par prestation, prix d'appel = variante la moins chère (`minPrestationPrice()`,
