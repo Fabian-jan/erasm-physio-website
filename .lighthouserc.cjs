@@ -33,6 +33,12 @@ module.exports = {
         'http://localhost/minusta/index.html',
         'http://localhost/en/about/index.html',
         'http://localhost/sv/om-mig/index.html',
+        // Gabarit ville (E4-US5, 17/08/2026) : un échantillon suffit, les trois villes partagent
+        // le même template piloté par src/lib/city-pages.ts — Rauma choisie arbitrairement parmi
+        // les trois, aucune n'est plus distincte qu'une autre.
+        'http://localhost/toiminta-alue/rauma/index.html',
+        'http://localhost/en/service-area/rauma/index.html',
+        'http://localhost/sv/verksamhetsomrade/rauma/index.html',
       ],
     },
     assert: {

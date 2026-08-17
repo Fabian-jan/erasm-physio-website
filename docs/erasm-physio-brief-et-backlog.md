@@ -48,8 +48,11 @@ déterminent l'architecture.
   C'est le périmètre retenu pour la v1.
 - ⚠️ **Zone grise à lever** : l'obligation de raccordement à Kanta est déclenchée par l'usage d'un
   « système de traitement de données clients ». Un pur agenda en fait-il partie ? À confirmer par
-  écrit auprès de l'AVI de la région avant la mise en ligne. C'est un point administratif, pas
-  technique — mais il est bloquant pour l'ouverture aux vrais patients.
+  écrit avant la mise en ligne. C'est un point administratif, pas technique — mais il est bloquant
+  pour l'ouverture aux vrais patients. Lettre rédigée le 17/08/2026, voir §11 bis : pas à l'AVI
+  (n'existe plus pour cette compétence depuis le 1ᵉʳ janvier 2026), mais au Lupa- ja valvontavirasto
+  (« Finnish Supervisory Agency »), l'autorité nationale unique qui a repris les fonctions de
+  Valvira et des AVI en matière sociale et sanitaire.
 - Sources : <https://lvv.fi/sosiaali-ja-terveydenhuolto/tietojarjestelmat> ·
   <https://thl.fi/aiheet/tiedonhallinta-sosiaali-ja-terveysalalla/tiedonhallinnan-ohjaus/olennaiset-vaatimukset-ja-sertifiointi>
 
@@ -745,6 +748,36 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > intitulés d'aria-label) nouveaux, premier jet non encore relu par un locuteur natif — même statut
 > que le contenu neuf de l'EPIC 2 avant relecture, à suivre.
 
+> ✅ **E4-US5 livrée, 17/08/2026.** Périmètre tranché : Rauma, Kankaanpää et Huittinen uniquement
+> (déjà les trois villes mises en avant sur la page zone d'intervention), soit 9 pages en 3 langues
+> plutôt que 54 — dix-huit pages quasi identiques sur les 18 communes validées (E2-US5) auraient
+> été du contenu fin aux yeux de Google ; mesurer l'effet sur ces trois avant d'étendre.
+>
+> Source unique `src/lib/city-pages.ts` (nom, slug, distance routière approximative depuis Pori —
+> vérifiée le 17/08/2026, arrondie, pas une promesse au kilomètre près). Routes dynamiques
+> imbriquées sous la page zone d'intervention existante (`src/pages/toiminta-alue/[slug].astro` et
+> équivalents EN/SV), fil d'Ariane à trois niveaux (Accueil → Toiminta-alue → Ville), JSON-LD
+> `Service` avec `areaServed` en `City`. Les trois pages zone d'intervention parentes lient
+> désormais leurs trois villes déjà citées en texte — plus de pages orphelines atteignables
+> seulement par le sitemap.
+>
+> **Sabotage involontaire attrapé avant publication** : le premier jet de la meta description FI
+> déclinait le nom de ville au génitif par concaténation (`${city.name}n alueella` → « Rauman
+> alueella », mais « Kankaanpäänn » et « Huittinenn » pour les deux autres — faux, double
+> consonne). Contraire à la règle établie « noms de commune jamais déclinés » (E2-US5). Corrigé en
+> reformulant pour garder le nom au nominatif (« … myös alueella Rauma »), vérifié dans `dist/`
+> sur les trois villes après correction.
+>
+> Gabarit ajouté à `.lighthouserc.cjs` (un échantillon, Rauma, les trois villes partageant le même
+> template). Suite complète (126 tests, dont le garde-fou hreflang/sitemap sur les 45 pages et
+> axe-core) revérifiée verte.
+
+> 🔵 **E4-US6 — fiche Google Business Profile préparée, pas encore créée.** Prête à coller
+> (identité, catégories, zone de service, horaires « sur rendez-vous », description, liste de
+> services), voir §11 bis. La création et la vérification d'identité restent hors de portée du
+> code : Google exige une vérification réelle (courrier ou téléphone) qu'un agent ne peut pas
+> effectuer à la place d'Enzo.
+
 ---
 
 ### EPIC 5 — Moteur de rendez-vous (interne)
@@ -1002,15 +1035,44 @@ Total v1 ≈ 290 points sur 8 sprints (≈ 4 mois). Vélocité à recalibrer apr
 
 ## 11. Ce qu'il me manque pour aller plus loin
 
-1. **Les maquettes** — le lien Claude Design renvoie vers une page de connexion. Téléverse
-   le fichier HTML ou des captures.
+1. ~~**Les maquettes**~~ ✅ reçues.
 2. **Écriture Trello** — le compte `jczki` peut lire le tableau mais pas y créer de cartes.
-   Rejoindre le tableau en tant que membre.
-3. **Confirmation AVI** — un système d'agenda purement administratif déclenche-t-il l'obligation
-   Kanta ? Réponse écrite à obtenir avant l'ouverture aux patients.
-4. **Périmètre réel des prestations** (intitulés, durées, tarifs) et **villes couvertes**.
+   Rejoindre le tableau en tant que membre. Toujours ouvert.
+3. ~~**Confirmation AVI**~~ *(❌ périmé, correction du 17/08/2026)* — il n'existe plus d'AVI
+   régionale à saisir pour cette question. Depuis le 1ᵉʳ janvier 2026, Valvira et les six AVI
+   régionales ont fusionné dans une autorité nationale unique, le **Lupa- ja valvontavirasto**
+   (« Finnish Supervisory Agency », LVV) — voir §11 bis pour la lettre rédigée et l'adresse
+   vérifiée.
+4. ~~**Périmètre réel des prestations**~~ ✅ résolu, voir `docs/contenu-canva.md`. ~~**Villes
+   couvertes**~~ ✅ résolu (18 communes validées, E2-US5) ; le sous-ensemble pour E4-US5
+   (Rauma, Kankaanpää, Huittinen) tranché le 17/08/2026.
 5. **Statut administratif** — enregistrement Soteri fait ou en cours ? Conditionne E8-US4
-   et la date de mise en ligne.
-6. **Qui rédige le finnois et le suédois ?**
+   et la date de mise en ligne. Toujours ouvert.
+6. ~~**Qui rédige le finnois et le suédois ?**~~ ✅ résolu — la femme d'Enzo, relectures
+   FI et SV toutes deux levées (voir EPIC 2).
 7. **Facturation** — les factures de E7-US3 sont-elles générées par l'application ou importées
-   depuis un logiciel de compta existant ?
+   depuis un logiciel de compta existant ? Toujours ouvert.
+
+## 11 bis. Infrastructure EPIC 5 — décisions du 17/08/2026
+
+> ✅ **Base de données : Supabase, région UE.** PostgreSQL managé + authentification incluse —
+> réutilisable telle quelle pour l'espace patient (EPIC 7), pas seulement le moteur de RDV. Compte
+> créé par l'utilisateur, accès à transmettre.
+
+> ✅ **Email transactionnel : Scaleway TEM recommandé, à mutualiser entre E5-US6 (confirmation +
+> rappel 24 h) et EPIC 6 (formulaire de contact).** Comparé à Brevo sur l'intégration avec une
+> Astro serverless en TypeScript strict : le SDK Node officiel de Brevo (`@getbrevo/brevo`) a des
+> problèmes de compatibilité documentés avec les environnements Node/TypeScript récents ; celui de
+> Scaleway (`@scaleway/sdk`) n'a pas ce problème, et son offre gratuite (300 e-mails/jour, sans
+> expiration) couvre largement le volume attendu (confirmations, rappels, formulaire de contact).
+> Les deux sont hébergés en UE (France) et exposent aussi un relais SMTP classique, qui reste un
+> repli possible si le SDK posait un souci imprévu. Compte à créer par l'utilisateur.
+
+> ✅ **Lettre LVV (ex-AVI) et fiche Google Business Profile rédigées, 17/08/2026** — voir l'artefact
+> remis en séance (lettre en anglais à `kirjaamo@lvv.fi`, adresse et canal vérifiés le 17/08/2026 ;
+> fiche GBP prête à coller, configurée en entreprise à zone de service, horaires en « sur
+> rendez-vous » plutôt qu'en horaires fixes). Deux points explicitement laissés à trancher par
+> l'utilisateur plutôt que devinés : la catégorie GBP pour le massage animal (aucune catégorie
+> Google ne correspond sans risquer une confusion avec la kinésithérapie/physiothérapie animale) et
+> l'inclusion ou non de la Physiotherapy session dans la liste de services GBP (GBP n'a pas
+> d'équivalent au bouton désactivé + infobulle du site pour signaler « pas encore réservable »).

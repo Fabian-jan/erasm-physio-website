@@ -1,0 +1,92 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import Button from '@/components/Button.astro';
+import HreflangLinks from '@/components/HreflangLinks.astro';
+import { cityPages, type CityPage } from '@/lib/city-pages';
+import { buildBreadcrumbList } from '@/lib/breadcrumbs';
+
+export function getStaticPaths() {
+  return cityPages.map((city) => ({
+    params: { slug: city.slug },
+    props: { city },
+  }));
+}
+
+interface Props {
+  city: CityPage;
+}
+
+const { city } = Astro.props;
+const mailSubject = encodeURIComponent(`Enquiry: ${city.name}`);
+
+const languages = [
+  { code: 'fi' as const, label: 'Suomi', href: `/toiminta-alue/${city.slug}/` },
+  { code: 'en' as const, label: 'English', href: `/en/service-area/${city.slug}/` },
+  { code: 'sv' as const, label: 'Svenska', href: `/sv/verksamhetsomrade/${city.slug}/` },
+];
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/en/' },
+  { label: 'Service area', href: '/en/service-area/' },
+  { label: city.name },
+];
+const breadcrumbList = buildBreadcrumbList(
+  breadcrumbItems.map((item) => ({
+    name: item.label,
+    url: new URL(item.href ?? Astro.url.pathname, Astro.url.origin).href,
+  })),
+);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `ERASM PHYSIO — ${city.name}`,
+  provider: { '@type': 'LocalBusiness', name: 'ERASM PHYSIO' },
+  areaServed: { '@type': 'City', name: city.name },
+  url: Astro.url.href,
+  inLanguage: 'en',
+};
+---
+
+<BaseLayout
+  title={`${city.name} — ERASM PHYSIO`}
+  description={`ERASM PHYSIO in ${city.name}: massage, coaching programmes, and animal massage. About ${city.distanceFromPoriKm} km from Pori, home and stable visits plus remote sessions.`}
+  lang="en"
+>
+  <Fragment slot="head">
+    <HreflangLinks languages={languages} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbList)} />
+  </Fragment>
+
+  <div class="mx-auto max-w-3xl px-6 py-12">
+    <div class="bg-navy inline-block rounded-lg p-3">
+      <LanguageSwitcher current="en" languages={languages} />
+    </div>
+
+    <Breadcrumb items={breadcrumbItems} navLabel="Breadcrumb" />
+
+    <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">ERASM PHYSIO — {city.name}</h1>
+
+    <p class="text-body mt-6 max-w-prose text-sm">
+      {city.name} is part of ERASM PHYSIO's service area, about {city.distanceFromPoriKm} km from Pori.
+      Home and stable visits, plus remote sessions from anywhere. Home and stable visits incur a €0.40/km
+      travel fee, regardless of visit type.
+    </p>
+
+    <p class="text-body mt-3 max-w-prose text-sm">
+      The same range is available as everywhere else in the service area: massage, coaching
+      programmes, and animal massage. Physiotherapy sessions appear on the site but aren't bookable
+      yet — a Finnish practice licence is still pending.
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-4">
+      <Button variant="primary" href="/en/pricing/">See pricing</Button>
+      <Button variant="outline" href={`mailto:erasmphysio@gmail.com?subject=${mailSubject}`}>
+        Get in touch by email
+      </Button>
+    </div>
+  </div>
+</BaseLayout>
