@@ -203,7 +203,9 @@ libellé marine (9,6:1), jamais blanc. C'est le seul écart bloquant que j'ai tr
 - **Baseline** : Healing Beyond Limits
 - **Lieu** : studio de Pori (28100), visites à domicile et en écurie, distanciel
 - **Contact** : +358 41 720 1730 · erasmphysio@gmail.com · @erasmphysio
-- **Horaires** : lun–ven 08:00–18:00 · samedi sur arrangement · dimanche fermé
+- **Horaires** *(❌ périmé, correction du 17/08/2026 — voir « Informations du cabinet », CLAUDE.md)* :
+  ~~lun–ven 08:00–18:00 · samedi sur arrangement · dimanche fermé~~ Enzo confirme travailler
+  7 jours sur 7 ; heures exactes non encore confirmées, `TODO`.
 - **Prestations** *(❌ périmé — voir remplacement daté du 14/08/2026 juste en dessous)* :
   ~~1:1 Physiotherapy 60 min 55 € · Injury Rehab Plan 6 semaines 180 € · Strength & Conditioning
   mensuel 90 € · Online Coaching Call 45 min 40 € · Animal Rehab Session 60 min 60 €~~
@@ -211,7 +213,9 @@ libellé marine (9,6:1), jamais blanc. C'est le seul écart bloquant que j'ai tr
   ne confirme pas ces catégories, et sa navigation (Home · About · Services · Contact) diffère
   de la barre d'onglets du design system (Home · Book · About). Point à trancher avant l'EPIC 2.
 - **Règle d'annulation** : gratuite jusqu'à 24 h avant — cohérent avec E5-US9
-- **Week-ends** : ouverts sur arrangement pour les visites animales
+- **Week-ends** *(❌ périmé, même correction du 17/08/2026)* : ~~ouverts sur arrangement pour les
+  visites animales~~ sans objet — le cabinet est ouvert 7 jours sur 7 pour toutes les prestations,
+  pas seulement les visites animales le week-end.
 
 ### Prestations — remplacement du 14/08/2026
 
@@ -680,18 +684,33 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > `description` absente, jamais un texte générique dupliqué — comportement documenté dans
 > `BaseLayout.astro`, conforme à la règle du projet. Rien à construire.
 >
-> ⚠️ **E4-US2 — audité le 17/08/2026, incomplet.** NAP (nom, adresse partielle par choix de
-> confidentialité — voir note E2-US5, téléphone, email) et zone (`areaServed` en `GeoCircle`)
-> présents dans `buildLocalBusiness()` (`src/lib/local-business.ts`). **Horaires et prestations
-> absents** : aucun `openingHoursSpecification`, aucun `hasOfferCatalog`/`makesOffer` reliant le
-> `LocalBusiness` aux huit prestations (`src/lib/prestations.ts`) ni à leurs pages `Service`
-> (JSON-LD déjà posé par page individuelle, mais jamais rattaché au `LocalBusiness` racine).
-> Horaires connus et déjà publiés en texte visible sur plusieurs pages (lun–ven 08:00–18:00,
-> samedi sur arrangement, dimanche fermé) mais pas encore en JSON-LD — « samedi sur arrangement »
-> ne correspond à aucun format `openingHoursSpecification` standard (jours fixes uniquement), à
-> trancher avant de l'ajouter : le représenter comme fermé le samedi (faux), l'omettre (imprécis),
-> ou l'accompagner d'une note libre non structurée (`schema.org` le permet mal). Signalé plutôt
-> que deviné — pas implémenté dans ce commit, scope hors de l'audit demandé.
+> ⚠️→✅ **E4-US2 — complétée le 17/08/2026.** Suite de l'audit ci-dessus : au moment de l'audit,
+> les horaires visibles sur le site (lun–ven 08:00–18:00, samedi sur arrangement, dimanche fermé)
+> se sont révélés eux-mêmes périmés — Enzo travaille en réalité 7 jours sur 7, hérité sans
+> vérification des maquettes d'origine. Corrigé partout (texte visible des trois accueils,
+> `CLAUDE.md`, brief, `docs/contenu-canva.md`) avant d'écrire la moindre donnée structurée : publier
+> `openingHoursSpecification` sur la base d'horaires déjà faux aurait aggravé le problème plutôt
+> que de le régler.
+>
+> `openingHoursSpecification` déclaré avec `dayOfWeek` sur les sept jours, mais **`opens`/`closes`
+> volontairement omis** : les heures exactes ne sont pas encore confirmées avec Enzo, et une valeur
+> inventée serait une donnée structurée fausse publiée pour Google — pire qu'une absence. `TODO`
+> posé dans le code (`src/lib/local-business.ts`) pour les ajouter dès confirmation ; à séparer en
+> plusieurs `OpeningHoursSpecification` si les horaires s'avèrent différents selon le jour, un seul
+> pour l'instant puisque rien n'indique le contraire.
+>
+> `hasOfferCatalog` ajouté, construit depuis `src/lib/prestations.ts` (jamais recopié à la main) :
+> huit `Offer`, un par prestation, prix d'appel = variante la moins chère (`minPrestationPrice()`,
+> nouvelle fonction, aussi utilisée pour dé-dupliquer le nettoyage de prix `€`/`/henkilö`/`/person`
+> déjà présent sur les trois pages de prestation individuelle). Physiotherapy session déclarée
+> plutôt qu'omise, comme demandé : `availability: OutOfStock`, la valeur `ItemAvailability`
+> standard la plus proche de « offre réelle, pas encore achetable » — aucune valeur schema.org ne
+> dit littéralement « en attente d'une autorisation d'exercice », et l'omettre l'aurait fait
+> disparaître du catalogue au lieu d'apparaître comme non disponible, alors que la page elle-même
+> l'affiche déjà ainsi (bouton désactivé + infobulle, E5-US10/US11). Vérifié dans `dist/` après
+> build : les huit offres, prix, disponibilité et URL (préfixées par langue) sont correctes en
+> FI/EN/SV, `hasOfferCatalog.name` traduit (Palvelut/Services/Tjänster). Suite complète (108 tests)
+> revérifiée verte.
 >
 > ✅ **E4-US4 — audité le 17/08/2026 sur les métriques réelles, pas seulement le score catégorie.**
 > `.lighthouserc.cjs` n'asserte que `categories:performance >= 0.9` et `categories:accessibility

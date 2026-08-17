@@ -5,7 +5,7 @@ import Button from '@/components/Button.astro';
 import Tooltip from '@/components/Tooltip.astro';
 import HreflangLinks from '@/components/HreflangLinks.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
-import { prestations, type Prestation } from '@/lib/prestations';
+import { prestations, parsePrestationPrice, type Prestation } from '@/lib/prestations';
 import { buildBreadcrumbList } from '@/lib/breadcrumbs';
 
 export function getStaticPaths() {
@@ -37,7 +37,7 @@ const jsonLd = {
   areaServed: { '@type': 'City', name: 'Pori' },
   offers: prestation.variants.en.map((v) => ({
     '@type': 'Offer',
-    price: v.price.replace('€', '').replace('/person', '').trim(),
+    price: parsePrestationPrice(v.price),
     priceCurrency: 'EUR',
   })),
   url: Astro.url.href,

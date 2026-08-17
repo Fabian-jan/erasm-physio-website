@@ -278,3 +278,7 @@ est incorrect au format international)*
 - Email : [erasmphysio@gmail.com](mailto:erasmphysio@gmail.com)
 - Instagram : erasmphysio
 - Localisation : 28100 Pori, Finlande — et distanciel
+- Horaires : ouvert 7 jours sur 7 (confirmé par Enzo le 17/08/2026). Les horaires affichés sur les
+  maquettes d'origine (lun–ven 08:00–18:00, samedi sur arrangement, dimanche fermé) sont périmés
+  et ne doivent apparaître nulle part sur le site. Heures exactes par jour non encore confirmées —
+  `TODO`, à ne pas inventer d'ici là.

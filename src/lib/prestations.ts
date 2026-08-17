@@ -24,6 +24,23 @@ export interface Prestation {
   description: Record<Lang, string>;
 }
 
+// "70 €" (fi/sv) et "€70" (en) partagent le même euro et le même suffixe par personne selon la
+// langue ("/henkilö" fi, "/person" en/sv) — un seul nettoyage couvre les trois formats plutôt que
+// de le dupliquer par langue à chaque appelant (JSON-LD par page de prestation, hasOfferCatalog).
+export function parsePrestationPrice(price: string): string {
+  return price
+    .replace('€', '')
+    .replace(/\/(?:henkilö|person)$/, '')
+    .trim();
+}
+
+// Prix d'appel d'une prestation à plusieurs variantes (ex. Individual Coaching : 60 min à 60 €
+// listé avant 45 min à 50 €) : le minimum, pas le premier élément du tableau — l'ordre des
+// variantes suit la maquette, pas le prix croissant.
+export function minPrestationPrice(prestation: Prestation, lang: Lang): number {
+  return Math.min(...prestation.variants[lang].map((v) => Number(parsePrestationPrice(v.price))));
+}
+
 export const prestations: Prestation[] = [
   {
     id: 'physiotherapy-session',
