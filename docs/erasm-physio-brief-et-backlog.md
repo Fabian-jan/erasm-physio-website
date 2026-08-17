@@ -547,6 +547,26 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > **Le SV reste non relu** : toujours un premier jet machine, toujours bloquant pour la DoD tant
 > qu'une relecture native suédophone n'a pas eu lieu.
 
+> ✅ **E2-US1 à E2-US6 — Done, 17/08/2026.** Deux blocages restants levés : le FI de E2-US1
+> (accueil), E2-US2 (prestations) et E2-US3 (à propos) a lui aussi été relu par une locutrice
+> native — jusqu'ici seule la relecture FI de E2-US4/US5/US6 avait été enregistrée ci-dessus, ces
+> trois-là n'avaient jamais eu de relecture FI confirmée par écrit. Le SV a été relu sur les six
+> US. Plus aucune page de l'EPIC 2 ne porte de contenu FI ou SV premier jet machine. DoD « page
+> publiée » vérifiée critère par critère sur le commit `3be7965` :
+> - Contenu présent en FI, EN et SV, et relu nativement dans les trois langues sur les six US — ✅
+> - Balises SEO et données structurées en place (JSON-LD, hreflang réciproques E3-US3, sitemap
+>   E4-US3) — ✅
+> - Lighthouse SEO 100 : confirmé sur les 18 URLs des six gabarits dans le run CI `32011180757`
+>   (accessibilité 100, performance 98–100, SEO 100 sur chaque page publiée échantillonnée ;
+>   `/styleguide`, hors DoD car interne et `noindex`, reste à 54 comme attendu) — ✅
+> - Page ajoutée à `.lighthouserc.cjs` : les six gabarits y figurent, E2-US2 échantillonnée depuis
+>   le 16/08/2026 (§9 bis) — ✅
+> - Vérifiée sur appareil mobile réel lors de la passe de fin de sprint : effectuée, rien de
+>   bloquant relevé — ✅
+> - Critères hérités des livraisons du 16/08/2026 (zéro violation axe-core, parcours clavier,
+>   aucune donnée de santé, CI verte, déploiement production vérifié) : non retestés isolément
+>   ici, déjà couverts à la livraison de chaque US.
+
 ---
 
 ### EPIC 3 — Internationalisation FI / EN / SV
@@ -569,6 +589,43 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > E4-US3 ci-dessous dans le même geste. Déclenchée par la vérification en production du
 > 16/08/2026 : ni sitemap ni hreflang n'existaient (0 balise sur les pages testées,
 > `/sitemap.xml` et `/robots.txt` en 404) — le trou identifié à la clôture du sprint 2.
+>
+> **Re-vérifié par sabotage, 17/08/2026.** Deux nouveaux cas, distincts du premier : hreflang
+> retiré de `/minusta/` (les cinq autres pages continuaient de pointer vers elle → réciprocité
+> rompue détectée, message précis) ; puis `/minusta/` exclue du filtre sitemap sans toucher ses
+> hreflang (page absente du sitemap détectée, message précis). Les deux échecs sont indépendants
+> l'un de l'autre — le test ne confond pas les deux défaillances. Restauré, suite complète (108
+> tests) revérifiée verte après coup.
+
+> ✅ **E3-US1 et E3-US2 — déjà Done, formalisé ici le 17/08/2026.** Routing i18n à préfixe de
+> langue (E3-US1) livré dès les premières pages trilingues (sprint 2, URL `/en/`, `/sv/`, slugs
+> traduits par page — jamais un simple préfixe sur un chemin identique, voir la note sous E3-US3
+> sur pourquoi le mode i18n natif de `@astrojs/sitemap` a été écarté pour cette même raison).
+> Sélecteur de langue accessible (E3-US2, composant `LanguageSwitcher.astro`, livré et testé en
+> E1-US4d) posé sur les 15 pages de contenu réel, chaque lien pointant vers l'équivalent exact de
+> la page courante — jamais un renvoi générique vers l'accueil. Absent de `/404` par choix
+> délibéré (page unique empilant les trois langues, documenté dans `404.astro` — pas une US mal
+> couverte) et de `/styleguide` (page interne, y figure seulement en démonstration du composant).
+>
+> ⚠️ **E3-US4 — probablement satisfaite de fait, à confirmer explicitement.** « Contenu rédigé en
+> finnois natif » : avec la relecture FI confirmée aujourd'hui sur les six US de l'EPIC 2 (voir
+> note EPIC 2 ci-dessus), la totalité du contenu FI publié à ce jour est native, plus aucun premier
+> jet machine. Non marquée Done ici car l'US porte sur « un contenu » au sens large, pas
+> spécifiquement sur l'EPIC 2 — à reconfirmer quand du contenu FI supplémentaire sera ajouté
+> (EPIC 5 et suivants), mais rien ne bloque aujourd'hui.
+>
+> ⚠️ **E3-US5 — US mal cadrée pour l'architecture retenue, signalée plutôt que devinée.** Le
+> libellé suppose un système de traduction par clé (`t('accueil.titre')` avec dictionnaire par
+> langue), où une clé manquante peut fuiter brute à l'écran — le risque que l'US cherche à
+> couvrir. Ce n'est pas l'architecture du projet : chaque page FI/EN/SV est un fichier `.astro`
+> distinct, entièrement rédigé dans sa langue (pas de lookup), et les données partagées
+> (`src/lib/prestations.ts`, `service-area.ts`, `local-business.ts`) typent leurs champs
+> multilingues en `Record<'fi' | 'en' | 'sv', string>` — TypeScript refuse de compiler si une
+> langue manque, ce qui rend une « clé brute affichée » structurellement impossible plutôt que
+> rattrapée par un fallback runtime. Il n'y a donc rien à construire pour satisfaire le libellé
+> tel quel. À traiter au choix de l'utilisateur : marquer Done par équivalence (la garantie
+> compile-time remplace le fallback runtime demandé), reformuler l'US pour coller à
+> l'architecture réelle, ou la retirer du backlog si elle est jugée sans objet.
 
 ---
 
@@ -579,20 +636,33 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 | E4-US1 | En tant que moteur de recherche, je veux `title` et `meta description` uniques par page et par langue | 3 |
 | E4-US2 | En tant que moteur de recherche, je veux un JSON-LD `Physiotherapy` / `LocalBusiness` complet (NAP, horaires, zone, prestations) | 5 |
 | E4-US3 | En tant que moteur de recherche, je veux un `sitemap.xml` multilingue et un `robots.txt` corrects | 3 |
-
-> ✅ **Livrée, 17/08/2026** — voir la note complète sous E3-US3. `sitemap.xml` via l'intégration
-> officielle `@astrojs/sitemap` (mode i18n natif de l'intégration écarté : il suppose une
-> structure de chemin identique entre langues, alors que nos slugs sont traduits — `/palvelut/hieronta/`
-> vs `/en/services/massage/` — pas seulement préfixés). `robots.txt` en endpoint dynamique
-> (`src/pages/robots.txt.ts`, pré-rendu statique au build) plutôt qu'un fichier figé dans
-> `public/`, pour refléter le vrai `SITE_URL` de chaque environnement — même piège que le JSON-LD
-> (CLAUDE.md, « Pièges connus »). Les pages `noindex` (styleguide, 404) sont exclues du sitemap et
-> ne portent pas de `Disallow` : les deux mécanismes ne se cumulent pas (recommandation Google) —
-> un `Disallow` empêcherait Google de crawler la page pour y lire sa balise `noindex`.
 | E4-US4 | En tant que visiteur mobile, je veux des Core Web Vitals dans le vert afin d'une navigation fluide | 5 |
 | E4-US5 | En tant que patient local, je veux une page par ville desservie afin de trouver le cabinet en recherche géolocalisée | 5 |
 | E4-US6 | En tant que gérant, je veux un Google Business Profile aligné sur le site afin de renforcer le SEO local | 2 |
 | E4-US7 | En tant que visiteur, je veux un fil d'Ariane balisé afin de me repérer | 2 |
+
+> ✅ **E4-US3 livrée, 17/08/2026** — voir la note complète sous E3-US3. `sitemap.xml` via
+> l'intégration officielle `@astrojs/sitemap` (mode i18n natif de l'intégration écarté : il
+> suppose une structure de chemin identique entre langues, alors que nos slugs sont traduits —
+> `/palvelut/hieronta/` vs `/en/services/massage/` — pas seulement préfixés). `robots.txt` en
+> endpoint dynamique (`src/pages/robots.txt.ts`, pré-rendu statique au build) plutôt qu'un fichier
+> figé dans `public/`, pour refléter le vrai `SITE_URL` de chaque environnement — même piège que
+> le JSON-LD (CLAUDE.md, « Pièges connus »). Les pages `noindex` (styleguide, 404) sont exclues du
+> sitemap et ne portent pas de `Disallow` : les deux mécanismes ne se cumulent pas (recommandation
+> Google) — un `Disallow` empêcherait Google de crawler la page pour y lire sa balise `noindex`.
+>
+> **Vérifié en production, 17/08/2026** (pas seulement en CI) : `/robots.txt` → 200, pointe vers
+> `/sitemap-index.xml`. Le fichier réellement servi est `sitemap-index.xml` + `sitemap-0.xml`
+> (comportement par défaut de `@astrojs/sitemap`, jamais un fichier nommé littéralement
+> `sitemap.xml`) — **`/sitemap.xml` répond 404** sur ce projet ; ce n'est pas une régression, mais
+> ça vaut d'être su avant de le chercher sous ce nom dans Search Console ou un audit externe.
+> `sitemap-0.xml` contient bien 36 URLs — 4 gabarits mono-page (accueil, à propos, tarifs, zone
+> d'intervention) × 3 langues + 8 pages de prestation × 3 langues, soit exactement les pages
+> publiées, aucune page `noindex`. **36, pas 39** : à corriger si ce chiffre était attendu ailleurs.
+> hreflang réciproques + `x-default` vérifiés en production sur un
+> exemplaire de chaque gabarit (accueil, à propos, tarifs, zone d'intervention, prestation) dans
+> les trois langues : auto-référence et retour réel de chaque cible confirmés, jamais une URL
+> localhost qui fuite.
 
 ---
 
