@@ -577,7 +577,7 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 | E3-US2 | En tant que visiteur, je veux un sélecteur de langue accessible qui me maintient sur la même page afin de ne pas être renvoyé à l'accueil | 3 |
 | E3-US3 | En tant que moteur de recherche, je veux des balises `hreflang` réciproques et un `x-default` afin d'indexer la bonne version | 3 |
 | E3-US4 | En tant que visiteur finnophone, je veux un contenu rédigé en finnois natif afin de ne pas lire une traduction approximative | 8 |
-| E3-US5 | En tant que développeur, je veux un fallback explicite si une traduction manque afin de ne jamais afficher une clé brute | 2 |
+| E3-US5 | ~~En tant que développeur, je veux un fallback explicite si une traduction manque afin de ne jamais afficher une clé brute~~ En tant que développeur, je veux que l'absence d'une traduction empêche la compilation, afin qu'aucune langue ne puisse partir incomplète en production | 2 |
 
 > ✅ **E3-US3 livrée, 17/08/2026.** hreflang réciproques (`src/components/HreflangLinks.astro`,
 > posé sur les 15 pages trilingues, réutilisant tel quel le tableau `languages` déjà consommé par
@@ -614,18 +614,25 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > spécifiquement sur l'EPIC 2 — à reconfirmer quand du contenu FI supplémentaire sera ajouté
 > (EPIC 5 et suivants), mais rien ne bloque aujourd'hui.
 >
-> ⚠️ **E3-US5 — US mal cadrée pour l'architecture retenue, signalée plutôt que devinée.** Le
-> libellé suppose un système de traduction par clé (`t('accueil.titre')` avec dictionnaire par
-> langue), où une clé manquante peut fuiter brute à l'écran — le risque que l'US cherche à
-> couvrir. Ce n'est pas l'architecture du projet : chaque page FI/EN/SV est un fichier `.astro`
-> distinct, entièrement rédigé dans sa langue (pas de lookup), et les données partagées
-> (`src/lib/prestations.ts`, `service-area.ts`, `local-business.ts`) typent leurs champs
-> multilingues en `Record<'fi' | 'en' | 'sv', string>` — TypeScript refuse de compiler si une
-> langue manque, ce qui rend une « clé brute affichée » structurellement impossible plutôt que
-> rattrapée par un fallback runtime. Il n'y a donc rien à construire pour satisfaire le libellé
-> tel quel. À traiter au choix de l'utilisateur : marquer Done par équivalence (la garantie
-> compile-time remplace le fallback runtime demandé), reformuler l'US pour coller à
-> l'architecture réelle, ou la retirer du backlog si elle est jugée sans objet.
+> ✅ **E3-US5 — reformulée puis Done, 17/08/2026.** Le libellé d'origine supposait un système de
+> traduction par clé (`t('accueil.titre')` avec dictionnaire par langue), où une clé manquante
+> peut fuiter brute à l'écran. Ce n'est pas l'architecture du projet : chaque page FI/EN/SV est un
+> fichier `.astro` distinct, entièrement rédigé dans sa langue (pas de lookup) — signalé plutôt
+> que deviné, puis reformulé par l'utilisateur sur la garantie qui existe réellement : le typage
+> `Record<'fi' | 'en' | 'sv', string>` de `Prestation` (`src/lib/prestations.ts` — seul fichier de
+> données partagées à porter ce typage ; correction d'une note précédente qui l'attribuait à tort
+> aussi à `service-area.ts` et `local-business.ts`, qui n'ont pas de champ multilingue). La
+> garantie existait déjà mais rien ne la protégeait d'un refactor qui l'aurait relâchée — ajout de
+> `tests/types/prestation-i18n-completeness.ts`, un fichier jamais exécuté, lu uniquement par
+> `astro check` (`tsconfig.json`, `include: ["**/*"]`), qui tente d'assigner un objet à langue
+> manquante à chacun des quatre champs (`slug`, `name`, `description`, `variants`) sous
+> `@ts-expect-error`. Sabotage-prouvé en deux temps : (1) les `@ts-expect-error` retirés du fichier
+> de test → `astro check` relève bien les quatre erreurs de type attendues, preuve que le fichier
+> est réellement inspecté ; (2) `Record<Lang, string>` affaibli en `Partial<Record<Lang, string>>`
+> dans `Prestation` → les quatre `@ts-expect-error` deviennent inutilisés, `astro check` échoue
+> avec `ts(2578)` sur chacun (et, en prime, casse aussi les pages de prestation réelles qui
+> lisaient ces champs sans vérifier `undefined` — preuve que le typage est réellement structurant,
+> pas décoratif). Les deux fois restauré, `npm run typecheck` revérifié à 0 erreur.
 
 ---
 
@@ -656,6 +663,7 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > (comportement par défaut de `@astrojs/sitemap`, jamais un fichier nommé littéralement
 > `sitemap.xml`) — **`/sitemap.xml` répond 404** sur ce projet ; ce n'est pas une régression, mais
 > ça vaut d'être su avant de le chercher sous ce nom dans Search Console ou un audit externe.
+> **Chemin à déclarer dans Search Console (E9-US2) : `/sitemap-index.xml`, jamais `/sitemap.xml`.**
 > `sitemap-0.xml` contient bien 36 URLs — 4 gabarits mono-page (accueil, à propos, tarifs, zone
 > d'intervention) × 3 langues + 8 pages de prestation × 3 langues, soit exactement les pages
 > publiées, aucune page `noindex`. **36, pas 39** : à corriger si ce chiffre était attendu ailleurs.
@@ -663,6 +671,57 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 > exemplaire de chaque gabarit (accueil, à propos, tarifs, zone d'intervention, prestation) dans
 > les trois langues : auto-référence et retour réel de chaque cible confirmés, jamais une URL
 > localhost qui fuite.
+
+> ✅ **E4-US1 — audité le 17/08/2026, déjà satisfaite.** `title` et `description` extraits des 36
+> pages publiées buildées : présents partout, aucun vide, aucun doublon **au sein d'une même
+> langue** (les trois accueils FI/EN/SV partagent légitimement le même `title` — même page, trois
+> URL, exactement ce que `hreflang` sert à déclarer ; pareil pour « Massage » en EN et SV, mot
+> identique dans les deux langues, pages distinctes). `/404` et `/styleguide` ont volontairement
+> `description` absente, jamais un texte générique dupliqué — comportement documenté dans
+> `BaseLayout.astro`, conforme à la règle du projet. Rien à construire.
+>
+> ⚠️ **E4-US2 — audité le 17/08/2026, incomplet.** NAP (nom, adresse partielle par choix de
+> confidentialité — voir note E2-US5, téléphone, email) et zone (`areaServed` en `GeoCircle`)
+> présents dans `buildLocalBusiness()` (`src/lib/local-business.ts`). **Horaires et prestations
+> absents** : aucun `openingHoursSpecification`, aucun `hasOfferCatalog`/`makesOffer` reliant le
+> `LocalBusiness` aux huit prestations (`src/lib/prestations.ts`) ni à leurs pages `Service`
+> (JSON-LD déjà posé par page individuelle, mais jamais rattaché au `LocalBusiness` racine).
+> Horaires connus et déjà publiés en texte visible sur plusieurs pages (lun–ven 08:00–18:00,
+> samedi sur arrangement, dimanche fermé) mais pas encore en JSON-LD — « samedi sur arrangement »
+> ne correspond à aucun format `openingHoursSpecification` standard (jours fixes uniquement), à
+> trancher avant de l'ajouter : le représenter comme fermé le samedi (faux), l'omettre (imprécis),
+> ou l'accompagner d'une note libre non structurée (`schema.org` le permet mal). Signalé plutôt
+> que deviné — pas implémenté dans ce commit, scope hors de l'audit demandé.
+>
+> ✅ **E4-US4 — audité le 17/08/2026 sur les métriques réelles, pas seulement le score catégorie.**
+> `.lighthouserc.cjs` n'asserte que `categories:performance >= 0.9` et `categories:accessibility
+> = 1`, jamais les métriques Core Web Vitals elles-mêmes — un score catégorie à 90 n'est pas la
+> même preuve qu'un seuil LCP/CLS respecté. Vérifié directement dans les rapports Lighthouse bruts
+> du run CI `32016400403` (17 URLs × 3 passages, artefact `lighthouse-report`) : **LCP max
+> 1,37 s** (< 2,5 s sur les 17 URLs, aucune exception), **CLS max 0,074** (< 0,1 partout,
+> `/hinnasto/` la plus proche du seuil), **Total Blocking Time à 0 ms partout** (aucune tâche
+> longue bloquant le fil principal). **INP non mesurable en Lighthouse (CI/lab)** : c'est une
+> métrique de terrain (interaction réelle d'un vrai utilisateur, mesurée via CrUX/Search Console),
+> pas un audit de laboratoire sans interaction — Lighthouse n'en rapporte aucune valeur numérique,
+> seulement des pistes de diagnostic (`interaction-to-next-paint-insight`). TBT à 0 ms partout est
+> un indicateur fort par proxy (le site charge très peu de JS client), mais ce n'est pas une
+> confirmation formelle du seuil INP < 200 ms tant que le site n'a pas de trafic réel remonté par
+> Search Console (E9-US2). Pas de gate CI à ajouter pour LCP/CLS individuellement : le score
+> `performance >= 0.9` déjà asserté les couvre indirectement avec une marge confortable au vu des
+> chiffres ci-dessus, et un double gate serait redondant à ce niveau de marge.
+>
+> ✅ **E4-US7 livrée, 17/08/2026.** Fil d'Ariane accessible : `src/components/Breadcrumb.astro`
+> (`nav aria-label` traduit par langue, `ol`/`li`, dernier élément non cliquable et porteur de
+> `aria-current="page"` — jamais un lien vers soi-même) posé sur les 12 pages qui ont un parent
+> réel dans la hiérarchie du site (tarifs, à propos, zone d'intervention, et les 8×3 pages de
+> prestation, avec un troisième niveau Accueil → Tarifs → Prestation pour ces dernières). Absent
+> des trois accueils (racine, rien au-dessus) et de `/404`/`/styleguide` (noindex). JSON-LD
+> `BreadcrumbList` (`src/lib/breadcrumbs.ts`) construit à partir des mêmes `items` que le rendu
+> visuel — même discipline anti-divergence que `HreflangLinks`. Suite complète (108 tests,
+> axe-core inclus sur les 36 pages) revérifiée verte après l'ajout ; aucune violation d'accessibilité
+> introduite, ordre de tabulation inchangé. Libellés (« Etusivu » / « Home » / « Startsida »,
+> intitulés d'aria-label) nouveaux, premier jet non encore relu par un locuteur natif — même statut
+> que le contenu neuf de l'EPIC 2 avant relecture, à suivre.
 
 ---
 
@@ -762,6 +821,11 @@ proposée, verrouillage après tentatives, base hébergée dans l'UE, aucun cham
 | E9-US3 | En tant que gérant, je veux un suivi des conversions RDV afin de savoir ce qui fonctionne | 3 |
 | E9-US4 | En tant que gérant, je veux le domaine, le HTTPS, les redirections et les emails configurés afin d'une mise en ligne propre | 5 |
 | E9-US5 | En tant que gérant, je veux sauvegardes et supervision afin de dormir tranquille | 3 |
+
+> ℹ️ **E9-US2 — sitemap à déclarer, noté d'avance le 17/08/2026.** Quand cette US démarre :
+> soumettre `/sitemap-index.xml` dans Search Console, pas `/sitemap.xml` (qui répond 404 sur ce
+> projet — voir la note sous E4-US3). Le vérifier avant de perdre du temps à chercher pourquoi
+> `/sitemap.xml` n'est pas accepté.
 
 ---
 

@@ -3,14 +3,24 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import ServiceAreaList from '@/components/ServiceAreaList.astro';
 import HreflangLinks from '@/components/HreflangLinks.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
 import { buildLocalBusiness } from '@/lib/local-business';
 import { serviceZones } from '@/lib/service-area';
+import { buildBreadcrumbList } from '@/lib/breadcrumbs';
 
 const languages = [
   { code: 'fi' as const, label: 'Suomi', href: '/toiminta-alue/' },
   { code: 'en' as const, label: 'English', href: '/en/service-area/' },
   { code: 'sv' as const, label: 'Svenska', href: '/sv/verksamhetsomrade/' },
 ];
+
+const breadcrumbItems = [{ label: 'Etusivu', href: '/' }, { label: 'Toiminta-alue' }];
+const breadcrumbList = buildBreadcrumbList(
+  breadcrumbItems.map((item) => ({
+    name: item.label,
+    url: new URL(item.href ?? Astro.url.pathname, Astro.url.origin).href,
+  })),
+);
 
 const zoneLabels = {
   near: 'Lähialue',
@@ -30,12 +40,15 @@ const localBusiness = buildLocalBusiness({ url: Astro.url.href, inLanguage: 'fi'
   <Fragment slot="head">
     <HreflangLinks languages={languages} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusiness)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbList)} />
   </Fragment>
 
   <div class="mx-auto max-w-3xl px-6 py-12">
     <div class="bg-navy inline-block rounded-lg p-3">
       <LanguageSwitcher current="fi" languages={languages} />
     </div>
+
+    <Breadcrumb items={breadcrumbItems} navLabel="Murupolku" />
 
     <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Toiminta-alue</h1>
     <p class="text-body mt-3 max-w-prose text-sm">

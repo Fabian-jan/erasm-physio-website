@@ -3,12 +3,22 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import PrestationsTable from '@/components/PrestationsTable.astro';
 import HreflangLinks from '@/components/HreflangLinks.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import { buildBreadcrumbList } from '@/lib/breadcrumbs';
 
 const languages = [
   { code: 'fi' as const, label: 'Suomi', href: '/hinnasto/' },
   { code: 'en' as const, label: 'English', href: '/en/pricing/' },
   { code: 'sv' as const, label: 'Svenska', href: '/sv/prislista/' },
 ];
+
+const breadcrumbItems = [{ label: 'Startsida', href: '/sv/' }, { label: 'Prislista' }];
+const breadcrumbList = buildBreadcrumbList(
+  breadcrumbItems.map((item) => ({
+    name: item.label,
+    url: new URL(item.href ?? Astro.url.pathname, Astro.url.origin).href,
+  })),
+);
 
 const categories = [
   {
@@ -72,12 +82,15 @@ const categories = [
 >
   <Fragment slot="head">
     <HreflangLinks languages={languages} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbList)} />
   </Fragment>
 
   <div class="mx-auto max-w-3xl px-6 py-12">
     <div class="bg-navy inline-block rounded-lg p-3">
       <LanguageSwitcher current="sv" languages={languages} />
     </div>
+
+    <Breadcrumb items={breadcrumbItems} navLabel="Brödsmulor" />
 
     <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">Prislista</h1>
     <p class="text-body mt-3 max-w-prose text-sm">

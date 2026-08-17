@@ -1,0 +1,43 @@
+---
+// Fil d'Ariane (E4-US7). Le dernier item n'a jamais de href : c'est la page courante, elle ne
+// doit pas être un lien vers elle-même (WCAG) et porte aria-current="page" plutôt qu'un style
+// seul, pour être annoncée par les lecteurs d'écran. `nav > ol` : landmark de navigation avec un
+// intitulé propre à chaque langue, liste ordonnée car la position dans la hiérarchie est
+// sémantique, pas juste visuelle.
+//
+// Le JSON-LD BreadcrumbList (src/lib/breadcrumbs.ts) est construit à partir des mêmes `items`
+// sur chaque page qui utilise ce composant — jamais recalculé séparément — pour qu'il ne puisse
+// pas diverger du fil visible.
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+  navLabel: string;
+}
+
+const { items, navLabel } = Astro.props;
+---
+
+<nav aria-label={navLabel} class="mt-4">
+  <ol class="text-muted flex flex-wrap items-center gap-x-2 text-xs">
+    {
+      items.map((item, index) => (
+        <li class="flex items-center gap-x-2">
+          {item.href ? (
+            <a href={item.href} class="hover:text-navy underline-offset-2 hover:underline">
+              {item.label}
+            </a>
+          ) : (
+            <span aria-current="page" class="text-ink font-bold">
+              {item.label}
+            </span>
+          )}
+          {index < items.length - 1 && <span aria-hidden="true">/</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

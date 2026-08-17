@@ -4,7 +4,9 @@ import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import Button from '@/components/Button.astro';
 import Tooltip from '@/components/Tooltip.astro';
 import HreflangLinks from '@/components/HreflangLinks.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
 import { prestations, type Prestation } from '@/lib/prestations';
+import { buildBreadcrumbList } from '@/lib/breadcrumbs';
 
 export function getStaticPaths() {
   return prestations.map((prestation) => ({
@@ -43,6 +45,18 @@ const jsonLd = {
 };
 
 const mailSubject = encodeURIComponent(`Varaus: ${prestation.name.fi}`);
+
+const breadcrumbItems = [
+  { label: 'Etusivu', href: '/' },
+  { label: 'Hinnasto', href: '/hinnasto/' },
+  { label: prestation.name.fi },
+];
+const breadcrumbList = buildBreadcrumbList(
+  breadcrumbItems.map((item) => ({
+    name: item.label,
+    url: new URL(item.href ?? Astro.url.pathname, Astro.url.origin).href,
+  })),
+);
 ---
 
 <BaseLayout
@@ -53,12 +67,15 @@ const mailSubject = encodeURIComponent(`Varaus: ${prestation.name.fi}`);
   <Fragment slot="head">
     <HreflangLinks languages={languages} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbList)} />
   </Fragment>
 
   <div class="mx-auto max-w-3xl px-6 py-12">
     <div class="bg-navy inline-block rounded-lg p-3">
       <LanguageSwitcher current="fi" languages={languages} />
     </div>
+
+    <Breadcrumb items={breadcrumbItems} navLabel="Murupolku" />
 
     <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">{prestation.name.fi}</h1>
 

@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import HreflangLinks from '@/components/HreflangLinks.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import { buildBreadcrumbList } from '@/lib/breadcrumbs';
 
 // Photo of Enzo to come (provided separately, see docs/contenu-canva.md) — space reserved here,
 // next to "Background", not blocking publication in the meantime.
@@ -11,6 +13,14 @@ const languages = [
   { code: 'en' as const, label: 'English', href: '/en/about/' },
   { code: 'sv' as const, label: 'Svenska', href: '/sv/om-mig/' },
 ];
+
+const breadcrumbItems = [{ label: 'Home', href: '/en/' }, { label: 'About' }];
+const breadcrumbList = buildBreadcrumbList(
+  breadcrumbItems.map((item) => ({
+    name: item.label,
+    url: new URL(item.href ?? Astro.url.pathname, Astro.url.origin).href,
+  })),
+);
 
 const background = [
   'BPJEPS Haltérophilie / Musculation (a French vocational coaching diploma), completed in 2024, trained at a CrossFit gym with a sport-health focus',
@@ -39,12 +49,15 @@ const method = [
 >
   <Fragment slot="head">
     <HreflangLinks languages={languages} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(breadcrumbList)} />
   </Fragment>
 
   <div class="mx-auto max-w-3xl px-6 py-12">
     <div class="bg-navy inline-block rounded-lg p-3">
       <LanguageSwitcher current="en" languages={languages} />
     </div>
+
+    <Breadcrumb items={breadcrumbItems} navLabel="Breadcrumb" />
 
     <h1 class="font-heading tracking-heading text-ink mt-6 text-3xl">About</h1>
 
