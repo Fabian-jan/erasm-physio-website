@@ -1,0 +1,30 @@
+---
+// Balises hreflang réciproques (E3-US1). À poser dans <Fragment slot="head"> de chaque page qui
+// a de vrais équivalents dans les trois langues — jamais sur une page noindex (styleguide, 404 :
+// celle-ci n'a qu'une seule URL pour les trois langues, il n'y a rien à relier).
+//
+// `languages` reprend exactement le tableau déjà utilisé par <LanguageSwitcher> sur chaque page :
+// une seule source pour le sélecteur visible et les balises invisibles, pour qu'ils ne puissent
+// jamais diverger. `x-default` pointe vers la version FI (langue par défaut du site).
+interface Language {
+  code: 'fi' | 'en' | 'sv';
+  href: string;
+}
+
+interface Props {
+  languages: Language[];
+  defaultCode?: 'fi' | 'en' | 'sv';
+}
+
+const { languages, defaultCode = 'fi' } = Astro.props;
+const origin = Astro.url.origin;
+
+const defaultHref = languages.find((lang) => lang.code === defaultCode)?.href ?? languages[0].href;
+---
+
+{
+  languages.map((lang) => (
+    <link rel="alternate" hreflang={lang.code} href={new URL(lang.href, origin).href} />
+  ))
+}
+<link rel="alternate" hreflang="x-default" href={new URL(defaultHref, origin).href} />

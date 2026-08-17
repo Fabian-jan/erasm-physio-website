@@ -559,6 +559,17 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 | E3-US4 | En tant que visiteur finnophone, je veux un contenu rédigé en finnois natif afin de ne pas lire une traduction approximative | 8 |
 | E3-US5 | En tant que développeur, je veux un fallback explicite si une traduction manque afin de ne jamais afficher une clé brute | 2 |
 
+> ✅ **E3-US3 livrée, 17/08/2026.** hreflang réciproques (`src/components/HreflangLinks.astro`,
+> posé sur les 15 pages trilingues, réutilisant tel quel le tableau `languages` déjà consommé par
+> `<LanguageSwitcher>` — une seule source pour le sélecteur visible et les balises invisibles) +
+> `x-default` vers la version FI. Chaque page s'auto-référence et chaque page ciblée renvoie
+> réellement vers la source (réciprocité stricte, pas seulement déclarative) — vérifié par
+> sabotage : `tests/e2e/hreflang-sitemap.spec.ts` cassé volontairement (hreflang retiré d'une
+> page) puis restauré, le test échouant bien avec un message précis dans l'intervalle. Livrée avec
+> E4-US3 ci-dessous dans le même geste. Déclenchée par la vérification en production du
+> 16/08/2026 : ni sitemap ni hreflang n'existaient (0 balise sur les pages testées,
+> `/sitemap.xml` et `/robots.txt` en 404) — le trou identifié à la clôture du sprint 2.
+
 ---
 
 ### EPIC 4 — SEO technique & local
@@ -568,6 +579,16 @@ recevant du public) n'apparaît **jamais** dans le texte visible de la page ; JS
 | E4-US1 | En tant que moteur de recherche, je veux `title` et `meta description` uniques par page et par langue | 3 |
 | E4-US2 | En tant que moteur de recherche, je veux un JSON-LD `Physiotherapy` / `LocalBusiness` complet (NAP, horaires, zone, prestations) | 5 |
 | E4-US3 | En tant que moteur de recherche, je veux un `sitemap.xml` multilingue et un `robots.txt` corrects | 3 |
+
+> ✅ **Livrée, 17/08/2026** — voir la note complète sous E3-US3. `sitemap.xml` via l'intégration
+> officielle `@astrojs/sitemap` (mode i18n natif de l'intégration écarté : il suppose une
+> structure de chemin identique entre langues, alors que nos slugs sont traduits — `/palvelut/hieronta/`
+> vs `/en/services/massage/` — pas seulement préfixés). `robots.txt` en endpoint dynamique
+> (`src/pages/robots.txt.ts`, pré-rendu statique au build) plutôt qu'un fichier figé dans
+> `public/`, pour refléter le vrai `SITE_URL` de chaque environnement — même piège que le JSON-LD
+> (CLAUDE.md, « Pièges connus »). Les pages `noindex` (styleguide, 404) sont exclues du sitemap et
+> ne portent pas de `Disallow` : les deux mécanismes ne se cumulent pas (recommandation Google) —
+> un `Disallow` empêcherait Google de crawler la page pour y lire sa balise `noindex`.
 | E4-US4 | En tant que visiteur mobile, je veux des Core Web Vitals dans le vert afin d'une navigation fluide | 5 |
 | E4-US5 | En tant que patient local, je veux une page par ville desservie afin de trouver le cabinet en recherche géolocalisée | 5 |
 | E4-US6 | En tant que gérant, je veux un Google Business Profile aligné sur le site afin de renforcer le SEO local | 2 |
@@ -807,6 +828,14 @@ sprint 4.
 | 8 | EPIC 8 + EPIC 9 | Conformité, mesure, mise en ligne |
 
 Total v1 ≈ 290 points sur 8 sprints (≈ 4 mois). Vélocité à recalibrer après le sprint 1.
+
+> ⚠️ **Suivi en points abandonné, 17/08/2026.** Le bilan du sprint 2 n'a produit aucune vélocité
+> comparable aux 190 puis 290 points estimés : le développement assisté par IA ne suit pas un
+> rythme calibré sur du temps humain, un chiffre de points/sprint n'aurait rien mesuré. Les points
+> déjà posés sur chaque US restent affichés dans les tableaux ci-dessus pour leur valeur de
+> **découpage relatif** (une US à 8 points reste plus grosse qu'une US à 2 points), mais plus
+> personne ne les additionne pour estimer une durée ou une vélocité. Le backlog garde son rôle :
+> ordonner le travail et découper le périmètre, pas le chronométrer.
 
 > Le passage au moteur de RDV interne + back-office a ajouté ~100 points par rapport au scénario
 > « intégration d'un prestataire certifié ». C'est le prix de la maîtrise complète du produit.

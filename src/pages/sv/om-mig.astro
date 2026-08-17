@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import HreflangLinks from '@/components/HreflangLinks.astro';
 
 // Foto av Enzo kommer senare (tillhandahålls separat, se docs/contenu-canva.md) — plats
 // reserverad här, bredvid "Bakgrund", blockerar inte publiceringen än så länge.
@@ -36,6 +37,10 @@ const method = [
   description="Enzo Janczewski, ERASM PHYSIO: bakgrund, utbildning och arbetssätt. Fysioterapistudent vid SAMK, styrke- och rörelsecoach i Pori."
   lang="sv"
 >
+  <Fragment slot="head">
+    <HreflangLinks languages={languages} />
+  </Fragment>
+
   <div class="mx-auto max-w-3xl px-6 py-12">
     <div class="bg-navy inline-block rounded-lg p-3">
       <LanguageSwitcher current="sv" languages={languages} />

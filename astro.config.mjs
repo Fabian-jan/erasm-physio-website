@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
 import { parseEnv } from './src/lib/env.schema.ts';
@@ -14,4 +15,18 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  integrations: [
+    sitemap({
+      // Pages noindex (styleguide interne, 404) exclues : un sitemap ne doit lister que ce
+      // qu'on veut voir indexé. Pas de mode i18n natif de l'intégration : nos slugs diffèrent
+      // par langue (/palvelut/hieronta/ vs /en/services/massage/), pas seulement le préfixe —
+      // ce mode suppose une structure de chemin identique entre langues, ce qui n'est pas notre
+      // cas (voir décision du 16/08/2026 sur le routing). Les hreflang réciproques sont portées
+      // par page via HreflangLinks.astro, pas par le sitemap.
+      filter: (page) => {
+        const path = new URL(page).pathname;
+        return !path.startsWith('/styleguide') && path !== '/404' && path !== '/404/';
+      },
+    }),
+  ],
 });

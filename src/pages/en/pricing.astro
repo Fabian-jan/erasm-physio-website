@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import PrestationsTable from '@/components/PrestationsTable.astro';
+import HreflangLinks from '@/components/HreflangLinks.astro';
 
 const languages = [
   { code: 'fi' as const, label: 'Suomi', href: '/hinnasto/' },
@@ -69,6 +70,10 @@ const categories = [
   description="ERASM PHYSIO pricing: massage, coaching programmes, and physiotherapy sessions in Pori, Finland. Prices, durations, and booking status at a glance."
   lang="en"
 >
+  <Fragment slot="head">
+    <HreflangLinks languages={languages} />
+  </Fragment>
+
   <div class="mx-auto max-w-3xl px-6 py-12">
     <div class="bg-navy inline-block rounded-lg p-3">
       <LanguageSwitcher current="en" languages={languages} />

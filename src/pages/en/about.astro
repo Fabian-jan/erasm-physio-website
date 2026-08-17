@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import HreflangLinks from '@/components/HreflangLinks.astro';
 
 // Photo of Enzo to come (provided separately, see docs/contenu-canva.md) — space reserved here,
 // next to "Background", not blocking publication in the meantime.
@@ -36,6 +37,10 @@ const method = [
   description="Enzo Janczewski, ERASM PHYSIO: background, training, and how he works. Physiotherapy student at SAMK, strength and movement coach in Pori."
   lang="en"
 >
+  <Fragment slot="head">
+    <HreflangLinks languages={languages} />
+  </Fragment>
+
   <div class="mx-auto max-w-3xl px-6 py-12">
     <div class="bg-navy inline-block rounded-lg p-3">
       <LanguageSwitcher current="en" languages={languages} />

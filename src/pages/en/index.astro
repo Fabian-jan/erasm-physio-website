@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
+import HreflangLinks from '@/components/HreflangLinks.astro';
 import Button from '@/components/Button.astro';
 import { buildLocalBusiness } from '@/lib/local-business';
 
@@ -30,6 +31,7 @@ const localBusiness = buildLocalBusiness({ url: Astro.url.href, inLanguage: 'en'
   lang="en"
 >
   <Fragment slot="head">
+    <HreflangLinks languages={languages} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusiness)} />
   </Fragment>
 

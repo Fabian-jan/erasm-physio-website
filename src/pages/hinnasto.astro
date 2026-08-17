@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro';
 import PrestationsTable from '@/components/PrestationsTable.astro';
+import HreflangLinks from '@/components/HreflangLinks.astro';
 
 const languages = [
   { code: 'fi' as const, label: 'Suomi', href: '/hinnasto/' },
@@ -69,6 +70,10 @@ const categories = [
   description="ERASM PHYSIOn hinnasto: hieronta, valmennusohjelmat ja fysioterapiakäynti Porissa. Hinnat, kestot ja varattavuus yhdellä sivulla."
   lang="fi"
 >
+  <Fragment slot="head">
+    <HreflangLinks languages={languages} />
+  </Fragment>
+
   <div class="mx-auto max-w-3xl px-6 py-12">
     <div class="bg-navy inline-block rounded-lg p-3">
       <LanguageSwitcher current="fi" languages={languages} />
